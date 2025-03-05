@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meditation - Neuro Nurture</title>
+    <link rel="stylesheet" href="css/styles1.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="modern-header">
+        <div class="container">
+            <div class="logo-container">
+                <img src="brain.png" alt="Neuro Nurture Logo" class="logo">
+                <h1>Neuro Nurture</h1>
+            </div>
+            <nav>
+                <a href="index1.html">Home</a>
+                <a href="index1.html#activities">Activities</a>
+                <a href="login.html" class="btn-login">Login</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Meditation Section -->
+    <section class="meditation-section">
+        <div class="container">
+            <div class="meditation-header">
+                <h2><i class="fas fa-om"></i> Guided Meditation</h2>
+                <p>Find peace and clarity through our guided meditation sessions</p>
+            </div>
+
+            <!-- Meditation Player -->
+            <div class="meditation-player">
+                <div class="player-background"></div>
+                <div class="player-content">
+                    <div class="meditation-timer">
+                        <div class="timer-display">20:00</div>
+                        <div class="timer-progress">
+                            <div class="progress-ring">
+                                <svg>
+                                    <circle class="progress-ring-circle" cx="60" cy="60" r="54"></circle>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="player-controls">
+                        <button class="btn-secondary" id="previousTrack">
+                            <i class="fas fa-step-backward"></i>
+                        </button>
+                        <button class="btn-primary" id="playPause">
+                            <i class="fas fa-play"></i>
+                        </button>
+                        <button class="btn-secondary" id="nextTrack">
+                            <i class="fas fa-step-forward"></i>
+                        </button>
+                    </div>
+                    <div class="track-info">
+                        <h3 id="trackName">Mindful Breathing</h3>
+                        <p id="trackDescription">Gentle guidance for mindful breathing practice</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Meditation Categories -->
+            <div class="meditation-categories">
+                <div class="category-tabs">
+                    <button class="category-tab active" data-category="beginner">
+                        <i class="fas fa-seedling"></i> Beginner
+                    </button>
+                    <button class="category-tab" data-category="stress">
+                        <i class="fas fa-cloud-sun"></i> Stress Relief
+                    </button>
+                    <button class="category-tab" data-category="sleep">
+                        <i class="fas fa-moon"></i> Sleep
+                    </button>
+                    <button class="category-tab" data-category="focus">
+                        <i class="fas fa-bullseye"></i> Focus
+                    </button>
+                </div>
+
+                <!-- Meditation Sessions Grid -->
+                <div class="meditation-grid">
+                    <!-- Beginner Sessions -->
+                    <div class="meditation-card" data-category="beginner">
+                        <div class="meditation-image">
+                            <img src="images/meditation-mindful.jpg" alt="Mindful Breathing">
+                            <span class="duration">10 min</span>
+                        </div>
+                        <div class="meditation-content">
+                            <h3>Mindful Breathing</h3>
+                            <p>Perfect introduction to meditation practice</p>
+                            <button class="btn-secondary start-session">Begin Session</button>
+                        </div>
+                    </div>
+
+                    <div class="meditation-card" data-category="beginner">
+                        <div class="meditation-image">
+                            <img src="images/meditation-body-scan.jpg" alt="Body Scan">
+                            <span class="duration">15 min</span>
+                        </div>
+                        <div class="meditation-content">
+                            <h3>Body Scan Relaxation</h3>
+                            <p>Gentle guidance through body awareness</p>
+                            <button class="btn-secondary start-session">Begin Session</button>
+                        </div>
+                    </div>
+
+                    <!-- Stress Relief Sessions -->
+                    <div class="meditation-card" data-category="stress">
+                        <div class="meditation-image">
+                            <img src="images/meditation-stress.jpg" alt="Stress Relief">
+                            <span class="duration">20 min</span>
+                        </div>
+                        <div class="meditation-content">
+                            <h3>Stress Release</h3>
+                            <p>Let go of tension and find calm</p>
+                            <button class="btn-secondary start-session">Begin Session</button>
+                        </div>
+                    </div>
+
+                    <!-- Sleep Sessions -->
+                    <div class="meditation-card" data-category="sleep">
+                        <div class="meditation-image">
+                            <img src="images/meditation-sleep.jpg" alt="Sleep Meditation">
+                            <span class="duration">30 min</span>
+                        </div>
+                        <div class="meditation-content">
+                            <h3>Peaceful Sleep</h3>
+                            <p>Gentle guidance into restful sleep</p>
+                            <button class="btn-secondary start-session">Begin Session</button>
+                        </div>
+                    </div>
+
+                    <!-- Focus Sessions -->
+                    <div class="meditation-card" data-category="focus">
+                        <div class="meditation-image">
+                            <img src="images/meditation-focus.jpg" alt="Focus Meditation">
+                            <span class="duration">15 min</span>
+                        </div>
+                        <div class="meditation-content">
+                            <h3>Sharp Focus</h3>
+                            <p>Enhance concentration and mental clarity</p>
+                            <button class="btn-secondary start-session">Begin Session</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Meditation Progress -->
+            <div class="meditation-progress">
+                <h3>Your Journey</h3>
+                <div class="progress-stats">
+                    <div class="stat-card">
+                        <i class="fas fa-clock"></i>
+                        <span class="stat-value">0</span>
+                        <span class="stat-label">Minutes Meditated</span>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-calendar-check"></i>
+                        <span class="stat-value">0</span>
+                        <span class="stat-label">Sessions Completed</span>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-star"></i>
+                        <span class="stat-value">0</span>
+                        <span class="stat-label">Day Streak</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Meditation Tips -->
+            <div class="meditation-tips">
+                <h3>Tips for Meditation</h3>
+                <div class="tips-grid">
+                    <div class="tip-card">
+                        <i class="fas fa-chair"></i>
+                        <h4>Find Your Posture</h4>
+                        <p>Sit comfortably with a straight back</p>
+                    </div>
+                    <div class="tip-card">
+                        <i class="fas fa-clock"></i>
+                        <h4>Start Small</h4>
+                        <p>Begin with short sessions and gradually increase</p>
+                    </div>
+                    <div class="tip-card">
+                        <i class="fas fa-brain"></i>
+                        <h4>Stay Present</h4>
+                        <p>Gently return focus to your breath when mind wanders</p>
+                    </div>
+                    <div class="tip-card">
+                        <i class="fas fa-heart"></i>
+                        <h4>Be Kind to Yourself</h4>
+                        <p>Practice without judgment or expectations</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="modern-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <a href="index1.html">Home</a>
+                    <a href="index1.html#activities">Activities</a>
+                    <a href="index1.html#resources">Resources</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <a href="contact.html">Contact Us</a>
+                    <a href="faq.html">FAQs</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Emergency Support</h4>
+                    <p>24/7 Crisis Helpline: 1-800-273-8255</p>
+                    <a href="emergency.html" class="btn-emergency">Get Emergency Help</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Neuro Nurture - Mental Health Support Platform. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/meditation.js"></script>
+</body>
+</html> 

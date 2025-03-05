@@ -1,0 +1,394 @@
+/* Modern Color Palette */
+:root {
+    --primary-color: #5B8FB9;      /* Calming blue */
+    --secondary-color: #61B15A;    /* Healing green */
+    --accent-color: #FFB17A;      /* Warm orange */
+    --text-color: #2C3333;        /* Dark gray */
+    --light-text: #4F4F4F;        /* Medium gray */
+    --bg-color: #FFFFFF;          /* White */
+    --section-bg: #F8FBFF;        /* Light blue background */
+    --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background: var(--bg-color);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Header */
+.modern-header {
+    background: var(--bg-color);
+    box-shadow: var(--card-shadow);
+    padding: 15px 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo {
+    width: 45px;
+    height: 45px;
+}
+
+.logo-container h1 {
+    font-size: 1.8rem;
+    color: var(--primary-color);
+}
+
+/* Navigation */
+nav {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+nav a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 500;
+    padding: 8px 15px;
+    border-radius: 25px;
+    transition: background-color 0.3s;
+}
+
+nav a:hover {
+    background-color: var(--section-bg);
+    color: var(--primary-color);
+}
+
+.btn-login {
+    background: var(--primary-color);
+    color: white !important;
+    padding: 10px 25px;
+    border-radius: 25px;
+}
+
+.btn-login:hover {
+    background: #4A7A9B;
+}
+
+/* Hero Section */
+.hero {
+    padding: 120px 0 80px;
+    background: url('../images/hero-mental-health.jpg') center/cover;
+    position: relative;
+    margin-top: 60px;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.hero-content {
+    position: relative;
+    color: white;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.hero h2 {
+    font-size: 3.2rem;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+}
+
+/* Quick Access Section */
+.quick-access {
+    padding: 60px 0;
+    background: var(--section-bg);
+}
+
+.quick-access-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.quick-access-card {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: var(--card-shadow);
+}
+
+.quick-access-card i {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 20px;
+}
+
+/* Resource Section */
+.resources {
+    padding: 80px 0;
+    background: white;
+}
+
+.resource-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.resource-card {
+    background: var(--section-bg);
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+}
+
+/* Activities Section */
+.activities {
+    padding: 80px 0;
+    background: url('../images/activities-bg.jpg') center/cover fixed;
+    position: relative;
+}
+
+.activities::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.95);
+}
+
+.activities .container {
+    position: relative;
+}
+
+.activities-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.activity-card {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: var(--card-shadow);
+}
+
+/* Support Groups Section */
+.support-groups {
+    padding: 80px 0;
+    background: var(--section-bg);
+}
+
+.group-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.group-card {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: var(--card-shadow);
+}
+
+.group-stats {
+    display: flex;
+    gap: 20px;
+    margin: 15px 0;
+    color: var(--light-text);
+}
+
+/* Chatbot Section */
+.chatbot {
+    padding: 80px 0;
+    background: linear-gradient(135deg, var(--primary-color) 0%, #3A6B8F 100%);
+    color: white;
+}
+
+.chatbox {
+    background: white;
+    border-radius: 20px;
+    max-width: 600px;
+    margin: 40px auto 0;
+    overflow: hidden;
+}
+
+.chat-header {
+    background: var(--primary-color);
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.chat-messages {
+    height: 400px;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.chat-input-container {
+    padding: 20px;
+    display: flex;
+    gap: 10px;
+    border-top: 1px solid #eee;
+}
+
+#userInput {
+    flex: 1;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    outline: none;
+}
+
+#sendBtn {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* Footer */
+.modern-footer {
+    background: var(--text-color);
+    color: white;
+    padding: 60px 0 30px;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 40px;
+}
+
+.footer-section h4 {
+    color: var(--accent-color);
+    margin-bottom: 20px;
+}
+
+.footer-section a {
+    color: white;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.social-links {
+    display: flex;
+    gap: 15px;
+}
+
+.social-links a {
+    font-size: 1.5rem;
+}
+
+.btn-emergency {
+    background: var(--accent-color);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 25px;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 15px;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 30px;
+    margin-top: 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Section Headers */
+section h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: var(--text-color);
+}
+
+section p {
+    text-align: center;
+    color: var(--light-text);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Buttons */
+.btn-primary {
+    background: var(--primary-color);
+    color: white;
+    padding: 12px 30px;
+    border-radius: 25px;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-secondary {
+    background: white;
+    color: var(--primary-color);
+    padding: 12px 30px;
+    border-radius: 25px;
+    text-decoration: none;
+    display: inline-block;
+    border: 2px solid var(--primary-color);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero h2 {
+        font-size: 2.5rem;
+    }
+
+    .modern-header .container {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    nav {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}

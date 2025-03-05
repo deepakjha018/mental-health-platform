@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - Neuro Nurture</title>
+    <link rel="stylesheet" href="css/styles1.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="modern-header">
+        <div class="container">
+            <div class="logo-container">
+                <img src="brain.png" alt="Neuro Nurture Logo" class="logo">
+                <h1>Neuro Nurture</h1>
+            </div>
+            <nav>
+                <a href="index1.html">Home</a>
+                <a href="index1.html#activities">Activities</a>
+                <a href="login.html" class="btn-login">Login</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <div class="faq-header">
+                <h2><i class="fas fa-question-circle"></i> Frequently Asked Questions</h2>
+                <p>Find answers to common questions about Neuro Nurture</p>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="faq-search">
+                <input type="text" id="faqSearch" placeholder="Search FAQs...">
+                <i class="fas fa-search"></i>
+            </div>
+
+            <!-- FAQ Categories -->
+            <div class="faq-categories">
+                <button class="category-btn active" data-category="general">
+                    <i class="fas fa-info-circle"></i> General
+                </button>
+                <button class="category-btn" data-category="account">
+                    <i class="fas fa-user"></i> Account
+                </button>
+                <button class="category-btn" data-category="activities">
+                    <i class="fas fa-tasks"></i> Activities
+                </button>
+                <button class="category-btn" data-category="support">
+                    <i class="fas fa-hands-helping"></i> Support
+                </button>
+                <button class="category-btn" data-category="privacy">
+                    <i class="fas fa-shield-alt"></i> Privacy
+                </button>
+            </div>
+
+            <!-- FAQ Content -->
+            <div class="faq-content">
+                <!-- General FAQs -->
+                <div class="faq-category" id="general">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>What is Neuro Nurture?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Neuro Nurture is a comprehensive mental health support platform that provides various tools, activities, and resources to help individuals manage their mental well-being. Our platform includes meditation exercises, art therapy, support groups, and emergency assistance.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>Is Neuro Nurture free to use?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Basic features of Neuro Nurture are free for all users. Premium features are available through a subscription plan, which provides access to additional resources and personalized support.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Account FAQs -->
+                <div class="faq-category" id="account" style="display: none;">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>How do I create an account?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Click the "Login" button in the top navigation and select "Sign Up". Fill in your details, verify your email, and you're ready to start using Neuro Nurture.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>How do I reset my password?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>On the login page, click "Forgot Password" and enter your email address. We'll send you instructions to reset your password securely.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Activities FAQs -->
+                <div class="faq-category" id="activities" style="display: none;">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>What types of activities are available?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>We offer various activities including guided meditation, breathing exercises, art therapy, journaling, and wellness games. Each activity is designed to support different aspects of mental health.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>Can I track my progress?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Yes, you can track your progress through our wellness dashboard. It shows your activity completion, mood trends, and achievement milestones.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Support FAQs -->
+                <div class="faq-category" id="support" style="display: none;">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>How do I join a support group?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Navigate to the Support Groups section, browse available groups, and click "Join Group". You can participate in discussions and connect with others sharing similar experiences.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>What should I do in an emergency?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>If you're experiencing a mental health emergency, click the "Emergency Help" button for immediate access to crisis resources and hotlines. In life-threatening situations, always call emergency services (911).</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Privacy FAQs -->
+                <div class="faq-category" id="privacy" style="display: none;">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>Is my information private?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Yes, we take privacy seriously. All personal information is encrypted and stored securely. We never share your data without your explicit consent.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>Can I delete my account?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Yes, you can delete your account and all associated data through your account settings. Once deleted, all your personal information will be permanently removed from our systems.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Still Need Help -->
+            <div class="need-help">
+                <h3>Still Need Help?</h3>
+                <p>Can't find what you're looking for? We're here to help!</p>
+                <div class="help-options">
+                    <a href="contact.html" class="btn-contact">
+                        <i class="fas fa-envelope"></i> Contact Support
+                    </a>
+                    <button class="btn-chat" onclick="startChat()">
+                        <i class="fas fa-comments"></i> Live Chat
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="modern-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <a href="index1.html">Home</a>
+                    <a href="index1.html#activities">Activities</a>
+                    <a href="index1.html#resources">Resources</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <a href="contact.html">Contact Us</a>
+                    <a href="faq.html">FAQs</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Emergency Support</h4>
+                    <p>24/7 Crisis Helpline: 1-800-273-8255</p>
+                    <a href="emergency.html" class="btn-emergency">Get Emergency Help</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Neuro Nurture - Mental Health Support Platform. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/faq.js"></script>
+</body>
+</html> 

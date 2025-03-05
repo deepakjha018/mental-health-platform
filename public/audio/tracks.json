@@ -1,0 +1,58 @@
+{
+    "meditation_tracks": [
+        {
+            "id": "med1",
+            "title": "Peaceful Meditation",
+            "duration": "10:00",
+            "file": "meditation1.mp3",
+            "category": "meditation"
+        },
+        {
+            "id": "med2",
+            "title": "Deep Relaxation",
+            "duration": "15:00",
+            "file": "meditation2.mp3",
+            "category": "meditation"
+        },
+        {
+            "id": "sleep1",
+            "title": "Gentle Night",
+            "duration": "30:00",
+            "file": "sleep1.mp3",
+            "category": "sleep"
+        },
+        {
+            "id": "nature1",
+            "title": "Forest Morning",
+            "duration": "20:00",
+            "file": "nature1.mp3",
+            "category": "nature"
+        }
+    ],
+    "ambient_sounds": [
+        {
+            "id": "ocean",
+            "title": "Ocean Waves",
+            "file": "ocean.mp3",
+            "loop": true
+        },
+        {
+            "id": "rain",
+            "title": "Rainfall",
+            "file": "rain.mp3",
+            "loop": true
+        },
+        {
+            "id": "wind",
+            "title": "Gentle Wind",
+            "file": "wind.mp3",
+            "loop": true
+        },
+        {
+            "id": "fire",
+            "title": "Crackling Fire",
+            "file": "fire.mp3",
+            "loop": true
+        }
+    ]
+} 

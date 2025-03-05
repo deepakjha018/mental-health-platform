@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Wellness - Neuro Nurture</title>
+    <link rel="stylesheet" href="css/styles1.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="modern-header">
+        <div class="container">
+            <div class="logo-container">
+                <img src="brain.png" alt="Neuro Nurture Logo" class="logo">
+                <h1>Neuro Nurture</h1>
+            </div>
+            <nav>
+                <a href="index1.html">Home</a>
+                <a href="index1.html#activities">Activities</a>
+                <a href="login.html" class="btn-login">Login</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Daily Wellness Section -->
+    <section class="daily-wellness">
+        <div class="container">
+            <div class="wellness-header">
+                <h2><i class="fas fa-heart-circle-check"></i> Daily Wellness Tracker</h2>
+                <p>Track your mood, habits, and wellness activities to improve your mental health journey</p>
+            </div>
+
+            <!-- Mood Tracker -->
+            <div class="mood-tracker">
+                <h3>How are you feeling today?</h3>
+                <div class="mood-grid">
+                    <button class="mood-btn" data-mood="great">
+                        <i class="fas fa-laugh-beam"></i>
+                        <span>Great</span>
+                    </button>
+                    <button class="mood-btn" data-mood="good">
+                        <i class="fas fa-smile"></i>
+                        <span>Good</span>
+                    </button>
+                    <button class="mood-btn" data-mood="okay">
+                        <i class="fas fa-meh"></i>
+                        <span>Okay</span>
+                    </button>
+                    <button class="mood-btn" data-mood="down">
+                        <i class="fas fa-frown"></i>
+                        <span>Down</span>
+                    </button>
+                    <button class="mood-btn" data-mood="stressed">
+                        <i class="fas fa-tired"></i>
+                        <span>Stressed</span>
+                    </button>
+                </div>
+                <div class="mood-notes">
+                    <textarea placeholder="Add notes about your mood (optional)..." rows="3"></textarea>
+                </div>
+            </div>
+
+            <!-- Habit Tracker -->
+            <div class="habit-tracker">
+                <h3>Daily Habits</h3>
+                <div class="habit-grid">
+                    <div class="habit-card">
+                        <i class="fas fa-bed"></i>
+                        <span>Sleep Quality</span>
+                        <div class="habit-rating">
+                            <i class="far fa-star" data-rating="1"></i>
+                            <i class="far fa-star" data-rating="2"></i>
+                            <i class="far fa-star" data-rating="3"></i>
+                            <i class="far fa-star" data-rating="4"></i>
+                            <i class="far fa-star" data-rating="5"></i>
+                        </div>
+                    </div>
+                    <div class="habit-card">
+                        <i class="fas fa-apple-whole"></i>
+                        <span>Healthy Eating</span>
+                        <div class="habit-rating">
+                            <i class="far fa-star" data-rating="1"></i>
+                            <i class="far fa-star" data-rating="2"></i>
+                            <i class="far fa-star" data-rating="3"></i>
+                            <i class="far fa-star" data-rating="4"></i>
+                            <i class="far fa-star" data-rating="5"></i>
+                        </div>
+                    </div>
+                    <div class="habit-card">
+                        <i class="fas fa-person-walking"></i>
+                        <span>Physical Activity</span>
+                        <div class="habit-rating">
+                            <i class="far fa-star" data-rating="1"></i>
+                            <i class="far fa-star" data-rating="2"></i>
+                            <i class="far fa-star" data-rating="3"></i>
+                            <i class="far fa-star" data-rating="4"></i>
+                            <i class="far fa-star" data-rating="5"></i>
+                        </div>
+                    </div>
+                    <div class="habit-card">
+                        <i class="fas fa-brain"></i>
+                        <span>Mindfulness</span>
+                        <div class="habit-rating">
+                            <i class="far fa-star" data-rating="1"></i>
+                            <i class="far fa-star" data-rating="2"></i>
+                            <i class="far fa-star" data-rating="3"></i>
+                            <i class="far fa-star" data-rating="4"></i>
+                            <i class="far fa-star" data-rating="5"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Wellness Activities -->
+            <div class="wellness-activities">
+                <h3>Today's Wellness Activities</h3>
+                <div class="activities-grid">
+                    <div class="activity-card">
+                        <div class="activity-header">
+                            <i class="fas fa-wind"></i>
+                            <h4>Breathing Exercise</h4>
+                        </div>
+                        <p>Practice mindful breathing for 5 minutes</p>
+                        <div class="activity-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 0%"></div>
+                            </div>
+                            <span>0/5 minutes</span>
+                        </div>
+                        <a href="breathing.html" class="btn-secondary">Start Exercise</a>
+                    </div>
+                    <div class="activity-card">
+                        <div class="activity-header">
+                            <i class="fas fa-book-heart"></i>
+                            <h4>Gratitude Journal</h4>
+                        </div>
+                        <p>Write down 3 things you're grateful for</p>
+                        <div class="gratitude-input">
+                            <input type="text" placeholder="I'm grateful for...">
+                            <input type="text" placeholder="I'm grateful for...">
+                            <input type="text" placeholder="I'm grateful for...">
+                        </div>
+                        <button class="btn-secondary save-gratitude">Save Entry</button>
+                    </div>
+                    <div class="activity-card">
+                        <div class="activity-header">
+                            <i class="fas fa-target"></i>
+                            <h4>Daily Goal</h4>
+                        </div>
+                        <p>Set one achievable goal for today</p>
+                        <div class="goal-input">
+                            <input type="text" placeholder="Today I will...">
+                            <div class="goal-status">
+                                <label>
+                                    <input type="checkbox">
+                                    <span>Mark as completed</span>
+                                </label>
+                            </div>
+                        </div>
+                        <button class="btn-secondary save-goal">Save Goal</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Progress Insights -->
+            <div class="wellness-insights">
+                <h3>Your Wellness Journey</h3>
+                <div class="insights-grid">
+                    <div class="insight-card">
+                        <h4>Mood Trends</h4>
+                        <canvas id="moodChart"></canvas>
+                    </div>
+                    <div class="insight-card">
+                        <h4>Habit Consistency</h4>
+                        <canvas id="habitChart"></canvas>
+                    </div>
+                    <div class="insight-card">
+                        <h4>Activity Completion</h4>
+                        <canvas id="activityChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="modern-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <a href="index1.html">Home</a>
+                    <a href="index1.html#activities">Activities</a>
+                    <a href="index1.html#resources">Resources</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <a href="contact.html">Contact Us</a>
+                    <a href="faq.html">FAQs</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Emergency Support</h4>
+                    <p>24/7 Crisis Helpline: 1-800-273-8255</p>
+                    <a href="emergency.html" class="btn-emergency">Get Emergency Help</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Neuro Nurture - Mental Health Support Platform. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <style>
+    .daily-wellness {
+        padding: 4rem 0;
+        background: linear-gradient(135deg, #f5f7fa 0%, #e4e9f2 100%);
+    }
+
+    .wellness-header {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+
+    .mood-tracker {
+        background: white;
+        padding: 2rem;
+        border-radius: 20px;
+        box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+        margin-bottom: 2rem;
+    }
+
+    .mood-grid {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+        margin: 2rem 0;
+    }
+
+    .mood-btn {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 1rem;
+        border: 2px solid transparent;
+        border-radius: 15px;
+        background: #f8f9fa;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .mood-btn i {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+        color: #4ECDC4;
+    }
+
+    .mood-btn:hover, .mood-btn.selected {
+        border-color: #4ECDC4;
+        transform: translateY(-2px);
+    }
+
+    .mood-notes textarea {
+        width: 100%;
+        padding: 1rem;
+        border: 1px solid #e0e0e0;
+        border-radius: 10px;
+        resize: none;
+        font-family: inherit;
+    }
+
+    .habit-tracker {
+        background: white;
+        padding: 2rem;
+        border-radius: 20px;
+        box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+        margin-bottom: 2rem;
+    }
+
+    .habit-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
+        margin-top: 1.5rem;
+    }
+
+    .habit-card {
+        padding: 1.5rem;
+        background: #f8f9fa;
+        border-radius: 15px;
+        text-align: center;
+    }
+
+    .habit-card i {
+        font-size: 2rem;
+        color: #4ECDC4;
+        margin-bottom: 1rem;
+    }
+
+    .habit-rating {
+        margin-top: 1rem;
+    }
+
+    .habit-rating i {
+        font-size: 1.2rem;
+        color: #ffd700;
+        cursor: pointer;
+        margin: 0 0.2rem;
+    }
+
+    .wellness-activities {
+        margin-bottom: 2rem;
+    }
+
+    .activities-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-top: 1.5rem;
+    }
+
+    .activity-card {
+        background: white;
+        padding: 2rem;
+        border-radius: 20px;
+        box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+    }
+
+    .activity-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1rem;
+    }
+
+    .activity-header i {
+        font-size: 1.5rem;
+        color: #4ECDC4;
+        margin-right: 1rem;
+    }
+
+    .activity-progress {
+        margin: 1rem 0;
+    }
+
+    .progress-bar {
+        height: 8px;
+        background: #f0f0f0;
+        border-radius: 4px;
+        overflow: hidden;
+    }
+
+    .progress-fill {
+        height: 100%;
+        background: linear-gradient(45deg, #4ECDC4, #8B5CF6);
+        transition: width 0.3s ease;
+    }
+
+    .gratitude-input input, .goal-input input {
+        width: 100%;
+        padding: 0.8rem;
+        margin: 0.5rem 0;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+    }
+
+    .wellness-insights {
+        margin-top: 3rem;
+    }
+
+    .insights-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-top: 1.5rem;
+    }
+
+    .insight-card {
+        background: white;
+        padding: 2rem;
+        border-radius: 20px;
+        box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+    }
+
+    .insight-card canvas {
+        margin-top: 1rem;
+    }
+
+    @media (max-width: 768px) {
+        .mood-grid {
+            flex-wrap: wrap;
+        }
+
+        .mood-btn {
+            flex: 1 1 calc(33.333% - 1rem);
+        }
+    }
+    </style>
+
+    <script src="js/daily-wellness.js"></script>
+</body>
+</html> 

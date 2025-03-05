@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Art Therapy - Neuro Nurture</title>
+    <link rel="stylesheet" href="css/styles1.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .art-therapy-section {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e9f2 100%);
+            padding: 2rem;
+            min-height: calc(100vh - 80px);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .art-therapy-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .template-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .template-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .template-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .template-preview {
+            padding: 1rem;
+            background: #f8f9fa;
+            border-bottom: 1px solid #eee;
+        }
+
+        .template-preview svg {
+            width: 100%;
+            height: 150px;
+            stroke: #333;
+            stroke-width: 2;
+        }
+
+        .template-card h4 {
+            padding: 1rem;
+            margin: 0;
+            text-align: center;
+            font-size: 1rem;
+            color: #333;
+        }
+
+        .art-canvas-container {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .canvas-tools {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .tool-group {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .tool-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            border: none;
+            background: white;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .tool-btn i {
+            font-size: 1.5rem;
+            color: #4ECDC4;
+            transition: color 0.3s ease;
+        }
+
+        .tool-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .tool-btn.active {
+            background: #4ECDC4;
+        }
+
+        .tool-btn.active i {
+            color: white;
+        }
+
+        .color-picker {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .color-presets {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .color-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
+            border: 2px solid white;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .color-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .brush-size {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .brush-size input {
+            width: 100%;
+            height: 6px;
+            -webkit-appearance: none;
+            background: #e0e0e0;
+            border-radius: 3px;
+            outline: none;
+        }
+
+        .brush-size input::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            background: #4ECDC4;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        #artCanvas {
+            width: 100%;
+            height: 500px;
+            border: 1px solid #eee;
+            border-radius: 15px;
+            cursor: crosshair;
+            touch-action: none;
+        }
+
+        .canvas-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            justify-content: flex-end;
+        }
+
+        .btn-secondary, .btn-primary {
+            padding: 0.8rem 1.5rem;
+            border-radius: 10px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .btn-secondary {
+            background: #f8f9fa;
+            color: #333;
+        }
+
+        .btn-primary {
+            background: #4ECDC4;
+            color: white;
+        }
+
+        .btn-secondary:hover, .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .message {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #4ECDC4;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .activity-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .activity-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #4ECDC4, #556270);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+            transform-origin: left;
+        }
+
+        .activity-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .activity-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .activity-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 1rem;
+            background: linear-gradient(135deg, #4ECDC4 0%, #556270 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: pulse 2s infinite;
+        }
+
+        .activity-icon i {
+            font-size: 1.8rem;
+            color: white;
+        }
+
+        .activities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .activity-card h4 {
+            color: #333;
+            margin: 1rem 0;
+            font-size: 1.2rem;
+        }
+
+        .activity-card p {
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+
+        .start-activity {
+            background: linear-gradient(135deg, #4ECDC4 0%, #556270 100%);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .start-activity:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(78, 205, 196, 0.3);
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .activity-instructions {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            display: none;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        .activity-instructions.active {
+            display: block;
+        }
+
+        @keyframes slideDown {
+            from { 
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .instruction-step {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .instruction-step:hover {
+            transform: translateX(10px);
+            background: #e9ecef;
+        }
+
+        .step-number {
+            width: 30px;
+            height: 30px;
+            background: #4ECDC4;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="modern-header">
+        <div class="container">
+            <div class="logo-container">
+                <img src="brain.png" alt="Neuro Nurture Logo" class="logo">
+                <h1>Neuro Nurture</h1>
+            </div>
+            <nav>
+                <a href="index1.html">Home</a>
+                <a href="index1.html#activities">Activities</a>
+                <a href="login.html" class="btn-login">Login</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Art Therapy Section -->
+    <section class="art-therapy-section">
+        <div class="container">
+            <div class="art-therapy-header">
+                <h2><i class="fas fa-palette"></i> Art Therapy</h2>
+                <p>Express yourself through creative activities and discover emotional healing</p>
+            </div>
+
+            <!-- Template Selector -->
+            <div class="template-selector">
+                <div class="template-card" data-template="mandala">
+                    <div class="template-preview">
+                        <svg viewBox="0 0 500 500">
+                            <circle cx="250" cy="250" r="100" stroke="black" fill="none"/>
+                            <circle cx="250" cy="250" r="80" stroke="black" fill="none"/>
+                            <circle cx="250" cy="250" r="60" stroke="black" fill="none"/>
+                            <path d="M150 250 L350 250 M250 150 L250 350" stroke="black" fill="none"/>
+                            <path d="M180 180 L320 320 M180 320 L320 180" stroke="black" fill="none"/>
+                        </svg>
+                    </div>
+                    <h4>Mandala</h4>
+                </div>
+                <div class="template-card" data-template="butterfly">
+                    <div class="template-preview">
+                        <svg viewBox="0 0 500 500">
+                            <path d="M250 150 C200 100,150 150,200 200 C150 250,200 300,250 250" stroke="black" fill="none"/>
+                            <path d="M250 150 C300 100,350 150,300 200 C350 250,300 300,250 250" stroke="black" fill="none"/>
+                            <path d="M250 150 L250 300" stroke="black" fill="none"/>
+                        </svg>
+                    </div>
+                    <h4>Butterfly</h4>
+                </div>
+                <div class="template-card" data-template="flower">
+                    <div class="template-preview">
+                        <svg viewBox="0 0 500 500">
+                            <circle cx="250" cy="250" r="30" stroke="black" fill="none"/>
+                            <path d="M250 220 C220 180,280 180,250 220" stroke="black" fill="none"/>
+                            <path d="M250 280 C220 320,280 320,250 280" stroke="black" fill="none"/>
+                            <path d="M220 250 C180 220,180 280,220 250" stroke="black" fill="none"/>
+                            <path d="M280 250 C320 220,320 280,280 250" stroke="black" fill="none"/>
+                        </svg>
+                    </div>
+                    <h4>Flower</h4>
+                </div>
+                <div class="template-card" data-template="abstract">
+                    <div class="template-preview">
+                        <svg viewBox="0 0 500 500">
+                            <path d="M100 100 Q200 50,300 100 T500 100" stroke="black" fill="none"/>
+                            <circle cx="250" cy="250" r="50" stroke="black" fill="none"/>
+                            <rect x="200" y="300" width="100" height="100" stroke="black" fill="none"/>
+                        </svg>
+                    </div>
+                    <h4>Abstract</h4>
+                </div>
+            </div>
+
+            <!-- Art Canvas Area -->
+            <div class="art-canvas-container">
+                <div class="canvas-tools">
+                    <div class="tool-group">
+                        <button class="tool-btn active" data-tool="brush" title="Brush">
+                            <i class="fas fa-paint-brush"></i>
+                        </button>
+                        <button class="tool-btn" data-tool="eraser" title="Eraser">
+                            <i class="fas fa-eraser"></i>
+                        </button>
+                        <button class="tool-btn" data-tool="spray" title="Spray">
+                            <i class="fas fa-spray-can"></i>
+                        </button>
+                    </div>
+                    <div class="color-picker">
+                        <input type="color" id="colorPicker" value="#4ECDC4">
+                        <div class="color-presets">
+                            <button class="color-btn" style="background: #4ECDC4"></button>
+                            <button class="color-btn" style="background: #FF6B6B"></button>
+                            <button class="color-btn" style="background: #FFE66D"></button>
+                            <button class="color-btn" style="background: #8B5CF6"></button>
+                            <button class="color-btn" style="background: #2ECC71"></button>
+                            <button class="color-btn" style="background: #E74C3C"></button>
+                        </div>
+                    </div>
+                    <div class="brush-size">
+                        <i class="fas fa-circle fa-sm"></i>
+                        <input type="range" id="brushSize" min="1" max="50" value="5">
+                        <i class="fas fa-circle fa-lg"></i>
+                    </div>
+                </div>
+                <canvas id="artCanvas"></canvas>
+                <div class="canvas-actions">
+                    <button class="btn-secondary" id="undoBtn">
+                        <i class="fas fa-undo"></i> Undo
+                    </button>
+                    <button class="btn-secondary" id="clearCanvas">
+                        <i class="fas fa-trash"></i> Clear
+                    </button>
+                    <button class="btn-primary" id="saveArtwork">
+                        <i class="fas fa-save"></i> Save
+                    </button>
+                </div>
+            </div>
+
+            <!-- Art Therapy Activities -->
+            <div class="art-activities">
+                <h3>Creative Activities</h3>
+                <div class="activities-grid">
+                    <div class="activity-card" data-activity="emotion-wheel">
+                        <div class="activity-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h4>Emotion Color Wheel</h4>
+                        <p>Express your feelings through colors</p>
+                        <button class="start-activity">Start Activity</button>
+                    </div>
+
+                    <div class="activity-card" data-activity="mindful-mandala">
+                        <div class="activity-icon">
+                            <i class="fas fa-tree"></i>
+                        </div>
+                        <h4>Mindful Mandala</h4>
+                        <p>Create patterns for relaxation</p>
+                        <button class="start-activity">Start Activity</button>
+                    </div>
+
+                    <div class="activity-card" data-activity="stress-scribbles">
+                        <div class="activity-icon">
+                            <i class="fas fa-cloud"></i>
+                        </div>
+                        <h4>Stress Scribbles</h4>
+                        <p>Release tension through free drawing</p>
+                        <button class="start-activity">Start Activity</button>
+                    </div>
+
+                    <div class="activity-card" data-activity="dream-board">
+                        <div class="activity-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h4>Dream Vision Board</h4>
+                        <p>Visualize your hopes and goals</p>
+                        <button class="start-activity">Start Activity</button>
+                    </div>
+                </div>
+
+                <!-- Activity Instructions -->
+                <div class="activity-instructions" id="emotionWheelInstructions">
+                    <h4>Emotion Color Wheel Instructions</h4>
+                    <div class="instruction-step">
+                        <div class="step-number">1</div>
+                        <p>Choose colors that represent your current emotions</p>
+                    </div>
+                    <div class="instruction-step">
+                        <div class="step-number">2</div>
+                        <p>Create a circular pattern with these colors</p>
+                    </div>
+                    <div class="instruction-step">
+                        <div class="step-number">3</div>
+                        <p>Reflect on why you chose each color</p>
+                    </div>
+                </div>
+
+                <div class="activity-instructions" id="mandalaInstructions">
+                    <h4>Mindful Mandala Instructions</h4>
+                    <div class="instruction-step">
+                        <div class="step-number">1</div>
+                        <p>Start from the center and work your way outward</p>
+                    </div>
+                    <div class="instruction-step">
+                        <div class="step-number">2</div>
+                        <p>Create repeating patterns in a circular motion</p>
+                    </div>
+                    <div class="instruction-step">
+                        <div class="step-number">3</div>
+                        <p>Focus on your breathing as you draw</p>
+                    </div>
+                </div>
+
+                <div class="activity-instructions" id="scribblesInstructions">
+                    <h4>Stress Scribbles Instructions</h4>
+                    <div class="instruction-step">
+                        <div class="step-number">1</div>
+                        <p>Let your hand move freely across the canvas</p>
+                    </div>
+                    <div class="instruction-step">
+                        <div class="step-number">2</div>
+                        <p>Don't think about what you're drawing</p>
+                    </div>
+                    <div class="instruction-step">
+                        <div class="step-number">3</div>
+                        <p>Use colors that match your stress level</p>
+                    </div>
+                </div>
+
+                <div class="activity-instructions" id="dreamBoardInstructions">
+                    <h4>Dream Vision Board Instructions</h4>
+                    <div class="instruction-step">
+                        <div class="step-number">1</div>
+                        <p>Visualize your goals and aspirations</p>
+                    </div>
+                    <div class="instruction-step">
+                        <div class="step-number">2</div>
+                        <p>Draw symbols that represent your dreams</p>
+                    </div>
+                    <div class="instruction-step">
+                        <div class="step-number">3</div>
+                        <p>Add inspiring words or phrases</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Art Gallery -->
+            <div class="art-gallery">
+                <h3>Your Art Gallery</h3>
+                <div class="gallery-grid">
+                    <!-- Artwork will be displayed here -->
+                </div>
+            </div>
+
+            <!-- Art Therapy Tips -->
+            <div class="art-therapy-tips">
+                <h3>Tips for Art Therapy</h3>
+                <div class="tips-grid">
+                    <div class="tip-card">
+                        <i class="fas fa-heart-circle"></i>
+                        <h4>No Judgment</h4>
+                        <p>Focus on expression, not perfection</p>
+                    </div>
+                    <div class="tip-card">
+                        <i class="fas fa-brain"></i>
+                        <h4>Stay Present</h4>
+                        <p>Let your emotions guide your creativity</p>
+                    </div>
+                    <div class="tip-card">
+                        <i class="fas fa-feather"></i>
+                        <h4>Explore Freely</h4>
+                        <p>Try different tools and techniques</p>
+                    </div>
+                    <div class="tip-card">
+                        <i class="fas fa-journal-whills"></i>
+                        <h4>Reflect</h4>
+                        <p>Write about your art experience</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="modern-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <a href="index1.html">Home</a>
+                    <a href="index1.html#activities">Activities</a>
+                    <a href="index1.html#resources">Resources</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <a href="contact.html">Contact Us</a>
+                    <a href="faq.html">FAQs</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Emergency Support</h4>
+                    <p>24/7 Crisis Helpline: 1-800-273-8255</p>
+                    <a href="emergency.html" class="btn-emergency">Get Emergency Help</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Neuro Nurture - Mental Health Support Platform. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/art-therapy.js"></script>
+</body>
+</html> 

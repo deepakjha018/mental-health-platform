@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emergency Help - Neuro Nurture</title>
+    <link rel="stylesheet" href="css/styles1.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="modern-header">
+        <div class="container">
+            <div class="logo-container">
+                <img src="brain.png" alt="Neuro Nurture Logo" class="logo">
+                <h1>Neuro Nurture</h1>
+            </div>
+            <nav>
+                <a href="index1.html">Home</a>
+                <a href="index1.html#activities">Activities</a>
+                <a href="login.html" class="btn-login">Login</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Emergency Section -->
+    <section class="emergency-section">
+        <div class="container">
+            <div class="emergency-header">
+                <h2><i class="fas fa-phone-volume"></i> Emergency Help</h2>
+                <p class="emergency-subtitle">Immediate support is available 24/7. You're not alone.</p>
+            </div>
+
+            <!-- Emergency Contact Cards -->
+            <div class="emergency-contacts">
+                <div class="emergency-card urgent">
+                    <div class="emergency-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <h3>Crisis Hotline</h3>
+                    <p class="phone-number">1-800-273-8255</p>
+                    <p>National Suicide Prevention Lifeline</p>
+                    <a href="tel:1-800-273-8255" class="btn-call">Call Now</a>
+                </div>
+
+                <div class="emergency-card">
+                    <div class="emergency-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3>Crisis Text Line</h3>
+                    <p class="text-number">Text HOME to 741741</p>
+                    <p>Free 24/7 Crisis Counseling</p>
+                    <a href="sms:741741" class="btn-text">Text Now</a>
+                </div>
+
+                <div class="emergency-card">
+                    <div class="emergency-icon">
+                        <i class="fas fa-hospital"></i>
+                    </div>
+                    <h3>Emergency Services</h3>
+                    <p class="emergency-number">911</p>
+                    <p>For immediate medical emergency</p>
+                    <a href="tel:911" class="btn-emergency-call">Call 911</a>
+                </div>
+            </div>
+
+            <!-- Quick Resources -->
+            <div class="quick-resources">
+                <h3>Quick Resources</h3>
+                <div class="resources-grid">
+                    <div class="resource-card">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <h4>Find Local Help</h4>
+                        <p>Locate nearby mental health facilities</p>
+                        <button class="btn-find-help" onclick="findLocalHelp()">Find Help</button>
+                    </div>
+
+                    <div class="resource-card">
+                        <i class="fas fa-users"></i>
+                        <h4>Support Groups</h4>
+                        <p>Connect with others who understand</p>
+                        <a href="support-groups.html" class="btn-groups">Join Groups</a>
+                    </div>
+
+                    <div class="resource-card">
+                        <i class="fas fa-book-medical"></i>
+                        <h4>Crisis Resources</h4>
+                        <p>Access helpful guides and information</p>
+                        <a href="#crisis-resources" class="btn-resources">View Resources</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Crisis Resources Section -->
+            <div id="crisis-resources" class="crisis-resources">
+                <h3>Crisis Resources</h3>
+                <div class="resources-list">
+                    <div class="resource-item">
+                        <h4>Safety Planning</h4>
+                        <p>Create a personal safety plan to help during difficult moments.</p>
+                        <button class="btn-resource" onclick="showSafetyPlan()">Create Plan</button>
+                    </div>
+
+                    <div class="resource-item">
+                        <h4>Coping Strategies</h4>
+                        <p>Learn effective techniques to manage crisis situations.</p>
+                        <button class="btn-resource" onclick="showCopingStrategies()">View Strategies</button>
+                    </div>
+
+                    <div class="resource-item">
+                        <h4>Support Network</h4>
+                        <p>Build and maintain a support network for crisis situations.</p>
+                        <button class="btn-resource" onclick="showSupportNetwork()">Build Network</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Important Notice -->
+            <div class="emergency-notice">
+                <i class="fas fa-exclamation-triangle"></i>
+                <h3>Important Notice</h3>
+                <p>If you or someone you know is in immediate danger of self-harm or suicide, call emergency services (911) immediately or go to the nearest emergency room.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="modern-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <a href="index1.html">Home</a>
+                    <a href="index1.html#activities">Activities</a>
+                    <a href="index1.html#resources">Resources</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <a href="contact.html">Contact Us</a>
+                    <a href="faq.html">FAQs</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Emergency Support</h4>
+                    <p>24/7 Crisis Helpline: 1-800-273-8255</p>
+                    <a href="emergency.html" class="btn-emergency">Get Emergency Help</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Neuro Nurture - Mental Health Support Platform. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/emergency.js"></script>
+</body>
+</html> 

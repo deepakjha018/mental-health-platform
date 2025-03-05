@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Breathing Exercises - Neuro Nurture</title>
+    <link rel="stylesheet" href="css/styles1.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="modern-header">
+        <div class="container">
+            <div class="logo-container">
+                <img src="brain.png" alt="Neuro Nurture Logo" class="logo">
+                <h1>Neuro Nurture</h1>
+            </div>
+            <nav>
+                <a href="index1.html">Home</a>
+                <a href="index1.html#activities">Activities</a>
+                <a href="login.html" class="btn-login">Login</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Breathing Exercises Section -->
+    <section class="breathing-section">
+        <div class="container">
+            <div class="breathing-header">
+                <h2><i class="fas fa-wind"></i> Breathing Exercises</h2>
+                <p>Practice these breathing techniques to reduce stress and increase mindfulness</p>
+            </div>
+
+            <!-- Updated Breathing Exercise Player -->
+            <div class="breathing-player">
+                <div class="exercise-info">
+                    <h3 id="exerciseName">Select a Breathing Exercise</h3>
+                    <p id="exerciseDescription">Choose from the techniques below to begin</p>
+                </div>
+                
+                <div class="breathing-animation">
+                    <div class="breath-circle">
+                        <div class="breath-guide"></div>
+                        <div class="breath-text">Get Ready</div>
+                        <div class="timer">5:00</div>
+                    </div>
+                </div>
+                
+             
+                
+                <div class="exercise-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill"></div>
+                    </div>
+                    <div class="time-remaining">5:00</div>
+                </div>
+            </div>
+
+            <div class="breathing-controls">
+                <button class="btn-secondary" id="previousExercise">
+                    <i class="fas fa-step-backward"></i>
+                </button>
+                <button class="btn-primary" id="startBreathing" disabled>
+                    <i class="fas fa-play"></i> Start
+                </button>
+                <button class="btn-secondary" id="nextExercise">
+                    <i class="fas fa-step-forward"></i>
+                </button>
+            </div>
+
+            <!-- Updated Breathing Techniques Grid -->
+            <div class="breathing-grid">
+                <div class="breathing-card" data-technique="box">
+                    <div class="technique-icon">
+                        <i class="fas fa-square"></i>
+                    </div>
+                    <h3>Box Breathing</h3>
+                    <p>A technique used by Navy SEALs for stress management</p>
+                    <ul class="technique-steps">
+                        <li>Inhale for 4 seconds</li>
+                        <li>Hold for 4 seconds</li>
+                        <li>Exhale for 4 seconds</li>
+                        <li>Hold for 4 seconds</li>
+                    </ul>
+                    <button class="btn-select-technique">Select Exercise</button>
+                </div>
+
+                <div class="breathing-card" data-technique="478">
+                    <div class="technique-icon">
+                        <i class="fas fa-lungs"></i>
+                    </div>
+                    <h3>4-7-8 Breathing</h3>
+                    <p>A natural tranquilizer for the nervous system</p>
+                    <ul class="technique-steps">
+                        <li>Inhale for 4 seconds</li>
+                        <li>Hold for 7 seconds</li>
+                        <li>Exhale for 8 seconds</li>
+                    </ul>
+                    <button class="btn-select-technique">Select Exercise</button>
+                </div>
+
+                <div class="breathing-card" data-technique="deep">
+                    <div class="technique-icon">
+                        <i class="fas fa-om"></i>
+                    </div>
+                    <h3>Deep Breathing</h3>
+                    <p>Simple yet powerful relaxation technique</p>
+                    <ul class="technique-steps">
+                        <li>Inhale deeply for 5 seconds</li>
+                        <li>Hold briefly for 2 seconds</li>
+                        <li>Exhale slowly for 5 seconds</li>
+                    </ul>
+                    <button class="btn-select-technique">Select Exercise</button>
+                </div>
+
+                <div class="breathing-card" data-technique="alternate">
+                    <div class="technique-icon">
+                        <i class="fas fa-yin-yang"></i>
+                    </div>
+                    <h3>Alternate Nostril</h3>
+                    <p>Balance your energy and calm your mind</p>
+                    <ul class="technique-steps">
+                        <li>Close right nostril, inhale left for 4s</li>
+                        <li>Hold for 2s</li>
+                        <li>Close left, exhale right for 4s</li>
+                        <li>Inhale right for 4s</li>
+                        <li>Hold for 2s</li>
+                        <li>Exhale left for 4s</li>
+                    </ul>
+                    <button class="btn-select-technique">Select Exercise</button>
+                </div>
+            </div>
+
+            <!-- Progress Tracking -->
+            <div class="breathing-progress">
+                <h3>Your Progress</h3>
+                <div class="progress-stats">
+                    <div class="stat-card">
+                        <i class="fas fa-clock"></i>
+                        <span class="stat-value">0</span>
+                        <span class="stat-label">Minutes Practiced</span>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-calendar-check"></i>
+                        <span class="stat-value">0</span>
+                        <span class="stat-label">Sessions Completed</span>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-star"></i>
+                        <span class="stat-value">0</span>
+                        <span class="stat-label">Streak Days</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tips Section -->
+            <div class="breathing-tips">
+                <h3>Tips for Better Practice</h3>
+                <div class="tips-grid">
+                    <div class="tip-card">
+                        <i class="fas fa-couch"></i>
+                        <h4>Find a Comfortable Position</h4>
+                        <p>Sit or lie in a position that allows your breath to flow easily</p>
+                    </div>
+                    <div class="tip-card">
+                        <i class="fas fa-volume-off"></i>
+                        <h4>Minimize Distractions</h4>
+                        <p>Choose a quiet space where you won't be interrupted</p>
+                    </div>
+                    <div class="tip-card">
+                        <i class="fas fa-clock"></i>
+                        <h4>Start Small</h4>
+                        <p>Begin with 5 minutes and gradually increase duration</p>
+                    </div>
+                    <div class="tip-card">
+                        <i class="fas fa-calendar-day"></i>
+                        <h4>Practice Regularly</h4>
+                        <p>Try to practice at the same time each day</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="breathing-visualization">
+                <div class="breath-circle">
+                    <div class="breath-particles"></div>
+                    <div class="breath-text">Breathe In</div>
+                </div>
+            </div>
+
+            <div class="ambient-control">
+                <button class="btn-sound" data-sound="rain">
+                    <i class="fas fa-cloud-rain"></i>
+                </button>
+                <button class="btn-sound" data-sound="waves">
+                    <i class="fas fa-water"></i>
+                </button>
+            </div>
+
+            <div class="stats-chart">
+                <canvas id="progressChart"></canvas>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="modern-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <a href="index1.html">Home</a>
+                    <a href="index1.html#activities">Activities</a>
+                    <a href="index1.html#resources">Resources</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <a href="contact.html">Contact Us</a>
+                    <a href="faq.html">FAQs</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Emergency Support</h4>
+                    <p>24/7 Crisis Helpline: 1-800-273-8255</p>
+                    <a href="emergency.html" class="btn-emergency">Get Emergency Help</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Neuro Nurture - Mental Health Support Platform. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/breathing.js"></script>
+
+    <style>
+    .breathing-player {
+        max-width: 600px;
+        margin: 2rem auto;
+        text-align: center;
+        padding: 2rem;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+    }
+
+    .breath-circle {
+        width: 300px;
+        height: 300px;
+        margin: 0 auto;
+        border-radius: 50%;
+        position: relative;
+        background: linear-gradient(45deg, #4ECDC4, #8B5CF6);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        box-shadow: 0 0 50px rgba(78, 205, 196, 0.3);
+        transition: all 0.5s ease-in-out;
+    }
+
+    .breath-circle.inhale {
+        animation: inhaleAnimation 4s ease-in-out;
+    }
+
+    .breath-circle.exhale {
+        animation: exhaleAnimation 4s ease-in-out;
+    }
+
+    .breath-circle.hold {
+        animation: holdAnimation 4s ease-in-out;
+    }
+
+    @keyframes inhaleAnimation {
+        0% {
+            transform: scale(1);
+            box-shadow: 0 0 50px rgba(78, 205, 196, 0.3);
+        }
+        100% {
+            transform: scale(1.2);
+            box-shadow: 0 0 80px rgba(78, 205, 196, 0.5);
+        }
+    }
+
+    @keyframes exhaleAnimation {
+        0% {
+            transform: scale(1.2);
+            box-shadow: 0 0 80px rgba(78, 205, 196, 0.5);
+        }
+        100% {
+            transform: scale(1);
+            box-shadow: 0 0 50px rgba(78, 205, 196, 0.3);
+        }
+    }
+
+    @keyframes holdAnimation {
+        0%, 100% {
+            transform: scale(1.1);
+            box-shadow: 0 0 65px rgba(78, 205, 196, 0.4);
+        }
+    }
+
+    .breath-guide {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        border: 3px solid rgba(255, 255, 255, 0.3);
+        pointer-events: none;
+    }
+
+    @keyframes guideAnimationinhale {
+        0% {
+            transform: scale(1);
+            opacity: 0.3;
+        }
+        100% {
+            transform: scale(1.2);
+            opacity: 0.8;
+        }
+    }
+
+    @keyframes guideAnimationexhale {
+        0% {
+            transform: scale(1.2);
+            opacity: 0.8;
+        }
+        100% {
+            transform: scale(1);
+            opacity: 0.3;
+        }
+    }
+
+    @keyframes guideAnimationhold {
+        0%, 100% {
+            transform: scale(1.1);
+            opacity: 0.5;
+        }
+    }
+
+    .breath-particle {
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        background: rgba(255, 255, 255, 0.5);
+        border-radius: 50%;
+        pointer-events: none;
+    }
+
+    .breath-particle:nth-child(odd) {
+        animation: floatParticle 6s infinite ease-in-out;
+    }
+
+    .breath-particle:nth-child(even) {
+        animation: floatParticle 8s infinite ease-in-out reverse;
+    }
+
+    @keyframes floatParticle {
+        0%, 100% {
+            transform: translate(0, 0) scale(1);
+            opacity: 0.5;
+        }
+        25% {
+            transform: translate(50px, -50px) scale(1.2);
+            opacity: 0.8;
+        }
+        50% {
+            transform: translate(0, -100px) scale(1);
+            opacity: 0.5;
+        }
+        75% {
+            transform: translate(-50px, -50px) scale(1.2);
+            opacity: 0.8;
+        }
+    }
+
+    .breath-text {
+        color: white;
+        font-size: 1.5rem;
+        font-weight: 600;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        z-index: 2;
+        transition: all 0.3s ease;
+    }
+
+    .timer {
+        color: white;
+        font-size: 2rem;
+        font-weight: 700;
+        margin-top: 1rem;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        z-index: 2;
+    }
+
+    .completion-message {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(255, 255, 255, 0.9);
+        padding: 1rem 2rem;
+        border-radius: 10px;
+        color: #4ECDC4;
+        font-weight: 600;
+        animation: fadeInOut 3s ease-in-out;
+    }
+
+    @keyframes fadeInOut {
+        0%, 100% { opacity: 0; }
+        10%, 90% { opacity: 1; }
+    }
+
+    .breathing-controls {
+        margin: 2rem 0;
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+    }
+
+    .btn-primary, .btn-secondary {
+        padding: 1rem 2rem;
+        border-radius: 50px;
+        border: none;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+        background: linear-gradient(45deg, #4ECDC4, #8B5CF6);
+        color: white;
+    }
+
+    .btn-secondary {
+        background: rgba(255, 255, 255, 0.1);
+        color: #4ECDC4;
+    }
+
+    .btn-primary:hover, .btn-secondary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .exercise-progress {
+        margin-top: 2rem;
+    }
+
+    .progress-bar {
+        height: 8px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 4px;
+        overflow: hidden;
+        margin: 1rem 0;
+    }
+
+    .progress-fill {
+        height: 100%;
+        background: linear-gradient(45deg, #4ECDC4, #8B5CF6);
+        width: 0%;
+        transition: width 0.3s ease;
+    }
+
+    .time-remaining {
+        color: #4ECDC4;
+        font-weight: 600;
+    }
+
+    .breathing-card {
+        position: relative;
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        border-radius: 15px;
+        padding: 2rem;
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+    }
+
+    .breathing-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 30px rgba(78, 205, 196, 0.2);
+    }
+
+    .technique-icon {
+        font-size: 2.5rem;
+        color: #4ECDC4;
+        margin-bottom: 1rem;
+    }
+
+    .breathing-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+        margin: 3rem 0;
+    }
+
+    @media (max-width: 768px) {
+        .breath-circle {
+            width: 250px;
+            height: 250px;
+        }
+
+        .breathing-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .btn-select-technique {
+        background: linear-gradient(45deg, #4ECDC4, #8B5CF6);
+        color: white;
+        border: none;
+        padding: 0.8rem 1.5rem;
+        border-radius: 25px;
+        font-weight: 600;
+        margin-top: 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .btn-select-technique:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(78, 205, 196, 0.3);
+    }
+
+    .breathing-card.selected {
+        border-color: #4ECDC4;
+        box-shadow: 0 0 20px rgba(78, 205, 196, 0.2);
+    }
+
+    .technique-steps {
+        list-style: none;
+        padding: 0;
+        margin: 1rem 0;
+        text-align: left;
+    }
+
+    .technique-steps li {
+        padding: 0.5rem 0;
+        color: #666;
+        font-size: 0.9rem;
+    }
+
+    .technique-steps li:before {
+        content: "•";
+        color: #4ECDC4;
+        font-weight: bold;
+        display: inline-block;
+        width: 1em;
+        margin-left: -1em;
+    }
+
+    .breath-circle {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .breath-circle.inhale {
+        animation: inhaleAnimation var(--duration) ease-in-out forwards;
+    }
+
+    .breath-circle.exhale {
+        animation: exhaleAnimation var(--duration) ease-in-out forwards;
+    }
+
+    .breath-circle.hold {
+        animation: holdAnimation var(--duration) ease-in-out forwards;
+    }
+
+    @keyframes inhaleAnimation {
+        0% {
+            transform: scale(1);
+            box-shadow: 0 0 50px rgba(78, 205, 196, 0.3);
+        }
+        100% {
+            transform: scale(1.2);
+            box-shadow: 0 0 80px rgba(78, 205, 196, 0.5);
+        }
+    }
+
+    @keyframes exhaleAnimation {
+        0% {
+            transform: scale(1.2);
+            box-shadow: 0 0 80px rgba(78, 205, 196, 0.5);
+        }
+        100% {
+            transform: scale(1);
+            box-shadow: 0 0 50px rgba(78, 205, 196, 0.3);
+        }
+    }
+
+    @keyframes holdAnimation {
+        0%, 100% {
+            transform: scale(1.1);
+            box-shadow: 0 0 65px rgba(78, 205, 196, 0.4);
+        }
+    }
+    </style>
+
+    <script>
+    const ambientSounds = {
+        rain: new Audio('sounds/rain.mp3'),
+        waves: new Audio('sounds/waves.mp3')
+    };
+
+    document.querySelectorAll('.btn-sound').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const sound = btn.dataset.sound;
+            if (ambientSounds[sound].paused) {
+                ambientSounds[sound].loop = true;
+                ambientSounds[sound].play();
+                btn.classList.add('active');
+            } else {
+                ambientSounds[sound].pause();
+                btn.classList.remove('active');
+            }
+        });
+    });
+    </script>
+
+    <script>
+    const ctx = document.getElementById('progressChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+            datasets: [{
+                label: 'Daily Practice',
+                data: [5, 8, 6, 10, 7, 9, 12],
+                borderColor: '#4ECDC4',
+                tension: 0.4
+            }]
+        }
+    });
+    </script>
+
+    <script>
+    class BreathingExercise {
+        constructor() {
+            this.isPlaying = false;
+            this.currentPhase = 'ready';
+            this.timer = 300; // 5 minutes in seconds
+            this.currentTechnique = 'box';
+            
+            this.initializeElements();
+            this.bindEvents();
+        }
+
+        initializeElements() {
+            this.startButton = document.getElementById('startBreathing');
+            this.breathCircle = document.querySelector('.breath-circle');
+            this.breathText = document.querySelector('.breath-text');
+            this.timerDisplay = document.querySelector('.timer');
+            this.progressFill = document.querySelector('.progress-fill');
+            this.timeRemaining = document.querySelector('.time-remaining');
+        }
+
+        bindEvents() {
+            this.startButton.addEventListener('click', () => this.toggleExercise());
+            document.querySelectorAll('.breathing-card').forEach(card => {
+                card.addEventListener('click', (e) => this.switchTechnique(e.currentTarget.dataset.technique));
+            });
+        }
+
+        toggleExercise() {
+            if (this.isPlaying) {
+                this.pauseExercise();
+            } else {
+                this.startExercise();
+            }
+        }
+
+        startExercise() {
+            this.isPlaying = true;
+            this.startButton.innerHTML = '<i class="fas fa-pause"></i> Pause';
+            this.startBreathingCycle();
+        }
+
+        pauseExercise() {
+            this.isPlaying = false;
+            this.startButton.innerHTML = '<i class="fas fa-play"></i> Resume';
+            clearTimeout(this.timeout);
+        }
+
+        startBreathingCycle() {
+            const techniques = {
+                box: {
+                    phases: ['inhale', 'hold', 'exhale', 'hold'],
+                    duration: 4000
+                },
+                '478': {
+                    phases: ['inhale', 'hold', 'exhale'],
+                    durations: [4000, 7000, 8000]
+                }
+            };
+
+            const technique = techniques[this.currentTechnique];
+            let phaseIndex = 0;
+
+            const runPhase = () => {
+                if (!this.isPlaying) return;
+
+                const phase = technique.phases[phaseIndex];
+                this.breathText.textContent = phase.charAt(0).toUpperCase() + phase.slice(1);
+                
+                // Update animations based on phase
+                this.breathCircle.className = `breath-circle ${phase}`;
+                
+                phaseIndex = (phaseIndex + 1) % technique.phases.length;
+                this.timeout = setTimeout(runPhase, technique.duration);
+            };
+
+            runPhase();
+            this.startTimer();
+        }
+
+        startTimer() {
+            const updateTimer = () => {
+                if (!this.isPlaying) return;
+                
+                this.timer--;
+                const minutes = Math.floor(this.timer / 60);
+                const seconds = this.timer % 60;
+                
+                this.timerDisplay.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                this.timeRemaining.textContent = this.timerDisplay.textContent;
+                
+                const progress = ((300 - this.timer) / 300) * 100;
+                this.progressFill.style.width = `${progress}%`;
+                
+                if (this.timer > 0) {
+                    setTimeout(updateTimer, 1000);
+                } else {
+                    this.completeExercise();
+                }
+            };
+            
+            updateTimer();
+        }
+
+        switchTechnique(technique) {
+            this.currentTechnique = technique;
+            if (this.isPlaying) {
+                this.pauseExercise();
+                this.startExercise();
+            }
+        }
+
+        completeExercise() {
+            this.isPlaying = false;
+            this.startButton.innerHTML = '<i class="fas fa-play"></i> Start';
+            this.breathText.textContent = 'Complete!';
+            this.timer = 300;
+            // Update stats and show completion message
+        }
+    }
+
+    // Initialize the breathing exercise when the page loads
+    document.addEventListener('DOMContentLoaded', () => {
+        const breathingExercise = new BreathingExercise();
+    });
+    </script>
+</body>
+</html> 

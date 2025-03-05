@@ -1,0 +1,50 @@
+{
+    "mandalas": [
+        {
+            "id": "mandala1",
+            "title": "Simple Mandala",
+            "file": "mandala1.svg",
+            "difficulty": "easy"
+        },
+        {
+            "id": "mandala2",
+            "title": "Flower Mandala",
+            "file": "mandala2.svg",
+            "difficulty": "medium"
+        },
+        {
+            "id": "mandala3",
+            "title": "Complex Mandala",
+            "file": "mandala3.svg",
+            "difficulty": "hard"
+        }
+    ],
+    "nature": [
+        {
+            "id": "nature1",
+            "title": "Forest Scene",
+            "file": "nature1.svg",
+            "category": "landscape"
+        },
+        {
+            "id": "nature2",
+            "title": "Mountain View",
+            "file": "nature2.svg",
+            "category": "landscape"
+        }
+    ],
+    "abstract": [
+        {
+            "id": "abstract1",
+            "title": "Flowing Patterns",
+            "file": "abstract1.svg",
+            "style": "flowing"
+        },
+        {
+            "id": "abstract2",
+            "title": "Geometric Shapes",
+            "file": "abstract2.svg",
+            "style": "geometric"
+        }
+    ]
+} 

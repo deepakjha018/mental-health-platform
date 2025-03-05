@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="800" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg">
+    <g transform="translate(400,400)">
+        <!-- Center circle -->
+        <circle r="50" fill="none" stroke="black" stroke-width="2"/>
+        
+        <!-- Inner petals -->
+        <g id="inner-petals">
+            <path d="M 0,-50 Q 25,-75 0,-100 Q -25,-75 0,-50" 
+                  fill="none" stroke="black" stroke-width="2"/>
+        </g>
+        <use href="#inner-petals" transform="rotate(45)"/>
+        <use href="#inner-petals" transform="rotate(90)"/>
+        <use href="#inner-petals" transform="rotate(135)"/>
+        <use href="#inner-petals" transform="rotate(180)"/>
+        <use href="#inner-petals" transform="rotate(225)"/>
+        <use href="#inner-petals" transform="rotate(270)"/>
+        <use href="#inner-petals" transform="rotate(315)"/>
+        
+        <!-- Outer circle -->
+        <circle r="150" fill="none" stroke="black" stroke-width="2"/>
+        
+        <!-- Outer petals -->
+        <g id="outer-petals">
+            <path d="M 0,-150 Q 50,-200 0,-250 Q -50,-200 0,-150" 
+                  fill="none" stroke="black" stroke-width="2"/>
+        </g>
+        <use href="#outer-petals" transform="rotate(45)"/>
+        <use href="#outer-petals" transform="rotate(90)"/>
+        <use href="#outer-petals" transform="rotate(135)"/>
+        <use href="#outer-petals" transform="rotate(180)"/>
+        <use href="#outer-petals" transform="rotate(225)"/>
+        <use href="#outer-petals" transform="rotate(270)"/>
+        <use href="#outer-petals" transform="rotate(315)"/>
+        
+        <!-- Decorative dots -->
+        <g id="dots">
+            <circle cx="0" cy="-200" r="5" fill="none" stroke="black" stroke-width="2"/>
+        </g>
+        <use href="#dots" transform="rotate(45)"/>
+        <use href="#dots" transform="rotate(90)"/>
+        <use href="#dots" transform="rotate(135)"/>
+        <use href="#dots" transform="rotate(180)"/>
+        <use href="#dots" transform="rotate(225)"/>
+        <use href="#dots" transform="rotate(270)"/>
+        <use href="#dots" transform="rotate(315)"/>
+    </g>
+</svg> 

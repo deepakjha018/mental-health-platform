@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sound Therapy - Mind Buddy</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .sound-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .sound-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .sound-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .sound-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .sound-icon {
+            font-size: 2.5em;
+            color: #4a90e2;
+            margin-bottom: 15px;
+        }
+
+        .volume-control {
+            width: 100%;
+            margin: 15px 0;
+        }
+
+        .player-container {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 30px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .player-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .timer {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .timer-controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .mixer-container {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+
+        .mixer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .mixer-track {
+            padding: 15px;
+            background: #f5f5f5;
+            border-radius: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header class="modern-header">
+        <div class="container">
+            <div class="logo-container">
+                <img src="brain.png" alt="Mind Buddy Logo" class="logo">
+                <h1>Mind Buddy</h1>
+            </div>
+            <nav>
+                <a href="index1.html">Home</a>
+                <a href="index1.html#resources">Resources</a>
+                <a href="index1.html#activities">Activities</a>
+                <a href="index1.html#support-groups">Community</a>
+                <a href="index1.html#chatbot">AI Support</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="sound-container">
+            <h2>Sound Therapy</h2>
+            <p>Experience the healing power of sound with our curated collection of ambient sounds and music</p>
+
+            <div class="player-container">
+                <h3>Meditation Music Player</h3>
+                <div class="player-controls">
+                    <button class="btn-secondary" id="prevTrack">
+                        <i class="fas fa-step-backward"></i>
+                    </button>
+                    <button class="btn-primary" id="playPause">
+                        <i class="fas fa-play"></i>
+                    </button>
+                    <button class="btn-secondary" id="nextTrack">
+                        <i class="fas fa-step-forward"></i>
+                    </button>
+                </div>
+                <div id="trackProgress">
+                    <input type="range" id="seekBar" min="0" max="100" value="0">
+                    <div id="trackTime">0:00 / 0:00</div>
+                </div>
+                <div class="volume-control">
+                    <i class="fas fa-volume-up"></i>
+                    <input type="range" id="volumeControl" min="0" max="100" value="80">
+                </div>
+            </div>
+
+            <div class="timer">
+                <h3>Meditation Timer</h3>
+                <div class="timer-display">
+                    <span id="timerDisplay">20:00</span>
+                </div>
+                <div class="timer-controls">
+                    <button class="btn-secondary" data-time="5">5 min</button>
+                    <button class="btn-secondary" data-time="10">10 min</button>
+                    <button class="btn-secondary" data-time="20">20 min</button>
+                    <button class="btn-secondary" data-time="30">30 min</button>
+                    <button class="btn-primary" id="startTimer">Start</button>
+                </div>
+            </div>
+
+            <div class="mixer-container">
+                <h3>Sound Mixer</h3>
+                <p>Create your perfect ambient environment by mixing different sounds</p>
+                <div class="mixer-grid">
+                    <div class="mixer-track">
+                        <i class="fas fa-water sound-icon"></i>
+                        <h4>Ocean Waves</h4>
+                        <input type="range" class="volume-control" data-sound="ocean" min="0" max="100" value="0">
+                    </div>
+                    <div class="mixer-track">
+                        <i class="fas fa-cloud-rain sound-icon"></i>
+                        <h4>Rain</h4>
+                        <input type="range" class="volume-control" data-sound="rain" min="0" max="100" value="0">
+                    </div>
+                    <div class="mixer-track">
+                        <i class="fas fa-wind sound-icon"></i>
+                        <h4>Wind</h4>
+                        <input type="range" class="volume-control" data-sound="wind" min="0" max="100" value="0">
+                    </div>
+                    <div class="mixer-track">
+                        <i class="fas fa-fire sound-icon"></i>
+                        <h4>Fire</h4>
+                        <input type="range" class="volume-control" data-sound="fire" min="0" max="100" value="0">
+                    </div>
+                </div>
+            </div>
+
+            <div class="sound-grid">
+                <div class="sound-card">
+                    <i class="fas fa-moon sound-icon"></i>
+                    <h3>Sleep Sounds</h3>
+                    <p>Gentle sounds to help you fall asleep</p>
+                    <button class="btn-secondary play-sound" data-sound="sleep">
+                        <i class="fas fa-play"></i> Play
+                    </button>
+                </div>
+                <div class="sound-card">
+                    <i class="fas fa-spa sound-icon"></i>
+                    <h3>Meditation</h3>
+                    <p>Deep relaxation and mindfulness sounds</p>
+                    <button class="btn-secondary play-sound" data-sound="meditation">
+                        <i class="fas fa-play"></i> Play
+                    </button>
+                </div>
+                <div class="sound-card">
+                    <i class="fas fa-tree sound-icon"></i>
+                    <h3>Nature Sounds</h3>
+                    <p>Calming sounds from nature</p>
+                    <button class="btn-secondary play-sound" data-sound="nature">
+                        <i class="fas fa-play"></i> Play
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Audio Player
+        const playPauseBtn = document.getElementById('playPause');
+        const prevTrackBtn = document.getElementById('prevTrack');
+        const nextTrackBtn = document.getElementById('nextTrack');
+        const seekBar = document.getElementById('seekBar');
+        const volumeControl = document.getElementById('volumeControl');
+        let isPlaying = false;
+
+        playPauseBtn.addEventListener('click', () => {
+            isPlaying = !isPlaying;
+            playPauseBtn.innerHTML = isPlaying ? '<i class="fas fa-pause"></i>' : '<i class="fas fa-play"></i>';
+        });
+
+        // Timer
+        const timerDisplay = document.getElementById('timerDisplay');
+        const startTimerBtn = document.getElementById('startTimer');
+        let timerInterval;
+        let timeLeft = 1200; // 20 minutes in seconds
+
+        document.querySelectorAll('.timer-controls button[data-time]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                timeLeft = parseInt(btn.dataset.time) * 60;
+                updateTimerDisplay();
+            });
+        });
+
+        startTimerBtn.addEventListener('click', () => {
+            if (startTimerBtn.textContent === 'Start') {
+                startTimer();
+                startTimerBtn.textContent = 'Stop';
+            } else {
+                stopTimer();
+                startTimerBtn.textContent = 'Start';
+            }
+        });
+
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                updateTimerDisplay();
+                if (timeLeft <= 0) {
+                    stopTimer();
+                    alert('Meditation session completed!');
+                }
+            }, 1000);
+        }
+
+        function stopTimer() {
+            clearInterval(timerInterval);
+        }
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            timerDisplay.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        // Sound Mixer
+        const mixerTracks = document.querySelectorAll('.mixer-track input');
+        mixerTracks.forEach(track => {
+            track.addEventListener('input', (e) => {
+                const volume = e.target.value;
+                const sound = e.target.dataset.sound;
+                // Implement sound mixing logic here
+            });
+        });
+
+        // Individual Sound Cards
+        document.querySelectorAll('.play-sound').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const isPlaying = btn.classList.contains('playing');
+                if (isPlaying) {
+                    btn.classList.remove('playing');
+                    btn.innerHTML = '<i class="fas fa-play"></i> Play';
+                } else {
+                    btn.classList.add('playing');
+                    btn.innerHTML = '<i class="fas fa-pause"></i> Pause';
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

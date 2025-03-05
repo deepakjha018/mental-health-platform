@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mindfulness Games - Mind Buddy</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .game-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .game-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .game-preview {
+            width: 100%;
+            height: 200px;
+            background: #f5f5f5;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .memory-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            max-width: 400px;
+            margin: 20px auto;
+        }
+
+        .memory-card {
+            aspect-ratio: 1;
+            background: #7ca9f4;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .memory-card.flipped {
+            background: #4a90e2;
+        }
+
+        .game-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .game-stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            padding: 15px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <header class="modern-header">
+        <div class="container">
+            <div class="logo-container">
+                <img src="brain.png" alt="Mind Buddy Logo" class="logo">
+                <h1>Mind Buddy</h1>
+            </div>
+            <nav>
+                <a href="index1.html">Home</a>
+                <a href="index1.html#resources">Resources</a>
+                <a href="index1.html#activities">Activities</a>
+                <a href="index1.html#support-groups">Community</a>
+                <a href="index1.html#chatbot">AI Support</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="games-section">
+            <div class="container">
+                <h2>Mindfulness Games</h2>
+                <p>Explore our collection of games designed to reduce stress and improve focus</p>
+
+                <div class="games-grid">
+                    <div class="game-card">
+                        <h3>Memory Match</h3>
+                        <div class="game-preview">
+                            <div class="memory-grid" id="memoryGrid"></div>
+                        </div>
+                        <p>Exercise your memory and concentration</p>
+                        <button class="btn-primary" onclick="startMemoryGame()">Play Now</button>
+                    </div>
+
+                    <div class="game-card">
+                        <h3>Color Meditation</h3>
+                        <div class="game-preview" id="colorMeditation">
+                            <div style="width: 100%; height: 100%; background: linear-gradient(45deg, #ff6b6b, #4ecdc4);"></div>
+                        </div>
+                        <p>Follow the changing colors for a calming experience</p>
+                        <button class="btn-primary" onclick="startColorMeditation()">Start</button>
+                    </div>
+
+                    <div class="game-card">
+                        <h3>Focus Dots</h3>
+                        <div class="game-preview" id="focusDots"></div>
+                        <p>Track moving dots to improve concentration</p>
+                        <button class="btn-primary" onclick="startFocusDots()">Begin</button>
+                    </div>
+                </div>
+
+                <div class="game-stats">
+                    <div>
+                        <h4>Daily Progress</h4>
+                        <p>Games Played: <span id="gamesPlayed">0</span></p>
+                    </div>
+                    <div>
+                        <h4>Focus Score</h4>
+                        <p>Points: <span id="focusScore">0</span></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Memory Match Game
+        function startMemoryGame() {
+            const grid = document.getElementById('memoryGrid');
+            const colors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEEAD', '#D4A5A5', '#9B6B6B', '#E0E0E0'];
+            const cards = [...colors, ...colors];
+            let flippedCards = [];
+            let matchedPairs = 0;
+
+            // Shuffle cards
+            cards.sort(() => Math.random() - 0.5);
+
+            // Create grid
+            grid.innerHTML = '';
+            cards.forEach((color, index) => {
+                const card = document.createElement('div');
+                card.className = 'memory-card';
+                card.dataset.color = color;
+                card.dataset.index = index;
+                card.addEventListener('click', flipCard);
+                grid.appendChild(card);
+            });
+
+            function flipCard() {
+                if (flippedCards.length === 2) return;
+                if (flippedCards.includes(this)) return;
+
+                this.style.backgroundColor = this.dataset.color;
+                this.classList.add('flipped');
+                flippedCards.push(this);
+
+                if (flippedCards.length === 2) {
+                    setTimeout(checkMatch, 1000);
+                }
+            }
+
+            function checkMatch() {
+                const [card1, card2] = flippedCards;
+                if (card1.dataset.color === card2.dataset.color) {
+                    matchedPairs++;
+                    if (matchedPairs === colors.length) {
+                        alert('Congratulations! You won!');
+                        updateStats();
+                    }
+                } else {
+                    card1.style.backgroundColor = '';
+                    card2.style.backgroundColor = '';
+                    card1.classList.remove('flipped');
+                    card2.classList.remove('flipped');
+                }
+                flippedCards = [];
+            }
+        }
+
+        // Color Meditation
+        function startColorMeditation() {
+            const meditation = document.getElementById('colorMeditation').firstElementChild;
+            const colors = [
+                'linear-gradient(45deg, #ff6b6b, #4ecdc4)',
+                'linear-gradient(45deg, #96ceb4, #ffeead)',
+                'linear-gradient(45deg, #d4a5a5, #9b6b6b)',
+                'linear-gradient(45deg, #45b7d1, #e0e0e0)'
+            ];
+            let currentIndex = 0;
+
+            const interval = setInterval(() => {
+                currentIndex = (currentIndex + 1) % colors.length;
+                meditation.style.background = colors[currentIndex];
+            }, 3000);
+
+            setTimeout(() => {
+                clearInterval(interval);
+                updateStats();
+            }, 180000); // 3 minutes
+        }
+
+        // Focus Dots
+        function startFocusDots() {
+            const canvas = document.createElement('canvas');
+            const dots = document.getElementById('focusDots');
+            dots.innerHTML = '';
+            dots.appendChild(canvas);
+            canvas.width = dots.clientWidth;
+            canvas.height = dots.clientHeight;
+            const ctx = canvas.getContext('2d');
+
+            const particles = [];
+            for (let i = 0; i < 5; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    dx: (Math.random() - 0.5) * 2,
+                    dy: (Math.random() - 0.5) * 2,
+                    radius: 5
+                });
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                particles.forEach(particle => {
+                    particle.x += particle.dx;
+                    particle.y += particle.dy;
+
+                    if (particle.x < 0 || particle.x > canvas.width) particle.dx *= -1;
+                    if (particle.y < 0 || particle.y > canvas.height) particle.dy *= -1;
+
+                    ctx.beginPath();
+                    ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = '#4a90e2';
+                    ctx.fill();
+                    ctx.closePath();
+                });
+
+                requestAnimationFrame(animate);
+            }
+
+            animate();
+        }
+
+        // Update Stats
+        function updateStats() {
+            const gamesPlayed = document.getElementById('gamesPlayed');
+            const focusScore = document.getElementById('focusScore');
+            
+            gamesPlayed.textContent = parseInt(gamesPlayed.textContent) + 1;
+            focusScore.textContent = parseInt(focusScore.textContent) + 10;
+        }
+    </script>
+</body>
+</html> 
