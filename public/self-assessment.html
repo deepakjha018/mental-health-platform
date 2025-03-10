@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mental Health Assessment - Mind Buddy</title>
-  <link rel="stylesheet" href="css/styles.css">
+  <title>Mental Health Assessment - Neuro Nurture</title>
+
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <style>
@@ -13,6 +13,197 @@
       background: linear-gradient(135deg, #EDF6F9, #FAFAFA);
       padding: 40px 20px;
     }
+
+    :root {
+    --primary-blue: #47b6f6;
+    --secondary-teal: #57c3c7;
+    --accent-coral: #E29578;
+    --background-light: #EDF6F9;
+    --text-dark: #2B2D42;
+    --text-light: #FAFAFA;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  /* Modern Header Styles */
+  .modern-header {
+    background: var(--primary-blue);
+    padding: 1rem 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 1000;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .logo-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .logo {
+    width: 50px;
+    height: 50px;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+  }
+  
+  nav {
+    display: flex;
+    gap: 2rem;
+  }
+  
+  nav a {
+    color: var(--text-light);
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+    transition: var(--transition);
+  }
+  
+  nav a:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+  }
+  
+  /* Remove duplicate styles from HTML and enhance existing ones */
+  .assessment-wrapper {
+    min-height: 100vh;
+    background: linear-gradient(135deg, var(--background-light), #FAFAFA);
+    padding: 2rem 1rem;
+    position: relative;
+  }
+  
+  .assessment-container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 30px;
+    box-shadow: 0 15px 35px rgba(124, 158, 178, 0.2);
+    overflow: hidden;
+    transform: translateY(20px);
+    opacity: 0;
+    animation: slideUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+  
+  @keyframes slideUp {
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  /* Enhanced Question Cards */
+  .question-card {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 5px 20px rgba(124, 158, 178, 0.1);
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .question-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--secondary-teal);
+    transition: var(--transition);
+  }
+  
+  .question-card:hover::before {
+    width: 8px;
+  }
+  
+  /* Enhanced Option Buttons */
+  .option-btn {
+    padding: 1rem 1.5rem;
+    border: 2px solid var(--secondary-teal);
+    border-radius: 15px;
+    background: white;
+    cursor: pointer;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+    text-align: left;
+  }
+  
+  .option-btn:hover {
+    border-color: var(--primary-blue);
+    transform: translateX(10px);
+  }
+  
+  .option-btn.selected {
+    background: var(--primary-blue);
+    color: white;
+    border-color: var(--primary-blue);
+    transform: translateX(10px) scale(1.02);
+  }
+  
+  /* Enhanced Results Section */
+  .score-circle {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    margin: 2rem auto;
+  }
+  
+  .score-value {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary-blue);
+  }
+  
+  .recommendation-card {
+    background: white;
+    border-radius: 15px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: var(--transition);
+    border: 2px solid transparent;
+  }
+  
+  .recommendation-card:hover {
+    border-color: var(--secondary-teal);
+    transform: translateY(-5px);
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .container {
+      flex-direction: column;
+      gap: 1rem;
+    }
+  
+    nav {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+  
+    .options-grid {
+      grid-template-columns: 1fr;
+    }
+  
+    .professional-cards {
+      grid-template-columns: 1fr;
+    }
+  }
 
     .assessment-container {
       max-width: 800px;
@@ -24,7 +215,7 @@
     }
 
     .assessment-header {
-      background: linear-gradient(45deg, #7C9EB2, #A8DADC);
+      background: linear-gradient(45deg, #5dbcf3, #99f6f9);
       padding: 40px;
       color: white;
       text-align: center;
@@ -302,12 +493,12 @@
     }
   </style>
 </head>
-<body>
+<body style="margin: 0">
   <header class="modern-header">
     <div class="container">
       <div class="logo-container">
         <img src="brain.png" alt="Mind Buddy Logo" class="logo">
-        <h1>Mind Buddy</h1>
+        <h1>Neuro Nurture</h1>
       </div>
       <nav>
         <a href="index1.html">Home</a>

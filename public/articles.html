@@ -3,10 +3,117 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mental Health Articles - Mind Buddy</title>
-  <link rel="stylesheet" href="css/styles.css">
+  <title>Mental Health Articles - Nuero Nurture</title>
+  
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f9;
+  color: #333;
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h1 {
+  font-size: 2.5rem;
+  color: #2c3e50;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  text-align: center;
+  color: #666;
+  margin-bottom: 40px;
+}
+
+/* Article List */
+.article-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.article-card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  transition: transform 0.3s ease;
+}
+
+.article-card:hover {
+  transform: translateY(-5px);
+}
+
+.article-card h2 {
+  font-size: 1.5rem;
+  color: #2c3e50;
+  margin-bottom: 10px;
+}
+
+.article-card .meta {
+  font-size: 0.9rem;
+  color: #888;
+  margin-bottom: 15px;
+}
+
+.article-card p {
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.btn-secondary {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #3498db;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background-color: #2980b9;
+}
+
+/* Footer */
+footer {
+  background-color: #2c3e50;
+  color: #fff;
+  text-align: center;
+  padding: 20px 0;
+  margin-top: 40px;
+}
+
+footer .social-links {
+  margin-top: 10px;
+}
+
+footer .social-links a {
+  color: #fff;
+  margin: 0 10px;
+  font-size: 1.2rem;
+  transition: color 0.3s ease;
+}
+
+footer .social-links a:hover {
+  color: #3498db;
+}
+  </style>
 </head>
 <body>
   <div class="container">
@@ -42,13 +149,51 @@
         <p>Mindfulness can improve mental clarity and emotional resilience. Learn how to incorporate mindfulness practices into your daily life.</p>
         <a href="https://www.bing.com/ck/a?!&&p=87484bfad95a8981987ddad519351795697bbc2de0bb6efe575d14fc5f26b467JmltdHM9MTc0MDAwOTYwMA&ptn=3&ver=2&hsh=4&fclid=321e7661-9587-6f7b-3d9d-62dd94756ef8&psq=The+Power+of+Mindfulness+in+Mental+Health+article&u=a1aHR0cHM6Ly9wbWMubmNiaS5ubG0ubmloLmdvdi9hcnRpY2xlcy9QTUMzNjc5MTkwLyM6fjp0ZXh0PVRoaXMlMjBhcnRpY2xlJTIwcmV2aWV3cyUyMHRoZSUyMGVtcGlyaWNhbCUyMGxpdGVyYXR1cmUlMjBvbix0aGUlMjBlZmZlY3RzJTIwb2YlMjBtaW5kZnVsbmVzcyUyMG9uJTIwcHN5Y2hvbG9naWNhbCUyMGhlYWx0aC4&ntb=1" class="btn-secondary">Read Full Article</a>
       </div>
+
+
+
+      <!-- Add more articles below -->
+      <div class="article-card">
+        <h2>Building Resilience in Tough Times</h2>
+        <p class="meta">Published on January 30, 2025 | By Dr. Sarah Lee</p>
+        <p>Resilience is key to overcoming life's challenges. Discover strategies to build emotional strength and bounce back from adversity.</p>
+        <a href="https://www.example.com/building-resilience" class="btn-secondary">Read Full Article</a>
+      </div>
+
+      <div class="article-card">
+        <h2>The Role of Nutrition in Mental Health</h2>
+        <p class="meta">Published on January 25, 2025 | By Dr. Alex Johnson</p>
+        <p>What you eat can impact your mental health. Learn about the connection between nutrition and emotional well-being.</p>
+        <a href="https://www.example.com/nutrition-mental-health" class="btn-secondary">Read Full Article</a>
+      </div>
+
+      <div class="article-card">
+        <h2>Sleep and Mental Health: The Connection</h2>
+        <p class="meta">Published on January 20, 2025 | By Dr. Rachel Adams</p>
+        <p>Poor sleep can worsen mental health issues. Explore tips for improving sleep quality and its impact on emotional well-being.</p>
+        <a href="https://www.example.com/sleep-mental-health" class="btn-secondary">Read Full Article</a>
+      </div>
+
+      <div class="article-card">
+        <h2>How to Support a Loved One with Mental Health Issues</h2>
+        <p class="meta">Published on January 15, 2025 | By Dr. Mark Taylor</p>
+        <p>Supporting someone with mental health challenges can be difficult. Learn how to provide effective and compassionate support.</p>
+        <a href="https://www.example.com/support-loved-one" class="btn-secondary">Read Full Article</a>
+      </div>
+
+      <!-- Add more articles as needed -->
     </div>
   </div>
 
   <!-- Footer -->
   <footer>
     <div class="container">
-      <p>&copy; 2025 Mind Buddy. All rights reserved.</p>
+      <p>&copy; 2025 Neuro Nurture. All rights reserved.</p>
+      <div class="social-links">
+        <a href="https://facebook.com" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+        <a href="https://twitter.com" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="https://instagram.com" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      </div>
     </div>
   </footer>
 </body>

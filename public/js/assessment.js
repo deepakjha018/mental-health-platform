@@ -116,6 +116,7 @@ class AssessmentManager {
     constructor() {
         this.currentQuestion = 0;
         this.answers = [];
+        this.totalQuestions = assessmentQuestions.length;
         this.initializeElements();
         this.bindEvents();
         this.displayQuestion();
@@ -165,8 +166,21 @@ class AssessmentManager {
     }
 
     updateProgressBar() {
-        const progress = ((this.currentQuestion + 1) / assessmentQuestions.length) * 100;
-        this.progressBar.style.width = `${progress}%`;
+        const progressPercentage = ((this.currentQuestion + 1) / this.totalQuestions) * 100;
+        const progressBar = document.querySelector('.progress-bar');
+        
+        if (progressBar) {
+            // Ensure smooth animation
+            progressBar.style.transition = 'width 0.5s ease-in-out';
+            progressBar.style.width = `${progressPercentage}%`;
+
+            // Force 100% on last question
+            if (this.currentQuestion === this.totalQuestions - 1) {
+                setTimeout(() => {
+                    progressBar.style.width = '100%';
+                }, 100);
+            }
+        }
     }
 
     updateNavigationButtons() {
@@ -190,12 +204,30 @@ class AssessmentManager {
     }
 
     handleOptionSelect(option) {
-        const value = parseInt(option.value);
-        this.answers[this.currentQuestion] = value;
-        
-        if (this.currentQuestion < assessmentQuestions.length - 1) {
-            setTimeout(() => this.showNextQuestion(), 500);
-        }
+        const selectedValue = option.value;
+        this.answers[this.currentQuestion] = parseInt(selectedValue);
+
+        // Remove selection from all options
+        document.querySelectorAll('.option').forEach(opt => {
+            opt.classList.remove('selected');
+        });
+
+        // Add selection to clicked option
+        option.parentElement.classList.add('selected');
+
+        // Add delay before moving to next question
+        setTimeout(() => {
+            if (this.currentQuestion < this.totalQuestions - 1) {
+                this.currentQuestion++;
+                this.displayQuestion();
+            } else {
+                // Ensure progress bar shows 100% before showing results
+                this.updateProgressBar();
+                setTimeout(() => {
+                    this.submitAssessment();
+                }, 500);
+            }
+        }, 300);
     }
 
     showPreviousQuestion() {

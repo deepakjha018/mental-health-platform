@@ -1621,11 +1621,11 @@ section h2 i {
 /* Icon Container Base Styles */
 .icon-wrapper {
     position: absolute;
-    top: 2px;
+    top: 25px;
     left: 50%;
     transform: translateX(-50%);
-    width: 80px;
-    height: 60px;
+    width: 90px;
+    height: 80px;
     background: var(--gradient-1);
     border-radius: 50%;
     display: flex;
@@ -1660,7 +1660,7 @@ section h2 i {
 /* Resource Card Icons */
 .resource-icon {
     position: absolute !important;
-    top: 2px !important;
+    top: 20px !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
     margin: 0 !important;
@@ -1669,7 +1669,7 @@ section h2 i {
 /* Activity Card Icons */
 .activity-icon {
     position: absolute !important;
-    top: 2px !important;
+    top: 20px !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
     margin: 0 !important;
@@ -1678,7 +1678,7 @@ section h2 i {
 /* Group Card Icons */
 .group-icon {
     position: absolute !important;
-    top: 2px !important;
+    top: 20px !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
     margin: 0 !important;
@@ -2315,4 +2315,89 @@ section h2 i {
     background: white;
     backface-visibility: hidden;
     transform: rotateY(180deg);
+}
+
+/* Modern Assessment Theme */
+.assessment-wrapper {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #6e8efb, #4a6cf7);
+    padding: 40px 20px;
+}
+
+.assessment-container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: rgba(132, 244, 174, 0.95);
+    border-radius: 30px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+}
+
+.assessment-header {
+    background: linear-gradient(45deg, #4a6cf7, #6e8efb);
+    padding: 40px;
+    color: white;
+    text-align: center;
+    border-radius: 30px 30px 0 0;
+}
+
+.progress-container {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    padding: 5px;
+    margin: 30px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 15px;
+    background: linear-gradient(90deg, #fff, #e0e7ff);
+    border-radius: 20px;
+    transition: width 0.5s ease-in-out;
+    position: relative;
+}
+
+.progress-bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, 
+        rgba(255,255,255,0.15) 25%, 
+        rgba(255,255,255,0.3) 50%, 
+        rgba(255,255,255,0.15) 75%);
+    animation: shimmer 2s infinite;
+}
+
+.option-btn {
+    background: white;
+    border: 2px solid #4a6cf7;
+    color: #4a6cf7;
+    padding: 15px 25px;
+    border-radius: 15px;
+    width: 100%;
+    margin: 10px 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1.1rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(74, 108, 247, 0.1);
+}
+
+.option-btn:hover {
+    background: linear-gradient(45deg, #4a6cf7, #6e8efb);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(74, 108, 247, 0.2);
+}
+
+.option-btn.selected {
+    background: linear-gradient(45deg, #4a6cf7, #6e8efb);
+    color: rgb(104, 156, 246);
+    border-color: transparent;
+    transform: scale(1.02);
 }
