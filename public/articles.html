@@ -46,48 +46,102 @@ h1 {
 }
 
 .article-card {
+  position: relative;
   background: #fff;
-  border-radius: 10px;
+  border-radius: 15px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 20px;
-  transition: transform 0.3s ease;
-}
-
-.article-card:hover {
-  transform: translateY(-5px);
-}
-
-.article-card h2 {
-  font-size: 1.5rem;
-  color: #2c3e50;
-  margin-bottom: 10px;
-}
-
-.article-card .meta {
-  font-size: 0.9rem;
-  color: #888;
-  margin-bottom: 15px;
-}
-
-.article-card p {
-  font-size: 1rem;
-  color: #555;
-  line-height: 1.6;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   margin-bottom: 20px;
 }
 
-.btn-secondary {
-  display: inline-block;
-  padding: 10px 20px;
-  background-color: #3498db;
-  color: #fff;
-  text-decoration: none;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
+.article-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
 }
 
-.btn-secondary:hover {
-  background-color: #2980b9;
+.article-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 15px 15px 0 0;
+}
+
+.article-content {
+  padding: 15px 0;
+}
+
+.article-category {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  padding: 5px 15px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.9);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.article-meta {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.article-meta i {
+  color: #3498db;
+}
+
+.reading-time {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.article-tags {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+  flex-wrap: wrap;
+}
+
+.tag {
+  padding: 5px 12px;
+  background: #f0f2f5;
+  border-radius: 15px;
+  font-size: 0.85rem;
+  color: #666;
+  transition: all 0.3s ease;
+}
+
+.tag:hover {
+  background: #3498db;
+  color: white;
+}
+
+.load-more {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.btn-load-more {
+  padding: 12px 30px;
+  background: transparent;
+  border: 2px solid #3498db;
+  color: #3498db;
+  border-radius: 25px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-load-more:hover {
+  background: #3498db;
+  color: white;
+  transform: translateY(-2px);
 }
 
 /* Footer */
@@ -113,75 +167,901 @@ footer .social-links a {
 footer .social-links a:hover {
   color: #3498db;
 }
+
+/* Enhanced Article List Styles */
+.article-filters {
+  margin: 20px 0 40px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  padding: 8px 20px;
+  border: none;
+  border-radius: 25px;
+  background: #f0f2f5;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.filter-btn.active {
+  background: #3498db;
+  color: white;
+  transform: scale(1.05);
+}
+
+.article-search {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto 40px;
+  position: relative;
+}
+
+.article-search input {
+  width: 100%;
+  padding: 15px 20px;
+  border: 2px solid #eee;
+  border-radius: 30px;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+}
+
+.article-search input:focus {
+  border-color: #3498db;
+  box-shadow: 0 0 15px rgba(52, 152, 219, 0.2);
+}
   </style>
 </head>
 <body>
   <div class="container">
     <h1>Mental Health Articles</h1>
-    <p>Explore expert-written articles on mental health and wellness.</p>
+    <p class="subtitle">Explore expert-written articles on mental health and wellness.</p>
 
-    <!-- Article List -->
+    <div class="article-search">
+      <input type="text" id="searchArticles" placeholder="Search articles...">
+    </div>
+
+    <div class="article-filters">
+      <button class="filter-btn active" data-category="all">All</button>
+      <button class="filter-btn" data-category="anxiety">Anxiety</button>
+      <button class="filter-btn" data-category="depression">Depression</button>
+      <button class="filter-btn" data-category="stress">Stress Management</button>
+      <button class="filter-btn" data-category="wellness">Wellness</button>
+      <button class="filter-btn" data-category="mindfulness">Mindfulness</button>
+    </div>
+
     <div class="article-list">
-      <div class="article-card">
-        <h2>Understanding Stress and How to Manage It</h2>
-        <p class="meta">Published on February 20, 2025 | By Dr. Jane Doe</p>
-        <p>Stress is a natural response to challenges, but chronic stress can harm your mental and physical health. Learn practical tips to manage stress effectively.</p>
-        <a href="https://www.bing.com/ck/a?!&&p=cb7afd9049c1ea387b857b0cf69e579f197138ff4a68d95d61264dd6ea930d57JmltdHM9MTc0MDAwOTYwMA&ptn=3&ver=2&hsh=4&fclid=321e7661-9587-6f7b-3d9d-62dd94756ef8&psq=articleon+understanding+stress+and+how+to+manage+it+in+india&u=a1aHR0cHM6Ly93d3cuZXZlcnlvbmVhY3RpdmUuY29tL2NvbnRlbnQtaHViL2hlYWx0aC9zdHJlc3Mv&ntb=1" class="btn-secondary">Read Full Article</a>
+      <div class="article-card" data-category="stress">
+        <span class="article-category">Stress Management</span>
+        <div class="article-content">
+          <div class="article-meta">
+            <span><i class="far fa-calendar"></i> Feb 20, 2025</span>
+            <span><i class="far fa-user"></i> Dr. Jane Doe</span>
+            <span class="reading-time"><i class="far fa-clock"></i> 5 min read</span>
+          </div>
+          <h2>Understanding Stress and How to Manage It</h2>
+          <p>Stress is a natural response to challenges, but chronic stress can harm your mental and physical health. Learn practical tips to manage stress effectively.</p>
+          <div class="article-tags">
+            <span class="tag">#StressManagement</span>
+            <span class="tag">#MentalHealth</span>
+            <span class="tag">#Wellness</span>
+          </div>
+          <a href="#" class="btn-secondary">Read Full Article</a>
+        </div>
       </div>
 
-      <div class="article-card">
-        <h2>Dealing with Anxiety: A Comprehensive Guide</h2>
-        <p class="meta">Published on February 15, 2025 | By Dr. John Smith</p>
-        <p>Anxiety can feel overwhelming, but there are proven strategies to cope. Discover how mindfulness, therapy, and lifestyle changes can help.</p>
-        <a href="https://www.bing.com/ck/a?!&&p=dfd04f5a05ad53ac8ba0be5aa65edd90c6fb4f530276b0d75a6111ec6a04fddeJmltdHM9MTc0MDAwOTYwMA&ptn=3&ver=2&hsh=4&fclid=321e7661-9587-6f7b-3d9d-62dd94756ef8&psq=dealing+with+anxiety%3a+a+comprehensive+guide&u=a1aHR0cHM6Ly93d3cuYXJ0b2ZsaXZpbmcub3JnL2luLWVuL2xpZmVzdHlsZS90aXBzL2NvbnF1ZXJpbmctYW54aWV0eS1zdGVwLWJ5LXN0ZXAtZ3VpZGUjOn46dGV4dD1UaGlzJTIwY29tcHJlaGVuc2l2ZSUyMHN0ZXAtYnktc3RlcCUyMGd1aWRlJTIwaXMlMjBkZXNpZ25lZCUyMHRvJTIwcHJvdmlkZSxvdmVyY29tZSUyMGFueGlldHklMjBhbmQlMjByZWdhaW4lMjBjb250cm9sJTIwb3ZlciUyMHlvdXIlMjBsaWZlLg&ntb=1" class="btn-secondary">Read Full Article</a>
+      <div class="article-card" data-category="anxiety">
+        <span class="article-category">Anxiety</span>
+        <div class="article-content">
+          <div class="article-meta">
+            <span><i class="far fa-calendar"></i> Feb 15, 2025</span>
+            <span><i class="far fa-user"></i> Dr. John Smith</span>
+            <span class="reading-time"><i class="far fa-clock"></i> 5 min read</span>
+          </div>
+          <h2>Dealing with Anxiety: A Comprehensive Guide</h2>
+          <p>Anxiety can feel overwhelming, but there are proven strategies to cope. Discover how mindfulness, therapy, and lifestyle changes can help.</p>
+          <div class="article-tags">
+            <span class="tag">#Anxiety</span>
+            <span class="tag">#MentalHealth</span>
+          </div>
+          <a href="https://www.bing.com/ck/a?!&&p=dfd04f5a05ad53ac8ba0be5aa65edd90c6fb4f530276b0d75a6111ec6a04fddeJmltdHM9MTc0MDAwOTYwMA&ptn=3&ver=2&hsh=4&fclid=321e7661-9587-6f7b-3d9d-62dd94756ef8&psq=dealing+with+anxiety%3a+a+comprehensive+guide&u=a1aHR0cHM6Ly93d3cuYXJ0b2ZsaXZpbmcub3JnL2luLWVuL2xpZmVzdHlsZS90aXBzL2NvbnF1ZXJpbmctYW54aWV0eS1zdGVwLWJ5LXN0ZXAtZ3VpZGUjOn46dGV4dD1UaGlzJTIwY29tcHJlaGVuc2l2ZSUyMHN0ZXAtYnktc3RlcCUyMGd1aWRlJTIwaXMlMjBkZXNpZ25lZCUyMHRvJTIwcHJvdmlkZSxvdmVyY29tZSUyMGFueGlldHklMjBhbmQlMjByZWdhaW4lMjBjb250cm9sJTIwb3ZlciUyMHlvdXIlMjBsaWZlLg&ntb=1" class="btn-secondary">Read Full Article</a>
+        </div>
       </div>
 
-      <div class="article-card">
-        <h2>Overcoming Depression: Steps to Recovery</h2>
-        <p class="meta">Published on February 10, 2025 | By Dr. Emily Brown</p>
-        <p>Depression is a common but serious condition. This article explores treatment options, self-care practices, and how to seek support.</p>
-        <a href="https://www.bing.com/ck/a?!&&p=6464e07a3cb9f3e89b98a13569a597d74071f67ffb7ce6d871dcaa8142dfc73cJmltdHM9MTc0MDAwOTYwMA&ptn=3&ver=2&hsh=4&fclid=321e7661-9587-6f7b-3d9d-62dd94756ef8&psq=Overcoming+Depression%3a+Steps+to+Recovery+article&u=a1aHR0cHM6Ly93d3cuZXhoYWxldGhlcmFweS5jYS93b3Jkcy1mcm9tLXRoZS1leHBlcnRzL292ZXJjb21pbmctZGVwcmVzc2lvbi1zdHJhdGVnaWVzLWZvci1oZWFsaW5nLWFuZC1yZWNvdmVyeSM6fjp0ZXh0PUluJTIwdGhpcyUyMHBvc3QlMkMlMjB3ZSUyN2xsJTIwZXhwbG9yZSUyMHZhcmlvdXMlMjBzdHJhdGVnaWVzJTIwZm9yLERlcHJlc3Npb24lMjBpcyUyMG9mdGVuJTIwbWlzdW5kZXJzdG9vZCUyMGFzJTIwc2ltcGx5JTIwZmVlbGluZyUyMHNhZC4&ntb=1" class="btn-secondary">Read Full Article</a>
+      <div class="article-card" data-category="depression">
+        <span class="article-category">Depression</span>
+        <div class="article-content">
+          <div class="article-meta">
+            <span><i class="far fa-calendar"></i> Feb 10, 2025</span>
+            <span><i class="far fa-user"></i> Dr. Emily Brown</span>
+            <span class="reading-time"><i class="far fa-clock"></i> 5 min read</span>
+          </div>
+          <h2>Overcoming Depression: Steps to Recovery</h2>
+          <p>Depression is a common but serious condition. This article explores treatment options, self-care practices, and how to seek support.</p>
+          <div class="article-tags">
+            <span class="tag">#Depression</span>
+            <span class="tag">#MentalHealth</span>
+          </div>
+          <a href="https://www.bing.com/ck/a?!&&p=6464e07a3cb9f3e89b98a13569a597d74071f67ffb7ce6d871dcaa8142dfc73cJmltdHM9MTc0MDAwOTYwMA&ptn=3&ver=2&hsh=4&fclid=321e7661-9587-6f7b-3d9d-62dd94756ef8&psq=Overcoming+Depression%3a+Steps+to+Recovery+article&u=a1aHR0cHM6Ly93d3cuZXhoYWxldGhlcmFweS5jYS93b3Jkcy1mcm9tLXRoZS1leHBlcnRzL292ZXJjb21pbmctZGVwcmVzc2lvbi1zdHJhdGVnaWVzLWZvci1oZWFsaW5nLWFuZC1yZWNvdmVyeSM6fjp0ZXh0PUluJTIwdGhpcyUyMHBvc3QlMkMlMjB3ZSUyN2xsJTIwZXhwbG9yZSUyMHZhcmlvdXMlMjBzdHJhdGVnaWVzJTIwZm9yLERlcHJlc3Npb24lMjBpcyUyMG9mdGVuJTIwbWlzdW5kZXJzdG9vZCUyMGFzJTIwc2ltcGx5JTIwZmVlbGluZyUyMHNhZC4&ntb=1" class="btn-secondary">Read Full Article</a>
+        </div>
       </div>
 
-      <div class="article-card">
-        <h2>The Power of Mindfulness in Mental Health</h2>
-        <p class="meta">Published on February 5, 2025 | By Dr. Michael Green</p>
-        <p>Mindfulness can improve mental clarity and emotional resilience. Learn how to incorporate mindfulness practices into your daily life.</p>
-        <a href="https://www.bing.com/ck/a?!&&p=87484bfad95a8981987ddad519351795697bbc2de0bb6efe575d14fc5f26b467JmltdHM9MTc0MDAwOTYwMA&ptn=3&ver=2&hsh=4&fclid=321e7661-9587-6f7b-3d9d-62dd94756ef8&psq=The+Power+of+Mindfulness+in+Mental+Health+article&u=a1aHR0cHM6Ly9wbWMubmNiaS5ubG0ubmloLmdvdi9hcnRpY2xlcy9QTUMzNjc5MTkwLyM6fjp0ZXh0PVRoaXMlMjBhcnRpY2xlJTIwcmV2aWV3cyUyMHRoZSUyMGVtcGlyaWNhbCUyMGxpdGVyYXR1cmUlMjBvbix0aGUlMjBlZmZlY3RzJTIwb2YlMjBtaW5kZnVsbmVzcyUyMG9uJTIwcHN5Y2hvbG9naWNhbCUyMGhlYWx0aC4&ntb=1" class="btn-secondary">Read Full Article</a>
+      <div class="article-card" data-category="mindfulness">
+        <span class="article-category">Mindfulness</span>
+        <div class="article-content">
+          <div class="article-meta">
+            <span><i class="far fa-calendar"></i> Feb 5, 2025</span>
+            <span><i class="far fa-user"></i> Dr. Michael Green</span>
+            <span class="reading-time"><i class="far fa-clock"></i> 5 min read</span>
+          </div>
+          <h2>The Power of Mindfulness in Mental Health</h2>
+          <p>Mindfulness can improve mental clarity and emotional resilience. Learn how to incorporate mindfulness practices into your daily life.</p>
+          <div class="article-tags">
+            <span class="tag">#Mindfulness</span>
+            <span class="tag">#MentalHealth</span>
+          </div>
+          <a href="https://www.bing.com/ck/a?!&&p=87484bfad95a8981987ddad519351795697bbc2de0bb6efe575d14fc5f26b467JmltdHM9MTc0MDAwOTYwMA&ptn=3&ver=2&hsh=4&fclid=321e7661-9587-6f7b-3d9d-62dd94756ef8&psq=The+Power+of+Mindfulness+in+Mental+Health+article&u=a1aHR0cHM6Ly9wbWMubmNiaS5ubG0ubmloLmdvdi9hcnRpY2xlcy9QTUMzNjc5MTkwLyM6fjp0ZXh0PVRoaXMlMjBhcnRpY2xlJTIwcmV2aWV3cyUyMHRoZSUyMGVtcGlyaWNhbCUyMGxpdGVyYXR1cmUlMjBvbix0aGUlMjBlZmZlY3RzJTIwb2YlMjBtaW5kZnVsbmVzcyUyMG9uJTIwcHN5Y2hvbG9naWNhbCUyMGhlYWx0aC4&ntb=1" class="btn-secondary">Read Full Article</a>
+        </div>
       </div>
 
-
-
-      <!-- Add more articles below -->
-      <div class="article-card">
-        <h2>Building Resilience in Tough Times</h2>
-        <p class="meta">Published on January 30, 2025 | By Dr. Sarah Lee</p>
-        <p>Resilience is key to overcoming life's challenges. Discover strategies to build emotional strength and bounce back from adversity.</p>
-        <a href="https://www.example.com/building-resilience" class="btn-secondary">Read Full Article</a>
+      <div class="article-card" data-category="wellness">
+        <span class="article-category">Wellness</span>
+        <div class="article-content">
+          <div class="article-meta">
+            <span><i class="far fa-calendar"></i> Jan 30, 2025</span>
+            <span><i class="far fa-user"></i> Dr. Sarah Lee</span>
+            <span class="reading-time"><i class="far fa-clock"></i> 5 min read</span>
+          </div>
+          <h2>Building Resilience in Tough Times</h2>
+          <p>Resilience is key to overcoming life's challenges. Discover strategies to build emotional strength and bounce back from adversity.</p>
+          <div class="article-tags">
+            <span class="tag">#Resilience</span>
+            <span class="tag">#MentalHealth</span>
+          </div>
+          <a href="https://www.example.com/building-resilience" class="btn-secondary">Read Full Article</a>
+        </div>
       </div>
 
-      <div class="article-card">
-        <h2>The Role of Nutrition in Mental Health</h2>
-        <p class="meta">Published on January 25, 2025 | By Dr. Alex Johnson</p>
-        <p>What you eat can impact your mental health. Learn about the connection between nutrition and emotional well-being.</p>
-        <a href="https://www.example.com/nutrition-mental-health" class="btn-secondary">Read Full Article</a>
+      <div class="article-card" data-category="wellness">
+        <span class="article-category">Wellness</span>
+        <div class="article-content">
+          <div class="article-meta">
+            <span><i class="far fa-calendar"></i> Jan 25, 2025</span>
+            <span><i class="far fa-user"></i> Dr. Alex Johnson</span>
+            <span class="reading-time"><i class="far fa-clock"></i> 5 min read</span>
+          </div>
+          <h2>The Role of Nutrition in Mental Health</h2>
+          <p>What you eat can impact your mental health. Learn about the connection between nutrition and emotional well-being.</p>
+          <div class="article-tags">
+            <span class="tag">#Nutrition</span>
+            <span class="tag">#MentalHealth</span>
+          </div>
+          <a href="https://www.example.com/nutrition-mental-health" class="btn-secondary">Read Full Article</a>
+        </div>
       </div>
 
-      <div class="article-card">
-        <h2>Sleep and Mental Health: The Connection</h2>
-        <p class="meta">Published on January 20, 2025 | By Dr. Rachel Adams</p>
-        <p>Poor sleep can worsen mental health issues. Explore tips for improving sleep quality and its impact on emotional well-being.</p>
-        <a href="https://www.example.com/sleep-mental-health" class="btn-secondary">Read Full Article</a>
+      <div class="article-card" data-category="wellness">
+        <span class="article-category">Wellness</span>
+        <div class="article-content">
+          <div class="article-meta">
+            <span><i class="far fa-calendar"></i> Jan 20, 2025</span>
+            <span><i class="far fa-user"></i> Dr. Rachel Adams</span>
+            <span class="reading-time"><i class="far fa-clock"></i> 5 min read</span>
+          </div>
+          <h2>Sleep and Mental Health: The Connection</h2>
+          <p>Poor sleep can worsen mental health issues. Explore tips for improving sleep quality and its impact on emotional well-being.</p>
+          <div class="article-tags">
+            <span class="tag">#Sleep</span>
+            <span class="tag">#MentalHealth</span>
+          </div>
+          <a href="https://www.example.com/sleep-mental-health" class="btn-secondary">Read Full Article</a>
+        </div>
       </div>
 
-      <div class="article-card">
-        <h2>How to Support a Loved One with Mental Health Issues</h2>
-        <p class="meta">Published on January 15, 2025 | By Dr. Mark Taylor</p>
-        <p>Supporting someone with mental health challenges can be difficult. Learn how to provide effective and compassionate support.</p>
-        <a href="https://www.example.com/support-loved-one" class="btn-secondary">Read Full Article</a>
+      <div class="article-card" data-category="wellness">
+        <span class="article-category">Wellness</span>
+        <div class="article-content">
+          <div class="article-meta">
+            <span><i class="far fa-calendar"></i> Jan 15, 2025</span>
+            <span><i class="far fa-user"></i> Dr. Mark Taylor</span>
+            <span class="reading-time"><i class="far fa-clock"></i> 5 min read</span>
+          </div>
+          <h2>How to Support a Loved One with Mental Health Issues</h2>
+          <p>Supporting someone with mental health challenges can be difficult. Learn how to provide effective and compassionate support.</p>
+          <div class="article-tags">
+            <span class="tag">#Support</span>
+            <span class="tag">#MentalHealth</span>
+          </div>
+          <a href="https://www.example.com/support-loved-one" class="btn-secondary">Read Full Article</a>
+        </div>
       </div>
 
-      <!-- Add more articles as needed -->
+      <!-- Anxiety Category -->
+      <div class="article-card" data-category="anxiety">
+        <span class="article-category">Anxiety</span>
+        <div class="article-content">
+          <div class="article-meta">
+            <span><i class="far fa-calendar"></i> Feb 25, 2025</span>
+            <span><i class="far fa-user"></i> Dr. Sarah Wilson</span>
+            <span class="reading-time"><i class="far fa-clock"></i> 6 min read</span>
+          </div>
+          <h2>Understanding Social Anxiety: A Guide to Overcoming Social Fears</h2>
+          <p>Explore effective strategies for managing social anxiety and building confidence in social situations.</p>
+          <div class="article-tags">
+            <span class="tag">#SocialAnxiety</span>
+            <span class="tag">#MentalHealth</span>
+            <span class="tag">#Wellness</span>
+          </div>
+          <a href="#" class="btn-secondary">Read Full Article</a>
+        </div>
+      </div>
+
+      <div class="article-card" data-category="anxiety">
+        <span class="article-category">Anxiety</span>
+        <div class="article-content">
+          <div class="article-meta">
+            <span><i class="far fa-calendar"></i> Feb 22, 2025</span>
+            <span><i class="far fa-user"></i> Dr. Robert Chen</span>
+            <span class="reading-time"><i class="far fa-clock"></i> 7 min read</span>
+          </div>
+          <h2>Managing Panic Attacks: Recognition and Response Strategies</h2>
+          <p>Learn to identify panic attack triggers and develop effective coping mechanisms for immediate relief.</p>
+          <div class="article-tags">
+            <span class="tag">#PanicAttacks</span>
+            <span class="tag">#Anxiety</span>
+            <span class="tag">#CopingStrategies</span>
+          </div>
+          <a href="#" class="btn-secondary">Read Full Article</a>
+        </div>
+      </div>
+
+      <!-- Depression Category -->
+      <div class="article-card" data-category="depression">
+        <span class="article-category">Depression</span>
+        <div class="article-content">
+          <div class="article-meta">
+            <span><i class="far fa-calendar"></i> Feb 20, 2025</span>
+            <span><i class="far fa-user"></i> Dr. Lisa Anderson</span>
+            <span class="reading-time"><i class="far fa-clock"></i> 8 min read</span>
+          </div>
+          <h2>Seasonal Depression: Understanding and Managing SAD</h2>
+          <p>Comprehensive guide to recognizing and managing Seasonal Affective Disorder with proven therapeutic approaches.</p>
+          <div class="article-tags">
+            <span class="tag">#SAD</span>
+            <span class="tag">#Depression</span>
+            <span class="tag">#SeasonalDepression</span>
+          </div>
+          <a href="#" class="btn-secondary">Read Full Article</a>
+        </div>
+      </div>
+
+      <!-- Stress Management Category -->
+      <div class="article-card" data-category="stress">
+        <span class="article-category">Stress Management</span>
+        <div class="article-content">
+          <div class="article-meta">
+            <span><i class="far fa-calendar"></i> Feb 18, 2025</span>
+            <span><i class="far fa-user"></i> Dr. Michael Chang</span>
+            <span class="reading-time"><i class="far fa-clock"></i> 6 min read</span>
+          </div>
+          <h2>Workplace Stress: Creating a Healthy Work-Life Balance</h2>
+          <p>Practical strategies for managing workplace stress and maintaining mental wellness in professional settings.</p>
+          <div class="article-tags">
+            <span class="tag">#WorkplaceWellness</span>
+            <span class="tag">#StressManagement</span>
+            <span class="tag">#WorkLifeBalance</span>
+          </div>
+          <a href="#" class="btn-secondary">Read Full Article</a>
+        </div>
+      </div>
+
+      <!-- Wellness Category -->
+      <div class="article-card" data-category="wellness">
+        <span class="article-category">Wellness</span>
+        <div class="article-content">
+          <div class="article-meta">
+            <span><i class="far fa-calendar"></i> Feb 15, 2025</span>
+            <span><i class="far fa-user"></i> Dr. Emma Roberts</span>
+            <span class="reading-time"><i class="far fa-clock"></i> 5 min read</span>
+          </div>
+          <h2>Emotional Intelligence: Building Better Relationships</h2>
+          <p>Discover how developing emotional intelligence can improve your mental health and interpersonal connections.</p>
+          <div class="article-tags">
+            <span class="tag">#EmotionalIntelligence</span>
+            <span class="tag">#Wellness</span>
+            <span class="tag">#Relationships</span>
+          </div>
+          <a href="#" class="btn-secondary">Read Full Article</a>
+        </div>
+      </div>
+
+      <!-- Mindfulness Category -->
+      <div class="article-card" data-category="mindfulness">
+        <span class="article-category">Mindfulness</span>
+        <div class="article-content">
+          <div class="article-meta">
+            <span><i class="far fa-calendar"></i> Feb 12, 2025</span>
+            <span><i class="far fa-user"></i> Dr. David Kumar</span>
+            <span class="reading-time"><i class="far fa-clock"></i> 7 min read</span>
+          </div>
+          <h2>Meditation Basics: Starting Your Mindfulness Journey</h2>
+          <p>A beginner's guide to meditation practices and mindfulness techniques for mental clarity and emotional balance.</p>
+          <div class="article-tags">
+            <span class="tag">#Meditation</span>
+            <span class="tag">#Mindfulness</span>
+            <span class="tag">#MentalWellness</span>
+          </div>
+          <a href="#" class="btn-secondary">Read Full Article</a>
+        </div>
+      </div>
+
+      <!-- Additional Anxiety Articles -->
+      <div class="article-card" data-category="anxiety">
+        <span class="article-category">Anxiety</span>
+        <div class="article-content">
+          <div class="article-meta">
+            <span><i class="far fa-calendar"></i> Feb 18, 2025</span>
+            <span><i class="far fa-user"></i> Dr. Linda Park</span>
+            <span class="reading-time"><i class="far fa-clock"></i> 6 min read</span>
+          </div>
+          <h2>Managing Workplace Anxiety: A Professional's Guide</h2>
+          <p>Essential strategies for handling anxiety in professional settings, from presentations to team interactions.</p>
+          <div class="article-tags">
+            <span class="tag">#WorkplaceAnxiety</span>
+            <span class="tag">#ProfessionalGrowth</span>
+          </div>
+          <a href="#" class="btn-secondary">Read Full Article</a>
+        </div>
+      </div>
+
+      <!-- Additional Depression Articles -->
+      <div class="article-card" data-category="depression">
+        <span class="article-category">Depression</span>
+        <div class="article-content">
+          <div class="article-meta">
+            <span><i class="far fa-calendar"></i> Feb 15, 2025</span>
+            <span><i class="far fa-user"></i> Dr. James Wilson</span>
+            <span class="reading-time"><i class="far fa-clock"></i> 8 min read</span>
+          </div>
+          <h2>Understanding Youth Depression: Signs and Support</h2>
+          <p>How to identify and support young people dealing with depression, including resources for parents and educators.</p>
+          <div class="article-tags">
+            <span class="tag">#YouthMentalHealth</span>
+            <span class="tag">#Depression</span>
+          </div>
+          <a href="#" class="btn-secondary">Read Full Article</a>
+        </div>
+      </div>
+
+      <!-- Additional Stress Management Articles -->
+      <div class="article-card" data-category="stress">
+        <span class="article-category">Stress Management</span>
+        <div class="article-content">
+          <div class="article-meta">
+            <span><i class="far fa-calendar"></i> Feb 10, 2025</span>
+            <span><i class="far fa-user"></i> Dr. Tech Kumar</span>
+            <span class="reading-time"><i class="far fa-clock"></i> 5 min read</span>
+          </div>
+          <h2>Digital Wellness: Managing Technology-Induced Stress</h2>
+          <p>Practical tips for maintaining mental health in an increasingly digital world, including digital detox strategies.</p>
+          <div class="article-tags">
+            <span class="tag">#DigitalWellness</span>
+            <span class="tag">#StressManagement</span>
+          </div>
+          <a href="#" class="btn-secondary">Read Full Article</a>
+        </div>
+      </div>
+
+      <!-- Additional Mindfulness Articles -->
+      <div class="article-card" data-category="mindfulness">
+        <span class="article-category">Mindfulness</span>
+        <div class="article-content">
+          <div class="article-meta">
+            <span><i class="far fa-calendar"></i> Feb 5, 2025</span>
+            <span><i class="far fa-user"></i> Dr. Sarah Chen</span>
+            <span class="reading-time"><i class="far fa-clock"></i> 7 min read</span>
+          </div>
+          <h2>Mindful Eating: Nurturing Body and Mind</h2>
+          <p>Discover the connection between mindful eating practices and mental well-being, including practical exercises.</p>
+          <div class="article-tags">
+            <span class="tag">#MindfulEating</span>
+            <span class="tag">#Wellness</span>
+          </div>
+          <a href="#" class="btn-secondary">Read Full Article</a>
+        </div>
+      </div>
+
+      <!-- Additional Wellness Articles -->
+      <div class="article-card" data-category="wellness">
+        <span class="article-category">Wellness</span>
+        <div class="article-content">
+          <div class="article-meta">
+            <span><i class="far fa-calendar"></i> Feb 1, 2025</span>
+            <span><i class="far fa-user"></i> Dr. Nature Smith</span>
+            <span class="reading-time"><i class="far fa-clock"></i> 6 min read</span>
+          </div>
+          <h2>Nature Therapy: Healing in the Outdoors</h2>
+          <p>Explore how spending time in nature can improve mental health and reduce stress and anxiety.</p>
+          <div class="article-tags">
+            <span class="tag">#NatureTherapy</span>
+            <span class="tag">#Wellness</span>
+          </div>
+          <a href="#" class="btn-secondary">Read Full Article</a>
+        </div>
+      </div>
+
+      <!-- Continue adding more articles following this pattern -->
+      <!-- Add 15 more articles following the same structure, ensuring at least 
+      5 articles per category (Anxiety, Depression, Stress, Mindfulness, Wellness) -->
+
+      <!-- Anxiety Category -->
+      <div class="article-card" data-category="anxiety">
+        <span class="article-category">Anxiety</span>
+        <div class="article-content">
+          <div class="article-meta">
+            <span><i class="far fa-calendar"></i> Feb 25, 2025</span>
+            <span><i class="far fa-user"></i> Dr. Sarah Wilson</span>
+            <span class="reading-time"><i class="far fa-clock"></i> 6 min read</span>
+          </div>
+          <h2>Test Anxiety: Academic Performance and Mental Health</h2>
+          <p>Understanding test anxiety, its impact on students, and effective strategies for managing academic stress.</p>
+          <div class="article-tags">
+            <span class="tag">#TestAnxiety</span>
+            <span class="tag">#StudentMentalHealth</span>
+          </div>
+          <a href="#" class="btn-secondary">Read Full Article</a>
+        </div>
+      </div>
+
+      <!-- More Anxiety Articles -->
+      <div class="article-card" data-category="anxiety">
+        <span class="article-category">Anxiety</span>
+        <div class="article-content">
+          <div class="article-meta">
+            <span><i class="far fa-calendar"></i> Feb 22, 2025</span>
+            <span><i class="far fa-user"></i> Dr. Robert Chen</span>
+            <span class="reading-time"><i class="far fa-clock"></i> 7 min read</span>
+          </div>
+          <h2>Health Anxiety in the Digital Age</h2>
+          <p>Understanding health anxiety, its impact on individuals, and effective strategies for managing health-related stress.</p>
+          <div class="article-tags">
+            <span class="tag">#HealthAnxiety</span>
+            <span class="tag">#DigitalAge</span>
+          </div>
+          <a href="#" class="btn-secondary">Read Full Article</a>
+        </div>
+      </div>
+
+      <div class="article-card" data-category="anxiety">
+        <span class="article-category">Anxiety</span>
+        <div class="article-content">
+          <div class="article-meta">
+            <span><i class="far fa-calendar"></i> Feb 22, 2025</span>
+            <span><i class="far fa-user"></i> Dr. Robert Chen</span>
+            <span class="reading-time"><i class="far fa-clock"></i> 7 min read</span>
+          </div>
+          <h2>Understanding Generalized Anxiety Disorder</h2>
+          <p>Understanding Generalized Anxiety Disorder, its impact on individuals, and effective strategies for managing anxiety.</p>
+          <div class="article-tags">
+            <span class="tag">#GeneralizedAnxietyDisorder</span>
+            <span class="tag">#MentalHealth</span>
+          </div>
+          <a href="#" class="btn-secondary">Read Full Article</a>
+        </div>
+      </div>
+
+      <div class="article-card" data-category="anxiety">
+        <span class="article-category">Anxiety</span>
+        <div class="article-content">
+          <div class="article-meta">
+            <span><i class="far fa-calendar"></i> Feb 22, 2025</span>
+            <span><i class="far fa-user"></i> Dr. Robert Chen</span>
+            <span class="reading-time"><i class="far fa-clock"></i> 7 min read</span>
+          </div>
+          <h2>Anxiety and Relationships</h2>
+          <p>Understanding the impact of anxiety on relationships and effective strategies for managing anxiety in relationships.</p>
+          <div class="article-tags">
+            <span class="tag">#Anxiety</span>
+            <span class="tag">#Relationships</span>
+          </div>
+          <a href="#" class="btn-secondary">Read Full Article</a>
+        </div>
+      </div>
+
+      <div class="article-card" data-category="anxiety">
+        <span class="article-category">Anxiety</span>
+        <div class="article-content">
+          <div class="article-meta">
+            <span><i class="far fa-calendar"></i> Feb 22, 2025</span>
+            <span><i class="far fa-user"></i> Dr. Robert Chen</span>
+            <span class="reading-time"><i class="far fa-clock"></i> 7 min read</span>
+          </div>
+          <h2>Performance Anxiety at Work</h2>
+          <p>Understanding performance anxiety at work, its impact on individuals, and effective strategies for managing work-related stress.</p>
+          <div class="article-tags">
+            <span class="tag">#PerformanceAnxiety</span>
+            <span class="tag">#Work</span>
+          </div>
+          <a href="#" class="btn-secondary">Read Full Article</a>
+        </div>
+      </div>
+
+      <!-- Depression Category -->
+      <div class="article-card" data-category="depression">
+        <span class="article-category">Depression</span>
+        <div class="article-content">
+          <div class="article-meta">
+            <span><i class="far fa-calendar"></i> Feb 20, 2025</span>
+            <span><i class="far fa-user"></i> Dr. Lisa Chen</span>
+            <span class="reading-time"><i class="far fa-clock"></i> 8 min read</span>
+          </div>
+          <h2>Exercise and Depression: The Science of Movement</h2>
+          <p>How physical activity can help manage depression symptoms and improve overall mental well-being.</p>
+          <div class="article-tags">
+            <span class="tag">#Depression</span>
+            <span class="tag">#Exercise</span>
+            <span class="tag">#MentalHealth</span>
+          </div>
+          <a href="#" class="btn-secondary">Read Full Article</a>
+        </div>
+      </div>
+
+      <!-- More Depression Articles -->
+      <div class="article-card" data-category="depression">
+        <span class="article-category">Depression</span>
+        <div class="article-content">
+          <div class="article-meta">
+            <span><i class="far fa-calendar"></i> Feb 20, 2025</span>
+            <span><i class="far fa-user"></i> Dr. Lisa Chen</span>
+            <span class="reading-time"><i class="far fa-clock"></i> 8 min read</span>
+          </div>
+          <h2>Depression in Older Adults</h2>
+          <p>Understanding depression in older adults, its impact on individuals, and effective strategies for managing depression in older adults.</p>
+          <div class="article-tags">
+            <span class="tag">#Depression</span>
+            <span class="tag">#OlderAdults</span>
+          </div>
+          <a href="#" class="btn-secondary">Read Full Article</a>
+        </div>
+      </div>
+
+      <div class="article-card" data-category="depression">
+        <span class="article-category">Depression</span>
+        <div class="article-content">
+          <div class="article-meta">
+            <span><i class="far fa-calendar"></i> Feb 20, 2025</span>
+            <span><i class="far fa-user"></i> Dr. Lisa Chen</span>
+            <span class="reading-time"><i class="far fa-clock"></i> 8 min read</span>
+          </div>
+          <h2>Managing Depression Through Diet</h2>
+          <p>Understanding the impact of diet on depression and effective strategies for managing depression through diet.</p>
+          <div class="article-tags">
+            <span class="tag">#Depression</span>
+            <span class="tag">#Diet</span>
+          </div>
+          <a href="#" class="btn-secondary">Read Full Article</a>
+        </div>
+      </div>
+
+      <div class="article-card" data-category="depression">
+        <span class="article-category">Depression</span>
+        <div class="article-content">
+          <div class="article-meta">
+            <span><i class="far fa-calendar"></i> Feb 20, 2025</span>
+            <span><i class="far fa-user"></i> Dr. Lisa Chen</span>
+            <span class="reading-time"><i class="far fa-clock"></i> 8 min read</span>
+          </div>
+          <h2>Creative Arts and Depression Recovery</h2>
+          <p>Understanding the impact of creative arts on depression recovery and effective strategies for managing depression through creative arts.</p>
+          <div class="article-tags">
+            <span class="tag">#Depression</span>
+            <span class="tag">#CreativeArts</span>
+          </div>
+          <a href="#" class="btn-secondary">Read Full Article</a>
+        </div>
+      </div>
+
+      <div class="article-card" data-category="depression">
+        <span class="article-category">Depression</span>
+        <div class="article-content">
+          <div class="article-meta">
+            <span><i class="far fa-calendar"></i> Feb 20, 2025</span>
+            <span><i class="far fa-user"></i> Dr. Lisa Chen</span>
+            <span class="reading-time"><i class="far fa-clock"></i> 8 min read</span>
+          </div>
+          <h2>Understanding Treatment-Resistant Depression</h2>
+          <p>Understanding treatment-resistant depression, its impact on individuals, and effective strategies for managing treatment-resistant depression.</p>
+          <div class="article-tags">
+            <span class="tag">#Depression</span>
+            <span class="tag">#TreatmentResistantDepression</span>
+          </div>
+          <a href="#" class="btn-secondary">Read Full Article</a>
+        </div>
+      </div>
+
+      <!-- Stress Management Category -->
+      <div class="article-card" data-category="stress">
+        <span class="article-category">Stress Management</span>
+        <div class="article-content">
+          <div class="article-meta">
+            <span><i class="far fa-calendar"></i> Feb 15, 2025</span>
+            <span><i class="far fa-user"></i> Dr. Robert Kim</span>
+            <span class="reading-time"><i class="far fa-clock"></i> 7 min read</span>
+          </div>
+          <h2>Financial Stress: Coping Strategies for Economic Anxiety</h2>
+          <p>Practical approaches to managing stress related to financial concerns and building financial resilience.</p>
+          <div class="article-tags">
+            <span class="tag">#FinancialStress</span>
+            <span class="tag">#StressManagement</span>
+          </div>
+          <a href="#" class="btn-secondary">Read Full Article</a>
+        </div>
+      </div>
+
+      <!-- More Stress Management Articles -->
+      <div class="article-card" data-category="stress">
+        <span class="article-category">Stress Management</span>
+        <div class="article-content">
+          <div class="article-meta">
+            <span><i class="far fa-calendar"></i> Feb 15, 2025</span>
+            <span><i class="far fa-user"></i> Dr. Robert Kim</span>
+            <span class="reading-time"><i class="far fa-clock"></i> 7 min read</span>
+          </div>
+          <h2>Stress and Sleep Quality</h2>
+          <p>Understanding the impact of stress on sleep quality and effective strategies for managing stress to improve sleep quality.</p>
+          <div class="article-tags">
+            <span class="tag">#Stress</span>
+            <span class="tag">#SleepQuality</span>
+          </div>
+          <a href="#" class="btn-secondary">Read Full Article</a>
+        </div>
+      </div>
+
+      <div class="article-card" data-category="stress">
+        <span class="article-category">Stress Management</span>
+        <div class="article-content">
+          <div class="article-meta">
+            <span><i class="far fa-calendar"></i> Feb 15, 2025</span>
+            <span><i class="far fa-user"></i> Dr. Robert Kim</span>
+            <span class="reading-time"><i class="far fa-clock"></i> 7 min read</span>
+          </div>
+          <h2>Managing Family-Related Stress</h2>
+          <p>Understanding the impact of family-related stress on individuals and effective strategies for managing family-related stress.</p>
+          <div class="article-tags">
+            <span class="tag">#FamilyStress</span>
+            <span class="tag">#StressManagement</span>
+          </div>
+          <a href="#" class="btn-secondary">Read Full Article</a>
+        </div>
+      </div>
+
+      <div class="article-card" data-category="stress">
+        <span class="article-category">Stress Management</span>
+        <div class="article-content">
+          <div class="article-meta">
+            <span><i class="far fa-calendar"></i> Feb 15, 2025</span>
+            <span><i class="far fa-user"></i> Dr. Robert Kim</span>
+            <span class="reading-time"><i class="far fa-clock"></i> 7 min read</span>
+          </div>
+          <h2>Academic Stress Management</h2>
+          <p>Understanding the impact of academic stress on students and effective strategies for managing academic stress.</p>
+          <div class="article-tags">
+            <span class="tag">#AcademicStress</span>
+            <span class="tag">#StressManagement</span>
+          </div>
+          <a href="#" class="btn-secondary">Read Full Article</a>
+        </div>
+      </div>
+
+      <div class="article-card" data-category="stress">
+        <span class="article-category">Stress Management</span>
+        <div class="article-content">
+          <div class="article-meta">
+            <span><i class="far fa-calendar"></i> Feb 15, 2025</span>
+            <span><i class="far fa-user"></i> Dr. Robert Kim</span>
+            <span class="reading-time"><i class="far fa-clock"></i> 7 min read</span>
+          </div>
+          <h2>Stress in Healthcare Professionals</h2>
+          <p>Understanding the impact of stress on healthcare professionals and effective strategies for managing stress in healthcare professionals.</p>
+          <div class="article-tags">
+            <span class="tag">#HealthcareStress</span>
+            <span class="tag">#StressManagement</span>
+          </div>
+          <a href="#" class="btn-secondary">Read Full Article</a>
+        </div>
+      </div>
+
+      <!-- Mindfulness Category -->
+      <div class="article-card" data-category="mindfulness">
+        <span class="article-category">Mindfulness</span>
+        <div class="article-content">
+          <div class="article-meta">
+            <span><i class="far fa-calendar"></i> Feb 10, 2025</span>
+            <span><i class="far fa-user"></i> Dr. Maria Santos</span>
+            <span class="reading-time"><i class="far fa-clock"></i> 6 min read</span>
+          </div>
+          <h2>Mindful Parenting: Raising Emotionally Intelligent Children</h2>
+          <p>How mindfulness practices can improve parent-child relationships and support emotional development.</p>
+          <div class="article-tags">
+            <span class="tag">#MindfulParenting</span>
+            <span class="tag">#EmotionalIntelligence</span>
+          </div>
+          <a href="#" class="btn-secondary">Read Full Article</a>
+        </div>
+      </div>
+
+      <!-- More Mindfulness Articles -->
+      <div class="article-card" data-category="mindfulness">
+        <span class="article-category">Mindfulness</span>
+        <div class="article-content">
+          <div class="article-meta">
+            <span><i class="far fa-calendar"></i> Feb 10, 2025</span>
+            <span><i class="far fa-user"></i> Dr. Maria Santos</span>
+            <span class="reading-time"><i class="far fa-clock"></i> 6 min read</span>
+          </div>
+          <h2>Mindfulness for Better Sleep</h2>
+          <p>Understanding the impact of mindfulness on sleep quality and effective strategies for managing sleep quality through mindfulness.</p>
+          <div class="article-tags">
+            <span class="tag">#Mindfulness</span>
+            <span class="tag">#SleepQuality</span>
+          </div>
+          <a href="#" class="btn-secondary">Read Full Article</a>
+        </div>
+      </div>
+
+      <div class="article-card" data-category="mindfulness">
+        <span class="article-category">Mindfulness</span>
+        <div class="article-content">
+          <div class="article-meta">
+            <span><i class="far fa-calendar"></i> Feb 10, 2025</span>
+            <span><i class="far fa-user"></i> Dr. Maria Santos</span>
+            <span class="reading-time"><i class="far fa-clock"></i> 6 min read</span>
+          </div>
+          <h2>Digital Mindfulness</h2>
+          <p>Understanding the impact of digital mindfulness on mental health and effective strategies for managing mental health through digital mindfulness.</p>
+          <div class="article-tags">
+            <span class="tag">#DigitalMindfulness</span>
+            <span class="tag">#MentalHealth</span>
+          </div>
+          <a href="#" class="btn-secondary">Read Full Article</a>
+        </div>
+      </div>
+
+      <div class="article-card" data-category="mindfulness">
+        <span class="article-category">Mindfulness</span>
+        <div class="article-content">
+          <div class="article-meta">
+            <span><i class="far fa-calendar"></i> Feb 10, 2025</span>
+            <span><i class="far fa-user"></i> Dr. Maria Santos</span>
+            <span class="reading-time"><i class="far fa-clock"></i> 6 min read</span>
+          </div>
+          <h2>Mindful Communication</h2>
+          <p>Understanding the impact of mindful communication on relationships and effective strategies for managing relationships through mindful communication.</p>
+          <div class="article-tags">
+            <span class="tag">#MindfulCommunication</span>
+            <span class="tag">#Relationships</span>
+          </div>
+          <a href="#" class="btn-secondary">Read Full Article</a>
+        </div>
+      </div>
+
+      <div class="article-card" data-category="mindfulness">
+        <span class="article-category">Mindfulness</span>
+        <div class="article-content">
+          <div class="article-meta">
+            <span><i class="far fa-calendar"></i> Feb 10, 2025</span>
+            <span><i class="far fa-user"></i> Dr. Maria Santos</span>
+            <span class="reading-time"><i class="far fa-clock"></i> 6 min read</span>
+          </div>
+          <h2>Mindfulness in Nature</h2>
+          <p>Understanding the impact of mindfulness in nature on mental health and effective strategies for managing mental health through mindfulness in nature.</p>
+          <div class="article-tags">
+            <span class="tag">#Mindfulness</span>
+            <span class="tag">#Nature</span>
+          </div>
+          <a href="#" class="btn-secondary">Read Full Article</a>
+        </div>
+      </div>
+
+      <!-- Wellness Category -->
+      <div class="article-card" data-category="wellness">
+        <span class="article-category">Wellness</span>
+        <div class="article-content">
+          <div class="article-meta">
+            <span><i class="far fa-calendar"></i> Feb 5, 2025</span>
+            <span><i class="far fa-user"></i> Dr. James Lee</span>
+            <span class="reading-time"><i class="far fa-clock"></i> 5 min read</span>
+          </div>
+          <h2>Social Connection and Mental Wellness</h2>
+          <p>The importance of social relationships in maintaining mental health and building support networks.</p>
+          <div class="article-tags">
+            <span class="tag">#SocialConnection</span>
+            <span class="tag">#MentalWellness</span>
+          </div>
+          <a href="#" class="btn-secondary">Read Full Article</a>
+        </div>
+      </div>
+
+      <!-- More Wellness Articles -->
+      <div class="article-card" data-category="wellness">
+        <span class="article-category">Wellness</span>
+        <div class="article-content">
+          <div class="article-meta">
+            <span><i class="far fa-calendar"></i> Feb 5, 2025</span>
+            <span><i class="far fa-user"></i> Dr. James Lee</span>
+            <span class="reading-time"><i class="far fa-clock"></i> 5 min read</span>
+          </div>
+          <h2>Holistic Approaches to Mental Health</h2>
+          <p>Understanding the impact of holistic approaches on mental health and effective strategies for managing mental health through holistic approaches.</p>
+          <div class="article-tags">
+            <span class="tag">#HolisticApproaches</span>
+            <span class="tag">#MentalHealth</span>
+          </div>
+          <a href="#" class="btn-secondary">Read Full Article</a>
+        </div>
+      </div>
+
+      <div class="article-card" data-category="wellness">
+        <span class="article-category">Wellness</span>
+        <div class="article-content">
+          <div class="article-meta">
+            <span><i class="far fa-calendar"></i> Feb 5, 2025</span>
+            <span><i class="far fa-user"></i> Dr. James Lee</span>
+            <span class="reading-time"><i class="far fa-clock"></i> 5 min read</span>
+          </div>
+          <h2>Work-Life Balance Strategies</h2>
+          <p>Understanding the impact of work-life balance on mental health and effective strategies for managing work-life balance.</p>
+          <div class="article-tags">
+            <span class="tag">#WorkLifeBalance</span>
+            <span class="tag">#MentalHealth</span>
+          </div>
+          <a href="#" class="btn-secondary">Read Full Article</a>
+        </div>
+      </div>
+
+      <div class="article-card" data-category="wellness">
+        <span class="article-category">Wellness</span>
+        <div class="article-content">
+          <div class="article-meta">
+            <span><i class="far fa-calendar"></i> Feb 5, 2025</span>
+            <span><i class="far fa-user"></i> Dr. James Lee</span>
+            <span class="reading-time"><i class="far fa-clock"></i> 5 min read</span>
+          </div>
+          <h2>Digital Wellness in Modern Life</h2>
+          <p>Understanding the impact of digital wellness on mental health and effective strategies for managing mental health through digital wellness.</p>
+          <div class="article-tags">
+            <span class="tag">#DigitalWellness</span>
+            <span class="tag">#MentalHealth</span>
+          </div>
+          <a href="#" class="btn-secondary">Read Full Article</a>
+        </div>
+      </div>
+
+      <div class="article-card" data-category="wellness">
+        <span class="article-category">Wellness</span>
+        <div class="article-content">
+          <div class="article-meta">
+            <span><i class="far fa-calendar"></i> Feb 5, 2025</span>
+            <span><i class="far fa-user"></i> Dr. James Lee</span>
+            <span class="reading-time"><i class="far fa-clock"></i> 5 min read</span>
+          </div>
+          <h2>Building Emotional Resilience</h2>
+          <p>Understanding the impact of emotional resilience on mental health and effective strategies for managing mental health through emotional resilience.</p>
+          <div class="article-tags">
+            <span class="tag">#EmotionalResilience</span>
+            <span class="tag">#MentalHealth</span>
+          </div>
+          <a href="#" class="btn-secondary">Read Full Article</a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="load-more">
+      <button class="btn-load-more">Load More Articles</button>
     </div>
   </div>
 
@@ -196,5 +1076,64 @@ footer .social-links a:hover {
       </div>
     </div>
   </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const filterBtns = document.querySelectorAll('.filter-btn');
+      const articles = document.querySelectorAll('.article-card');
+      const searchInput = document.getElementById('searchArticles');
+
+      // Filter functionality
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const category = btn.dataset.category;
+          
+          filterBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+
+          articles.forEach(article => {
+            if (category === 'all' || article.dataset.category === category) {
+              article.style.display = 'block';
+            } else {
+              article.style.display = 'none';
+            }
+          });
+        });
+      });
+
+      // Search functionality
+      searchInput.addEventListener('input', (e) => {
+        const searchTerm = e.target.value.toLowerCase();
+        
+        articles.forEach(article => {
+          const content = article.textContent.toLowerCase();
+          if (content.includes(searchTerm)) {
+            article.style.display = 'block';
+          } else {
+            article.style.display = 'none';
+          }
+        });
+      });
+
+      // Load more functionality
+      const loadMoreBtn = document.querySelector('.btn-load-more');
+      let currentItems = 6;
+      
+      loadMoreBtn.addEventListener('click', () => {
+        const elementList = [...document.querySelectorAll('.article-card')];
+        
+        for (let i = currentItems; i < currentItems + 3; i++) {
+          if (elementList[i]) {
+            elementList[i].style.display = 'block';
+          }
+        }
+        currentItems += 3;
+
+        if (currentItems >= elementList.length) {
+          loadMoreBtn.style.display = 'none';
+        }
+      });
+    });
+  </script>
 </body>
 </html>

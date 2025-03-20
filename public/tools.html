@@ -3,46 +3,920 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Self-Care Tools - Mind Buddy</title>
-  <link rel="stylesheet" href="css/styles.css">
+  <title>Mental Health Tools - Neuro Nurture</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    /* Base styles */
+    :root {
+      --primary: #8B5CF6;
+      --secondary: #4ECDC4;
+      --accent: #FFE66D;
+      --dark: #2D3436;
+      --light: #FFFFFF;
+      --gradient: linear-gradient(135deg, #8B5CF6, #4ECDC4);
+    }
+
+      /* Modern Header Styles */
+  .modern-header {
+    background: var(--primary-blue);
+    padding: 1rem 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 1000;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .logo-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .logo {
+    width: 50px;
+    height: 50px;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+  }
+  
+  nav {
+    display: flex;
+    gap: 2rem;
+  }
+  
+  nav a {
+    color: var(--text-light);
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+    transition: var(--transition);
+  }
+  
+  nav a:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+  }
+  
+
+    .tools-container {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+
+    /* Enhanced Tool Card Styles */
+    .tool-card {
+      background: linear-gradient(145deg, #ffffff, #f5f5f5);
+      border: 1px solid rgba(139, 92, 246, 0.1);
+      min-height: 400px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 20px;
+      padding: 25px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+    }
+
+    .tool-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(139, 92, 246, 0.2);
+    }
+
+    .tool-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .tool-icon {
+      width: 50px;
+      height: 50px;
+      background: var(--gradient);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 24px;
+    }
+
+    .tool-content {
+      margin-top: 20px;
+    }
+
+    /* Enhanced Interactive Elements */
+    .mood-option {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      padding: 15px;
+      border-radius: 12px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      background: #f8f9fa;
+    }
+
+    .mood-option i {
+      font-size: 24px;
+      transition: transform 0.3s ease;
+    }
+
+    .mood-option.selected i {
+      transform: scale(1.2);
+    }
+
+    .mood-option:hover, .mood-option.selected {
+      background: var(--gradient);
+      color: white;
+      transform: scale(1.05);
+    }
+
+    /* Breathing Exercise Enhancements */
+    .breathing-circle {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      margin: 30px auto;
+      background: var(--gradient);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.2rem;
+      animation: breathe 8s infinite ease-in-out;
+    }
+
+    @keyframes breathe {
+      0%, 100% { transform: scale(1); opacity: 0.8; }
+      50% { transform: scale(1.2); opacity: 1; }
+    }
+
+    .breathing-controls {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .breathing-timer {
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin: 15px 0;
+    }
+
+    /* Journal Enhancements */
+    .journal-entry textarea {
+      width: 100%;
+      height: 150px;
+      padding: 15px;
+      border: 2px solid #eee;
+      border-radius: 12px;
+      resize: none;
+      margin-bottom: 15px;
+      font-family: inherit;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .journal-entry textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.2);
+      outline: none;
+    }
+
+    .journal-history-item {
+      background: rgba(139, 92, 246, 0.05);
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 10px;
+    }
+
+    /* Progress Chart Enhancements */
+    .progress-chart {
+      height: 300px;
+      margin-top: 20px;
+      position: relative;
+    }
+
+    .progress-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .stat-card {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .tools-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Button Styles */
+    .btn-tool {
+      padding: 12px 24px;
+      background: var(--gradient);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 1rem;
+      font-weight: 500;
+    }
+
+    .btn-tool:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(139, 92, 246, 0.3);
+    }
+
+    /* Additional Animations */
+    .fade-in {
+      animation: fadeIn 0.5s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Enhanced Breathing Exercise Styles */
+    .breathing-container {
+        text-align: center;
+        position: relative;
+    }
+
+    .breathing-circle {
+        width: 300px;
+        height: 300px;
+        border-radius: 50%;
+        margin: 30px auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        background: linear-gradient(145deg, #8B5CF6, #4ECDC4);
+        position: relative;
+        transition: transform 4s ease-in-out;
+    }
+
+    .breathing-timer {
+        position: absolute;
+        top: -40px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: white;
+        padding: 10px 20px;
+        border-radius: 20px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #8B5CF6;
+    }
+
+    .breathing-text {
+        color: white;
+        font-size: 2rem;
+        font-weight: 600;
+        margin-bottom: 10px;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .breathing-phase {
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 1.2rem;
+    }
+
+    .breathing-progress {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        border: 3px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .progress-ring {
+        stroke: white;
+        stroke-width: 3;
+        fill: transparent;
+        transform: rotate(-90deg);
+        transform-origin: 50% 50%;
+        transition: stroke-dashoffset 1s linear;
+    }
+
+    .breathing-controls {
+        margin-top: 30px;
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+    }
+
+    @keyframes breatheIn {
+        from { transform: scale(1); }
+        to { transform: scale(1.2); }
+    }
+
+    @keyframes breatheOut {
+        from { transform: scale(1.2); }
+        to { transform: scale(1); }
+    }
+
+    @keyframes hold {
+        from { transform: scale(1.2); }
+        to { transform: scale(1.2); }
+    }
+
+    /* Add these new animation keyframes */
+    @keyframes breatheIn {
+        from {
+            transform: scale(1);
+            background: linear-gradient(145deg, #8B5CF6, #4ECDC4);
+        }
+        to {
+            transform: scale(1.2);
+            background: linear-gradient(145deg, #4ECDC4, #8B5CF6);
+        }
+    }
+
+    @keyframes hold {
+        from {
+            transform: scale(1.2);
+            background: linear-gradient(145deg, #4ECDC4, #8B5CF6);
+        }
+        to {
+            transform: scale(1.2);
+            background: linear-gradient(145deg, #4ECDC4, #8B5CF6);
+        }
+    }
+
+    @keyframes breatheOut {
+        from {
+            transform: scale(1.2);
+            background: linear-gradient(145deg, #4ECDC4, #8B5CF6);
+        }
+        to {
+            transform: scale(1);
+            background: linear-gradient(145deg, #8B5CF6, #4ECDC4);
+        }
+    }
+
+    .breathing-circle {
+        width: 300px;
+        height: 300px;
+        border-radius: 50%;
+        margin: 30px auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(145deg, #8B5CF6, #4ECDC4);
+        transition: transform 0.3s ease;
+    }
+
+    .breathing-text {
+        font-size: 2rem;
+        color: white;
+        margin-bottom: 10px;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .breathing-phase {
+        font-size: 1.2rem;
+        color: rgba(255, 255, 255, 0.9);
+    }
+
+    .breathing-text {
+        font-size: 2.5rem;
+        margin-bottom: 15px;
+    }
+
+    .breathing-phase {
+        font-size: 1.2rem;
+        text-align: center;
+        line-height: 1.4;
+        margin-bottom: 10px;
+    }
+
+    .breathing-instructions {
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 0.9rem;
+        margin-top: 10px;
+    }
+
+    /* Update existing animation styles */
+    @keyframes breatheIn {
+        from { 
+            transform: scale(1);
+            background: linear-gradient(145deg, #8B5CF6, #4ECDC4);
+        }
+        to { 
+            transform: scale(1.2);
+            background: linear-gradient(145deg, #4ECDC4, #8B5CF6);
+        }
+    }
+
+    @keyframes breatheOut {
+        from { 
+            transform: scale(1.2);
+            background: linear-gradient(145deg, #4ECDC4, #8B5CF6);
+        }
+        to { 
+            transform: scale(1);
+            background: linear-gradient(145deg, #8B5CF6, #4ECDC4);
+        }
+    }
+
+    /* Add these progress tracker styles */
+    .progress-container {
+      background: white;
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .progress-filters {
+      display: flex;
+      gap: 10px;
+    }
+
+    .filter-button {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 20px;
+      background: #f3f4f6;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .filter-button.active {
+      background: var(--gradient);
+      color: white;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+      margin: 20px 0;
+    }
+
+    .stat-card {
+      background: linear-gradient(145deg, #ffffff, #f5f5f5);
+      padding: 15px;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin: 10px 0;
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      color: #64748b;
+    }
+
+    .chart-container {
+      position: relative;
+      height: 300px;
+      margin: 20px 0;
+    }
+
+    .progress-insights {
+      background: #f8fafc;
+      border-radius: 12px;
+      padding: 15px;
+      margin-top: 20px;
+    }
+
+    .insight-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 10px 0;
+      padding: 10px;
+      background: white;
+      border-radius: 8px;
+      transition: transform 0.3s ease;
+    }
+
+    .insight-item:hover {
+      transform: translateX(5px);
+    }
+
+    .insight-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--gradient);
+      color: white;
+    }
+  </style>
+  <style>
+/* Base Styles */
+:root {
+    --primary: #8B5CF6;
+    --secondary: #4ECDC4;
+    --gradient: linear-gradient(135deg, #8B5CF6, #4ECDC4);
+    --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tools-container {
+    max-width: 1400px;
+    margin: 100px auto 40px;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 40px;
+}
+
+.tool-card {
+    min-height: 500px;
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(139, 92, 246, 0.1);
+    transition: var(--transition);
+}
+
+/* Enhanced Mood Tracker */
+.mood-tracker {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 15px;
+    margin: 25px 0;
+}
+
+.mood-option {
+    aspect-ratio: 1;
+    padding: 20px;
+    font-size: 1.1rem;
+}
+
+.mood-option i {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+/* Enhanced Breathing Exercise */
+.breathing-circle {
+    width: 280px;
+    height: 280px;
+    margin: 40px auto;
+    background: var(--gradient);
+    position: relative;
+    isolation: isolate;
+}
+
+.breathing-circle::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, var(--primary), transparent);
+    opacity: 0.5;
+    z-index: -1;
+}
+
+.breathing-text {
+    font-size: 2.2rem;
+    letter-spacing: 1px;
+}
+
+.breathing-phase {
+    font-size: 1.1rem;
+    max-width: 80%;
+    margin: 15px auto;
+    line-height: 1.6;
+}
+
+.breathing-controls {
+    margin-top: 40px;
+    gap: 20px;
+}
+
+/* Enhanced Journal */
+.journal-entry textarea {
+    height: 180px;
+    padding: 20px;
+    font-size: 1rem;
+    line-height: 1.6;
+    border-radius: 15px;
+    resize: none;
+    transition: var(--transition);
+}
+
+.journal-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.tag {
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    background: #f4f4f8;
+    transition: var(--transition);
+}
+
+.tag:hover {
+    background: var(--gradient);
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Enhanced Progress Tracker */
+.progress-container {
+    padding: 30px;
+    border-radius: 20px;
+}
+
+.stats-grid {
+    margin: 30px 0;
+}
+
+.stat-card {
+    padding: 25px;
+    border-radius: 15px;
+}
+
+.stat-value {
+    font-size: 2.5rem;
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.chart-container {
+    margin: 40px 0;
+    padding: 20px;
+    border-radius: 15px;
+    background: white;
+    box-shadow: var(--card-shadow);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .tools-container {
+        grid-template-columns: 1fr;
+        padding: 0 15px;
+    }
+
+    .mood-tracker {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .breathing-circle {
+        width: 240px;
+        height: 240px;
+    }
+
+    .breathing-text {
+        font-size: 1.8rem;
+    }
+}
+
+/* Animations */
+@keyframes fadeScale {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.fade-in {
+    animation: fadeScale 0.6s ease-out forwards;
+}
+
+.tool-content {
+    opacity: 0;
+    animation: fadeIn 0.8s ease-out 0.2s forwards;
+}
+</style>
 </head>
 <body>
-  <div class="container">
-    <h1>Self-Care Tools</h1>
-    <p>Explore tools and resources to support your mental health and well-being.</p>
-
-    <!-- Tools List -->
-    <div class="tools-list">
-      <div class="tool-card">
-        <i class="fas fa-pencil-alt"></i>
-        <h2>Journaling Prompts</h2>
-        <p>Use these prompts to reflect on your thoughts and feelings.</p>
-        <a href="#" class="btn-secondary">Start Journaling</a>
+  <header class="modern-header">
+    <div class="container">
+      <div class="logo-container">
+        <img src="brain.png" alt="Neuro Nurture Logo" class="logo">
+        <h1>Neuro Nurture</h1>
+      </div>
+      <nav>
+        <a href="index1.html#home">Home</a>
+        <a href="index1.html#resources">Resources</a>
+        <a href="index1.html#activities">Activities</a>
+        <a href="index1.html#games">Games</a>
+        <a href="index1.html#support-groups">Community</a>
+        <a href="index1.html#chatbot">AI Support</a>
+        <a href="login.html" class="btn-login">Login</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <div class="tools-container">
+      <!-- Enhanced Mood Tracker -->
+      <div class="tool-card fade-in">
+        <div class="tool-header">
+          <div class="tool-icon">
+            <i class="fas fa-smile"></i>
+          </div>
+          <h2>Mood Tracker</h2>
+        </div>
+        <div class="tool-content">
+          <p>How are you feeling today?</p>
+          <div class="mood-tracker">
+            <div class="mood-option" data-mood="great">
+              <i class="fas fa-grin-stars"></i>
+              <p>Great</p>
+            </div>
+            <div class="mood-option" data-mood="good">
+              <i class="fas fa-smile"></i>
+              <p>Good</p>
+            </div>
+            <div class="mood-option" data-mood="okay">
+              <i class="fas fa-meh"></i>
+              <p>Okay</p>
+            </div>
+            <div class="mood-option" data-mood="sad">
+              <i class="fas fa-frown"></i>
+              <p>Sad</p>
+            </div>
+            <div class="mood-option" data-mood="terrible">
+              <i class="fas fa-sad-tear"></i>
+              <p>Terrible</p>
+            </div>
+          </div>
+          <div id="moodHistory"></div>
+          <div class="mood-insights">
+            <h4>Your Mood Pattern</h4>
+            <div class="mood-stats"></div>
+          </div>
+        </div>
       </div>
 
-      <div class="tool-card">
-        <i class="fas fa-chart-line"></i>
-        <h2>Mood Tracker</h2>
-        <p>Track your mood daily to identify patterns and triggers.</p>
-        <a href="#" class="btn-secondary">Track Mood</a>
+      <!-- Enhanced Breathing Exercise -->
+      <div class="tool-card fade-in">
+        <div class="tool-header">
+          <div class="tool-icon">
+            <i class="fas fa-wind"></i>
+          </div>
+          <h2>Breathing Exercise</h2>
+        </div>
+        <div class="tool-content">
+          <div class="breathing-container">
+            <div class="breathing-timer">
+                <span id="minutes">4</span>:<span id="seconds">00</span>
+            </div>
+            <div class="breathing-circle" id="breathingCircle">
+                <div class="breathing-text" id="breathingText">Ready</div>
+                <div class="breathing-phase" id="breathingPhase">
+                    Follow the breathing pattern:<br>
+                    4s inhale → 4s hold → 4s exhale
+                </div>
+                <svg class="breathing-progress" viewBox="0 0 100 100">
+                    <circle class="progress-ring" cx="50" cy="50" r="48"/>
+                </svg>
+            </div>
+            <div class="breathing-controls">
+                <button id="startBreathing" class="btn-tool">
+                    <i class="fas fa-play"></i> Start Exercise
+                </button>
+                <button id="resetBreathing" class="btn-tool btn-secondary" disabled>
+                    <i class="fas fa-redo"></i> Reset
+                </button>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div class="tool-card">
-        <i class="fas fa-spa"></i>
-        <h2>Guided Meditation</h2>
-        <p>Practice mindfulness with our guided meditation sessions.</p>
-        <a href="#" class="btn-secondary">Start Meditation</a>
+      <!-- Enhanced Journal -->
+      <div class="tool-card fade-in">
+        <div class="tool-header">
+          <div class="tool-icon">
+            <i class="fas fa-book"></i>
+          </div>
+          <h2>Gratitude Journal</h2>
+        </div>
+        <div class="tool-content">
+          <div class="journal-entry">
+            <textarea id="journalEntry" placeholder="What are you grateful for today?"></textarea>
+            <button id="saveJournal" class="btn-tool">Save Entry</button>
+          </div>
+          <div id="journalHistory"></div>
+          <div class="journal-tags">
+            <span class="tag" data-tag="grateful">Grateful</span>
+            <span class="tag" data-tag="achievement">Achievement</span>
+            <span class="tag" data-tag="goal">Goal</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Enhanced Progress Tracker -->
+      <div class="tool-card fade-in">
+        <div class="tool-header">
+          <div class="tool-icon">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <h2>Progress Tracker</h2>
+        </div>
+        <div class="tool-content">
+          <div class="progress-container">
+            <div class="progress-header">
+              <h3>Mood Progress</h3>
+              <div class="progress-filters">
+                <button class="filter-button active" data-period="week">Week</button>
+                <button class="filter-button" data-period="month">Month</button>
+                <button class="filter-button" data-period="year">Year</button>
+              </div>
+            </div>
+
+            <div class="stats-grid">
+              <div class="stat-card">
+                <span class="stat-value" id="moodAverage">-</span>
+                <span class="stat-label">Average Mood</span>
+              </div>
+              <div class="stat-card">
+                <span class="stat-value" id="bestStreak">-</span>
+                <span class="stat-label">Best Streak</span>
+              </div>
+              <div class="stat-card">
+                <span class="stat-value" id="totalEntries">-</span>
+                <span class="stat-label">Total Entries</span>
+              </div>
+            </div>
+
+            <div class="chart-container">
+              <canvas id="progressChart"></canvas>
+            </div>
+
+            <div class="progress-insights">
+              <h4>Insights</h4>
+              <div id="moodInsights"></div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-
+  </main>
   <!-- Footer -->
   <footer>
     <div class="container">
-      <p>&copy; 2025 Mind Buddy. All rights reserved.</p>
+      <p>&copy; 2025 Neuro Nurture. All rights reserved.</p>
     </div>
   </footer>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="js/tools.js"></script>
 </body>
 </html>

@@ -5,133 +5,226 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register - Neuro Nurture</title>
-    <link rel="stylesheet" href="css/styles1.css">
+    <link rel="stylesheet" href="css/auth.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .register-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .register-hero {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            padding: 2rem;
+        }
+
+        .hero-content {
+            text-align: left;
+        }
+
+        .hero-content h1 {
+            font-size: 2.5rem;
+            color: #1F2937;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero-content p {
+            font-size: 1.1rem;
+            color: #6B7280;
+            line-height: 1.6;
+        }
+
+        .feature-list {
+            margin-top: 2rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-icon {
+            background: #EEF2FF;
+            padding: 0.75rem;
+            border-radius: 50%;
+            color: var(--primary-color);
+        }
+
+        .auth-box {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 24px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .register-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .step-item {
+            text-align: center;
+            z-index: 1;
+            background: white;
+            padding: 0.5rem;
+        }
+
+        .step-number {
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            background: #EEF2FF;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 0.5rem;
+        }
+
+        .step-active .step-number {
+            background: var(--primary-color);
+            color: white;
+        }
+    </style>
 </head>
 
 <body>
-    <!-- Header -->
-    <header class="modern-header">
-        <div class="container">
-            <div class="logo-container">
-                <img src="brain.png" alt="Neuro Nurture Logo" class="logo">
-                <h1>Neuro Nurture</h1>
-            </div>
-            <nav>
-                <a href="index1.html">Home</a>
-                <a href="index1.html#activities">Activities</a>
-            </nav>
-        </div>
-    </header>
+
 
     <!-- Registration Section -->
-    <section class="auth-section">
-        <div class="container">
-            <div class="auth-container">
-                <div class="auth-box">
-                    <h2><i class="fas fa-user-plus"></i> Create Account</h2>
-                    <p>Join Neuro Nurture and start your wellness journey.</p>
-
-                    <form id="registerForm" class="auth-form">
-                        <div class="form-group">
-                            <label for="fullName">Full Name</label>
-                            <div class="input-group">
-                                <i class="fas fa-user"></i>
-                                <input type="text" id="fullName" name="fullName" required>
-                            </div>
+    <main class="auth-section">
+        <div class="register-container">
+            <div class="register-hero">
+                <div class="hero-content">
+                    <img src="brain.png" alt="Neuro Nurture Logo" width="120">
+                    <h1>Start Your Journey to Better Mental Health</h1>
+                    <p>Join thousands of people who trust Neuro Nurture for their mental wellness journey.</p>
+                    
+                    <div class="feature-list">
+                        <div class="feature-item">
+                            <span class="feature-icon"><i class="fas fa-lock"></i></span>
+                            <span>Secure and confidential platform</span>
                         </div>
-
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <div class="input-group">
-                                <i class="fas fa-envelope"></i>
-                                <input type="email" id="email" name="email" required>
-                            </div>
+                        <div class="feature-item">
+                            <span class="feature-icon"><i class="fas fa-user-shield"></i></span>
+                            <span>Professional mental health support</span>
                         </div>
-
-                        <div class="form-group">
-                            <label for="password">Password</label>
-                            <div class="input-group">
-                                <i class="fas fa-lock"></i>
-                                <input type="password" id="password" name="password" required>
-                                <button type="button" class="toggle-password">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                            </div>
-                            <div class="password-strength">
-                                <div class="strength-meter"></div>
-                                <span class="strength-text">Password strength: </span>
-                            </div>
+                        <div class="feature-item">
+                            <span class="feature-icon"><i class="fas fa-comments"></i></span>
+                            <span>24/7 community support</span>
                         </div>
+                    </div>
+                </div>
+            </div>
 
-                        <div class="form-group">
-                            <label for="confirmPassword">Confirm Password</label>
-                            <div class="input-group">
-                                <i class="fas fa-lock"></i>
-                                <input type="password" id="confirmPassword" name="confirmPassword" required>
-                            </div>
+            <div class="auth-box">
+                <div class="register-steps">
+                    <div class="step-item step-active">
+                        <div class="step-number">1</div>
+                        <div class="step-label">Account</div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">2</div>
+                        <div class="step-label">Profile</div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">3</div>
+                        <div class="step-label">Complete</div>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-user-plus"></i> Create Account</h2>
+                <p>Join Neuro Nurture and start your wellness journey.</p>
+
+                <form id="registerForm" class="auth-form">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <div class="input-group">
+                            <i class="fas fa-user"></i>
+                            <input type="text" id="username" name="username" required>
                         </div>
+                    </div>
 
-                        <div class="form-options">
-                            <label class="terms-checkbox">
-                                <input type="checkbox" name="terms" required>
-                                I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
-                            </label>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <div class="input-group">
+                            <i class="fas fa-envelope"></i>
+                            <input type="email" id="email" name="email" required>
                         </div>
+                    </div>
 
-                        <button type="submit" class="btn-register">
-                            <i class="fas fa-user-plus"></i> Create Account
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <div class="input-group">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="password" name="password" required>
+                            <button type="button" class="toggle-password">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <div class="password-strength">
+                            <div class="strength-meter"></div>
+                            <span class="strength-text">Password strength: </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirm Password</label>
+                        <div class="input-group">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="confirmPassword" name="confirmPassword" required>
+                        </div>
+                    </div>
+
+                    <div class="form-options">
+                        <label class="terms-checkbox">
+                            <input type="checkbox" name="terms" required>
+                            I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn-register">
+                        <i class="fas fa-user-plus"></i> Create Account
+                    </button>
+                </form>
+
+                <div class="social-login">
+                    <p>Or sign up with</p>
+                    <div class="social-buttons">
+                        <button class="btn-social btn-google">
+                            <i class="fab fa-google"></i> Google
                         </button>
-                    </form>
-
-                    <div class="social-login">
-                        <p>Or sign up with</p>
-                        <div class="social-buttons">
-                            <button class="btn-social btn-google">
-                                <i class="fab fa-google"></i> Google
-                            </button>
-                            <button class="btn-social btn-facebook">
-                                <i class="fab fa-facebook-f"></i> Facebook
-                            </button>
-                        </div>
+                        <button class="btn-social btn-facebook">
+                            <i class="fab fa-facebook-f"></i> Facebook
+                        </button>
                     </div>
+                </div>
 
-                    <div class="auth-footer">
-                        <p>Already have an account? <a href="login.html">Login</a></p>
-                    </div>
+                <div class="auth-footer">
+                    <p>Already have an account? <a href="login.html">Sign in instead</a></p>
+                    <small class="text-muted">By creating an account, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></small>
                 </div>
             </div>
         </div>
-    </section>
+    </main>
 
-    <!-- Footer -->
-    <footer class="modern-footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>Quick Links</h4>
-                    <a href="index1.html">Home</a>
-                    <a href="index1.html#activities">Activities</a>
-                    <a href="index1.html#resources">Resources</a>
-                </div>
-                <div class="footer-section">
-                    <h4>Support</h4>
-                    <a href="contact.html">Contact Us</a>
-                    <a href="faq.html">FAQs</a>
-                </div>
-                <div class="footer-section">
-                    <h4>Emergency Support</h4>
-                    <p>24/7 Crisis Helpline: 1-800-273-8255</p>
-                    <a href="emergency.html" class="btn-emergency">Get Emergency Help</a>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 Neuro Nurture - Mental Health Support Platform. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
 
+    
+              
     <script src="js/auth.js"></script>
 </body>
 

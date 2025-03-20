@@ -5,139 +5,155 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Neuro Nurture</title>
-    <link rel="stylesheet" href="css/styles1.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/login.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Add to both login.html and register.html -->
+<style>
+    .success-message {
+        background-color: #10B981;
+        color: white;
+        padding: 1rem;
+        border-radius: 8px;
+        margin-bottom: 1rem;
+        animation: slideIn 0.3s ease-out;
+    }
+
+    .error-message {
+        background-color: #EF4444;
+        color: white;
+        padding: 1rem;
+        border-radius: 8px;
+        margin-bottom: 1rem;
+        animation: slideIn 0.3s ease-out;
+    }
+
+    .user-menu {
+        position: relative;
+        display: inline-block;
+    }
+
+    .user-button {
+        background: transparent;
+        border: none;
+        color: white;
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .user-dropdown {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        display: none;
+        min-width: 200px;
+    }
+
+    .user-menu:hover .user-dropdown {
+        display: block;
+    }
+
+    .user-dropdown a {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1rem;
+        color: #374151;
+        text-decoration: none;
+    }
+
+    .user-dropdown a:hover {
+        background: #F3F4F6;
+    }
+
+    @keyframes slideIn {
+        from {
+            transform: translateY(-10px);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+</style>
 </head>
 
 <body>
-    <!-- Header -->
-    <header class="modern-header">
-        <div class="container">
-            <div class="logo-container">
-                <img src="brain.png" alt="Neuro Nurture Logo" class="logo">
-                <h1>Neuro Nurture</h1>
+   
+  
+
+    <div class="auth-container">
+        <div class="auth-box">
+            <div class="logo-section">
+                <img src="brain.png" alt="Neuro Nurture Logo" class="auth-logo">
+                <h2>Welcome Back</h2>
+                <p>Continue your mental wellness journey</p>
             </div>
-            <nav>
-                <a href="index1.html">Home</a>
-                <a href="index1.html#activities">Activities</a>
-            </nav>
-        </div>
-    </header>
 
-    <!-- Login Section -->
-    <section class="auth-section">
-        <div class="container">
-            <div class="auth-container">
-                <div class="auth-box">
-                    <h2><i class="fas fa-user-circle"></i> Login</h2>
-                    <p>Welcome back! Please login to your account.</p>
-
-                    <form id="loginForm" class="auth-form">
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <div class="input-group">
-                                <i class="fas fa-envelope"></i>
-                                <input type="email" id="email" name="email" required>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="password">Password</label>
-                            <div class="input-group">
-                                <i class="fas fa-lock"></i>
-                                <input type="password" id="password" name="password" required>
-                                <button type="button" class="toggle-password">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                            </div>
-                        </div>
-
-                        <div class="form-options">
-                            <label class="remember-me">
-                                <input type="checkbox" name="remember">
-                                Remember me
-                            </label>
-                            <a href="#" class="forgot-password">Forgot Password?</a>
-                        </div>
-
-                        <button type="submit" class="btn-login">
-                            <i class="fas fa-sign-in-alt"></i> Login
-                        </button>
-                    </form>
-
-                    <div class="social-login">
-                        <p>Or login with</p>
-                        <div class="social-buttons">
-                            <button class="btn-social btn-google">
-                                <i class="fab fa-google"></i> Google
-                            </button>
-                            <button class="btn-social btn-facebook">
-                                <i class="fab fa-facebook-f"></i> Facebook
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="auth-footer">
-                        <p>Don't have an account? <a href="register.html">Sign Up</a></p>
+            <form id="loginForm" class="auth-form">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <div class="input-group">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="email" name="email" required>
                     </div>
                 </div>
 
-                <!-- Password Reset Form (Initially Hidden) -->
-                <div class="auth-box reset-box" style="display: none;">
-                    <h2><i class="fas fa-key"></i> Reset Password</h2>
-                    <p>Enter your email to receive password reset instructions.</p>
-
-                    <form id="resetForm" class="auth-form">
-                        <div class="form-group">
-                            <label for="resetEmail">Email</label>
-                            <div class="input-group">
-                                <i class="fas fa-envelope"></i>
-                                <input type="email" id="resetEmail" name="resetEmail" required>
-                            </div>
-                        </div>
-
-                        <button type="submit" class="btn-reset">
-                            <i class="fas fa-paper-plane"></i> Send Reset Link
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="password" name="password" required>
+                        <button type="button" class="toggle-password">
+                            <i class="fas fa-eye"></i>
                         </button>
+                    </div>
+                </div>
 
-                        <button type="button" class="btn-back">
-                            <i class="fas fa-arrow-left"></i> Back to Login
+                <div class="form-options">
+                    <label class="remember-me">
+                        <input type="checkbox" name="remember">
+                        Remember me
+                    </label>
+                    <a href="#" class="forgot-password">Forgot Password?</a>
+                </div>
+
+                <button type="submit" class="btn-login">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </button>
+            </form>
+
+            <div class="social-login">
+                <div class="divider">
+                <div class="social-login">
+                    <p>Or login with</p>
+                    <div class="social-buttons">
+                        <button class="btn-social btn-google">
+                            <i class="fab fa-google"></i> Google
                         </button>
-                    </form>
+                        <button class="btn-social btn-facebook">
+                            <i class="fab fa-facebook-f"></i> Facebook
+                        </button>
+                    </div>
+                </div>
+
+                <div class="auth-footer">
+                    <p>Don't have an account? <a href="register.html">Sign Up</a></p>
                 </div>
             </div>
         </div>
-    </section>
+    </main>
 
-    <!-- Footer -->
-    <footer class="modern-footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>Quick Links</h4>
-                    <a href="index1.html">Home</a>
-                    <a href="index1.html#activities">Activities</a>
-                    <a href="index1.html#resources">Resources</a>
-                </div>
-                <div class="footer-section">
-                    <h4>Support</h4>
-                    <a href="contact.html">Contact Us</a>
-                    <a href="faq.html">FAQs</a>
-                </div>
-                <div class="footer-section">
-                    <h4>Emergency Support</h4>
-                    <p>24/7 Crisis Helpline: 1-800-273-8255</p>
-                    <a href="emergency.html" class="btn-emergency">Get Emergency Help</a>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 Neuro Nurture - Mental Health Support Platform. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
 
-    <script src="js/auth.js"></script>
+
+    <script src="js/login.js"></script>
 </body>
 
 </html>

@@ -1,127 +1,558 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mental Health Videos - Mind Buddy</title>
-  <link rel="stylesheet" href="css/styles.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Health Videos - Neuro Nurture</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Base styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ff 100%);
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header Styles */
+        .page-header {
+            text-align: center;
+            padding: 40px 0;
+            background: linear-gradient(135deg, #8B5CF6, #6366F1);
+            color: white;
+            margin-bottom: 40px;
+            border-radius: 0 0 30px 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* Video Filter Section */
+        .video-filters {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .filter-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            background: white;
+            color: #333;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .filter-btn.active {
+            background: #8B5CF6;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+        }
+
+        /* Search Bar */
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto 40px;
+            position: relative;
+        }
+
+        .search-container input {
+            width: 100%;
+            padding: 15px 45px 15px 20px;
+            border: none;
+            border-radius: 30px;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            font-size: 1rem;
+        }
+
+        .search-container i {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #8B5CF6;
+        }
+
+        /* Enhanced Video Grid Layout */
+        .video-section {
+            margin-bottom: 60px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .video-section h2 {
+            font-size: 2rem;
+            color: #2d3748;
+            margin-bottom: 30px;
+            position: relative;
+            padding-left: 20px;
+            border-left: 5px solid #8B5CF6;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .video-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-info {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .video-meta {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #edf2f7;
+        }
+
+        .category-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            background: linear-gradient(135deg, #8B5CF6, #6366F1);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Category Navigation */
+        .category-nav {
+            position: sticky;
+            top: 0;
+            background: white;
+            padding: 20px 0;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            z-index: 100;
+        }
+
+        .category-nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .category-nav a {
+            text-decoration: none;
+            color: #4a5568;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .category-nav a:hover,
+        .category-nav a.active {
+            background: #8B5CF6;
+            color: white;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .video-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Mental Health Videos</h1>
-    <p>Watch motivational and educational videos to support your mental health journey.</p>
+    <header class="page-header">
+        <div class="container">
+            <h1>Mental Health Video Resources</h1>
+            <p>Explore expert videos on mental health topics and wellness strategies</p>
+        </div>
+    </header>
 
-    <!-- Stress Management Videos -->
-    <section class="video-section">
-      <h2>Stress Management</h2>
-      <div class="video-list">
-        <div class="video-card">
-          <iframe width="100%" height="800" src="https://www.youtube.com/embed/Z7dLU6fk9QY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-          <h3>How to Manage Stress</h3>
-          <p>Learn effective techniques to manage and reduce stress in your daily life.</p>
-        </div>
-        <div class="video-card">
-            <iframe width="100%" height="800" src="https://www.youtube.com/embed/YoSuVws4OTQ?si=MRj_khStk91YuK18" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-          <h3>5 Tips to Reduce Stress</h3>
-          <p>Practical tips to help you reduce stress and improve your well-being.</p>
-        </div>
-        <div class="video-card">
-          <iframe width="100%" height="800" src="https://www.youtube.com/embed/0fL-pn80s-c" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-          <h3>Stress Relief Techniques</h3>
-          <p>Explore techniques to relieve stress and improve mental clarity.</p>
-        </div>
-      </div>
-    </section>
+    <nav class="category-nav">
+        <ul>
+            <li><a href="#anxiety">Anxiety</a></li>
+            <li><a href="#depression">Depression</a></li>
+            <li><a href="#stress">Stress Management</a></li>
+            <li><a href="#mindfulness">Mindfulness</a></li>
+            <li><a href="#meditation">Meditation</a></li>
+            <li><a href="#yoga">Yoga</a></li>
+        </ul>
+    </nav>
 
-    <!-- Anxiety Videos -->
-    <section class="video-section">
-      <h2>Anxiety</h2>
-      <div class="video-list">
-        <div class="video-card">
-            <iframe width="100%" height="800" src="https://www.youtube.com/embed/A1anXJhVamc?si=K9_nO0Ec9C4liLvv" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-          <h3>Overcoming Anxiety</h3>
-          <p>Discover strategies to cope with anxiety and improve your mental well-being.</p>
+    <main class="container">
+        <div class="search-container">
+            <input type="text" id="videoSearch" placeholder="Search videos...">
+            <i class="fas fa-search"></i>
         </div>
-        <div class="video-card">
-          <iframe width="100%" height="800" src="https://www.youtube.com/embed/WWloIAQpMcQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-          <h3>Understanding Anxiety</h3>
-          <p>Learn about the causes of anxiety and how to manage it effectively.</p>
-        </div>
-        
-      </div>
-    </section>
 
-    <!-- Depression Videos -->
-    <section class="video-section">
-      <h2>Depression</h2>
-      <div class="video-list">
-       
+        <div class="video-filters">
+            <button class="filter-btn active" data-category="all">All Videos</button>
+            <button class="filter-btn" data-category="anxiety">Anxiety</button>
+            <button class="filter-btn" data-category="depression">Depression</button>
+            <button class="filter-btn" data-category="stress">Stress Management</button>
+            <button class="filter-btn" data-category="mindfulness">Mindfulness</button>
+            <button class="filter-btn" data-category="wellness">Wellness</button>
         </div>
-        <div class="video-card">
-          <iframe width="100%" height="800" src="https://www.youtube.com/embed/z-IR48Mb3W0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-          <h3>Understanding Depression</h3>
-          <p>Learn about the signs, symptoms, and treatments for depression.</p>
-        </div>
-        <div class="video-card">
-            <iframe width="100%" height="800" src="https://www.youtube.com/embed/s2UYIlab6c8?si=aU3o7RtQrh6TuI5p" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-          <h3>Overcoming Depression</h3>
-          <p>Practical steps to overcome depression and regain happiness.</p>
-        </div>
-      </div>
-    </section>
 
-    <!-- Meditation Videos -->
-    <section class="video-section">
-      <h2>Meditation</h2>
-      <div class="video-list">
-        <div class="video-card">
-          <iframe width="100%" height="800" src="https://www.youtube.com/embed/inpok4MKVLM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-          <h3>Guided Meditation for Beginners</h3>
-          <p>A simple guided meditation to help you relax and focus.</p>
-        </div>
-        <div class="video-card">
-          <iframe width="100%" height="800" src="https://www.youtube.com/embed/86m4RC_ADEY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-          <h3>10-Minute Meditation for Stress Relief</h3>
-          <p>Short meditation to reduce stress and improve mental clarity.</p>
-        </div>
-        <div class="video-card">
-          <iframe width="100%" height="800" src="https://www.youtube.com/embed/O-6f5wQXSu8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-          <h3>Mindfulness Meditation</h3>
-          <p>Practice mindfulness to stay present and calm.</p>
-        </div>
-      </div>
-    </section>
+        <!-- Anxiety Section -->
+        <section id="anxiety" class="video-section">
+            <h2>Anxiety Management</h2>
+            <div class="video-grid">
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <iframe src="https://www.youtube.com/embed/A1anXJhVamc" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <span class="category-badge">Anxiety</span>
+                        <h3>Understanding and Managing Anxiety</h3>
+                        <p>Learn effective strategies to cope with anxiety in daily life.</p>
+                        
+                    </div>
+                </div>
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <iframe src="https://www.youtube.com/embed/WWloIAQpMcQ" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <span class="category-badge">Anxiety</span>
+                        <h3>Understanding Anxiety</h3>
+                        <p>Learn about the causes of anxiety and how to manage it effectively.</p>
+                       
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    <!-- Yoga Videos -->
-    <section class="video-section">
-      <h2>Yoga</h2>
-      <div class="video-list">
-        <div class="video-card">
-          <iframe width="100%" height="800" src="https://www.youtube.com/embed/v7AYKMP6rOE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-          <h3>Yoga for Stress Relief</h3>
-          <p>Gentle yoga poses to relieve stress and relax your mind.</p>
-        </div>
-        <div class="video-card">
-          <iframe width="100%" height="800" src="https://www.youtube.com/embed/4pKly2JojMw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-          <h3>Yoga for Anxiety</h3>
-          <p>Yoga sequences to calm anxiety and improve mental health.</p>
-        </div>
-        <div class="video-card">
-            <iframe width="100%" height="800" src="https://www.youtube.com/embed/djLCTwi3PmU?si=bLXSozvJQCUPreIU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-          <h3>Morning Yoga Routine</h3>
-          <p>Start your day with a refreshing yoga routine.</p>
-        </div>
-      </div>
-    </section>
-  </div>
+        <!-- Depression Section -->
+        <section id="depression" class="video-section">
+            <h2>Depression Support</h2>
+            <div class="video-grid">
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <iframe src="https://www.youtube.com/embed/z-IR48Mb3W0" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <span class="category-badge">Depression</span>
+                        <h3>Understanding Depression</h3>
+                        <p>Comprehensive guide to understanding and managing depression.</p>
+                        
+                    </div>
+                </div>
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <iframe src="https://www.youtube.com/embed/s2UYIlab6c8" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <span class="category-badge">Depression</span>
+                        <h3>Overcoming Depression</h3>
+                        <p>Practical steps to overcome depression and regain happiness.</p>
+                       
+                    </div>
+                </div>
+            </div>
+        </section>
 
-  <!-- Footer -->
-  <footer>
-    <div class="container">
-      <p>&copy; 2025 Mind Buddy. All rights reserved.</p>
-    </div>
-  </footer>
+        <!-- Stress Management Section -->
+        <section id="stress" class="video-section">
+            <h2>Stress Management</h2>
+            <div class="video-grid">
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <iframe src="https://www.youtube.com/embed/Z7dLU6fk9QY" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <span class="category-badge">Stress Management</span>
+                        <h3>How to Manage Stress</h3>
+                        <p>Learn effective techniques to manage and reduce stress in your daily life.</p>
+                       
+                    </div>
+                </div>
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <iframe src="https://www.youtube.com/embed/YoSuVws4OTQ" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <span class="category-badge">Stress Management</span>
+                        <h3>5 Tips to Reduce Stress</h3>
+                        <p>Practical tips to help you reduce stress and improve your well-being.</p>
+                       
+                    </div>
+                </div>
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <iframe src="https://www.youtube.com/embed/0fL-pn80s-c" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <span class="category-badge">Stress Management</span>
+                        <h3>Stress Relief Techniques</h3>
+                        <p>Explore techniques to relieve stress and improve mental clarity.</p>
+                        
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mindfulness Section -->
+        <section id="mindfulness" class="video-section">
+            <h2>Mindfulness</h2>
+            <div class="video-grid">
+                <div class="video-card">
+                    <div class="video-wrapper">
+                      <iframe  src="https://www.youtube.com/embed/6p_yaNFSYao" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <span class="category-badge">Mindfulness</span>
+                        <h3>Introduction to Mindfulness Meditation</h3>
+                        <p>Practice mindfulness to stay present and calm.</p>
+                       
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Meditation Section -->
+        <section id="meditation" class="video-section">
+            <h2>Meditation</h2>
+            <div class="video-grid">
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <iframe src="https://www.youtube.com/embed/inpok4MKVLM" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <span class="category-badge">Meditation</span>
+                        <h3>Guided Meditation for Beginners</h3>
+                        <p>A simple guided meditation to help you relax and focus.</p>
+                        
+                    </div>
+                </div>
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <iframe src="https://www.youtube.com/embed/86m4RC_ADEY" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <span class="category-badge">Meditation</span>
+                        <h3>10-Minute Meditation for Stress Relief</h3>
+                        <p>Short meditation to reduce stress and improve mental clarity.</p>
+                       
+                    </div>
+                </div>
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <iframe src="https://www.youtube.com/embed/O-6f5wQXSu8" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <span class="category-badge">Meditation</span>
+                        <h3>Mindfulness Meditation</h3>
+                        <p>Practice mindfulness to stay present and calm.</p>
+                        
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Yoga Section -->
+        <section id="yoga" class="video-section">
+            <h2>Yoga</h2>
+            <div class="video-grid">
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <iframe src="https://www.youtube.com/embed/v7AYKMP6rOE" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <span class="category-badge">Yoga</span>
+                        <h3>Yoga for Stress Relief</h3>
+                        <p>Gentle yoga poses to relieve stress and relax your mind.</p>
+                        
+                    </div>
+                </div>
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <iframe src="https://www.youtube.com/embed/4pKly2JojMw" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <span class="category-badge">Yoga</span>
+                        <h3>Yoga for Anxiety</h3>
+                        <p>Yoga sequences to calm anxiety and improve mental health.</p>
+                        
+                    </div>
+                </div>
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <iframe src="https://www.youtube.com/embed/djLCTwi3PmU" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <span class="category-badge">Yoga</span>
+                        <h3>Morning Yoga Routine</h3>
+                        <p>Start your day with a refreshing yoga routine.</p>
+                       
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="load-more">
+            <button class="btn-load-more">Load More Videos</button>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const videos = document.querySelectorAll('.video-card');
+            const searchInput = document.getElementById('videoSearch');
+            const loadMoreBtn = document.querySelector('.btn-load-more');
+
+            // Filter functionality
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const category = btn.dataset.category;
+                    
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    videos.forEach(video => {
+                        if (category === 'all' || video.dataset.category === category) {
+                            video.style.display = 'block';
+                        } else {
+                            video.style.display = 'none';
+                        }
+                    });
+                });
+            });
+
+            // Search functionality
+            searchInput.addEventListener('input', (e) => {
+                const searchTerm = e.target.value.toLowerCase();
+                
+                videos.forEach(video => {
+                    const content = video.textContent.toLowerCase();
+                    if (content.includes(searchTerm)) {
+                        video.style.display = 'block';
+                    } else {
+                        video.style.display = 'none';
+                    }
+                });
+            });
+
+            // Load more functionality
+            let currentItems = 6;
+            
+            loadMoreBtn.addEventListener('click', () => {
+                const elementList = [...document.querySelectorAll('.video-card')];
+                
+                for (let i = currentItems; i < currentItems + 3; i++) {
+                    if (elementList[i]) {
+                        elementList[i].style.display = 'block';
+                    }
+                }
+                currentItems += 3;
+
+                if (currentItems >= elementList.length) {
+                    loadMoreBtn.style.display = 'none';
+                }
+            });
+        });
+
+        // Add smooth scrolling for category navigation
+        document.querySelectorAll('.category-nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const section = document.querySelector(this.getAttribute('href'));
+                section.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // Highlight active category based on scroll position
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('.video-section');
+            const navLinks = document.querySelectorAll('.category-nav a');
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.scrollY >= sectionTop - 100 && 
+                    window.scrollY < sectionTop + sectionHeight - 100) {
+                    const id = section.getAttribute('id');
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${id}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
