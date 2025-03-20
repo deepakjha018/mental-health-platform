@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mindfulness Maze - Neuro Nurture</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f5f7fa;
+            text-align: center;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .maze-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            position: relative;
+        }
+
+        canvas {
+            border: 4px solid #4ECDC4;
+            border-radius: 10px;
+            background: white;
+        }
+
+        .maze-controls {
+            margin-top: 1rem;
+        }
+
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border-radius: 10px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 5px;
+            transition: 0.3s ease;
+        }
+
+        .btn-primary {
+            background: #4ECDC4;
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #FF6B6B;
+            color: white;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2><i class="fas fa-brain"></i> Mindfulness Maze</h2>
+        <p>Navigate through the maze while practicing mindfulness</p>
+        <h3 id="level">Level: 1</h3>
+
+        <div class="maze-container">
+            <canvas id="mazeCanvas" width="600" height="600"></canvas>
+            <div class="maze-controls">
+                <button class="btn btn-primary" id="startMaze">Start Game</button>
+                <button class="btn btn-secondary" id="resetMaze">Reset Game</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const canvas = document.getElementById('mazeCanvas');
+            const ctx = canvas.getContext('2d');
+            const startButton = document.getElementById('startMaze');
+            const resetButton = document.getElementById('resetMaze');
+            const levelDisplay = document.getElementById('level');
+
+            let level = 1;
+            let maze, player;
+            let gameActive = false;
+
+            const moveSound = new Audio('https://www.fesliyanstudios.com/play-mp3/4380'); // Movement sound
+
+            class Maze {
+                constructor(size) {
+                    this.size = size;
+                    this.grid = this.generateComplexMaze(size);
+                }
+
+                generateComplexMaze(size) {
+                    const grid = Array.from({ length: size }, () => Array(size).fill(1));
+
+                    // Recursive backtracking algorithm for complex mazes
+                    function carvePath(x, y) {
+                        const directions = [
+                            [0, -1], [0, 1], [-1, 0], [1, 0] 
+                        ].sort(() => Math.random() - 0.5); 
+
+                        for (const [dx, dy] of directions) {
+                            const nx = x + dx * 2, ny = y + dy * 2;
+                            if (nx > 0 && ny > 0 && nx < size - 1 && ny < size - 1 && grid[ny][nx] === 1) {
+                                grid[ny][nx] = 0;
+                                grid[y + dy][x + dx] = 0;
+                                carvePath(nx, ny);
+                            }
+                        }
+                    }
+
+                    grid[1][1] = 0; // Start
+                    carvePath(1, 1);
+                    grid[size - 2][size - 2] = 0; // Exit point
+
+                    return grid;
+                }
+
+                draw(ctx) {
+                    const cellSize = canvas.width / this.size;
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    for (let i = 0; i < this.size; i++) {
+                        for (let j = 0; j < this.size; j++) {
+                            if (this.grid[i][j] === 1) {
+                                ctx.fillStyle = '#4ECDC4';
+                                ctx.fillRect(j * cellSize, i * cellSize, cellSize, cellSize);
+                            }
+                        }
+                    }
+
+                    // Start & End Points
+                    ctx.fillStyle = 'green';
+                    ctx.fillRect(cellSize, cellSize, cellSize, cellSize); 
+
+                    ctx.fillStyle = 'red';
+                    ctx.fillRect((this.size - 2) * cellSize, (this.size - 2) * cellSize, cellSize, cellSize); 
+                }
+            }
+
+            class Player {
+                constructor(maze) {
+                    this.maze = maze;
+                    this.x = 1;
+                    this.y = 1;
+                }
+
+                move(dx, dy) {
+                    const newX = this.x + dx;
+                    const newY = this.y + dy;
+                    if (newX > 0 && newX < this.maze.size - 1 && newY > 0 && newY < this.maze.size - 1 && this.maze.grid[newY][newX] === 0) {
+                        this.x = newX;
+                        this.y = newY;
+                        moveSound.play();
+                    }
+                }
+
+                draw(ctx) {
+                    const cellSize = canvas.width / this.maze.size;
+                    ctx.fillStyle = '#FF6B6B';
+                    ctx.beginPath();
+                    ctx.arc((this.x + 0.5) * cellSize, (this.y + 0.5) * cellSize, cellSize / 3, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+
+            function draw() {
+                maze.draw(ctx);
+                player.draw(ctx);
+            }
+
+            function reset() {
+                level = 1;
+                levelDisplay.textContent = `Level: ${level}`;
+                gameActive = true;
+                generateMaze();
+            }
+
+            function nextLevel() {
+                level++;
+                levelDisplay.textContent = `Level: ${level}`;
+                generateMaze();
+            }
+
+            function generateMaze() {
+                maze = new Maze(15 + level * 2); 
+                player = new Player(maze);
+                draw();
+                gameActive = true;
+                document.addEventListener('keydown', handleKeyDown);
+            }
+
+            function handleKeyDown(e) {
+                if (!gameActive) return;
+                e.preventDefault();
+
+                switch (e.key) {
+                    case 'ArrowUp': player.move(0, -1); break;
+                    case 'ArrowDown': player.move(0, 1); break;
+                    case 'ArrowLeft': player.move(-1, 0); break;
+                    case 'ArrowRight': player.move(1, 0); break;
+                }
+                draw();
+
+                if (player.x === maze.size - 2 && player.y === maze.size - 2) {
+                    gameActive = false;
+                    showWinMessage();
+                }
+            }
+
+            function showWinMessage() {
+                alert(`🎉 Level ${level} Complete! Moving to the next level...`);
+                nextLevel();
+            }
+
+            startButton.addEventListener('click', reset);
+            resetButton.addEventListener('click', reset);
+
+            reset();
+        });
+    </script>
+</body>
+</html>

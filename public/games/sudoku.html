@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sudoku Game</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #E3F2FD;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            text-align: center;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(9, 40px);
+            grid-template-rows: repeat(9, 40px);
+            gap: 2px;
+            background-color: #90CAF9;
+            padding: 10px;
+            border-radius: 10px;
+        }
+        .cell {
+            width: 40px;
+            height: 40px;
+            text-align: center;
+            font-size: 18px;
+            border: 1px solid #64B5F6;
+            background-color: #BBDEFB;
+            outline: none;
+        }
+        .cell:focus {
+            background-color: #64B5F6;
+        }
+        .btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #42A5F5;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .btn:hover {
+            background-color: #1E88E5;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Sudoku</h1>
+        <div class="grid" id="sudoku-grid"></div>
+        <button class="btn" onclick="resetGrid()">Reset</button>
+    </div>
+    <script>
+        function createGrid() {
+            const grid = document.getElementById("sudoku-grid");
+            grid.innerHTML = "";
+            for (let i = 0; i < 81; i++) {
+                let cell = document.createElement("input");
+                cell.type = "text";
+                cell.className = "cell";
+                cell.maxLength = 1;
+                grid.appendChild(cell);
+            }
+        }
+        
+        function resetGrid() {
+            document.querySelectorAll(".cell").forEach(cell => cell.value = "");
+        }
+        
+        createGrid();
+    </script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Breathing Exercise Meditation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: linear-gradient(to bottom, #a8e6cf, #dcedc1);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            margin: 0;
+        }
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        #timer {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+        .circle {
+            width: 100px;
+            height: 100px;
+            background-color: #4CAF50;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: transform 4s ease-in-out;
+        }
+        .breathe-in {
+            transform: scale(1.5);
+        }
+        .breathe-out {
+            transform: scale(1);
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            background-color: #008CBA;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Breathing Exercise</h1>
+    <p id="timer">3:00</p>
+    <div id="circle" class="circle">Start</div>
+    <button id="startBtn">Start Meditation</button>
+    <audio id="meditationMusic" src="meditation.mp3" loop></audio>
+
+    <script>
+        let timeLeft = 180; // 3 minutes
+        let timerInterval;
+        let isRunning = false;
+        const timerDisplay = document.getElementById("timer");
+        const circle = document.getElementById("circle");
+        const startBtn = document.getElementById("startBtn");
+        const audio = document.getElementById("meditationMusic");
+
+        function startExercise() {
+            if (isRunning) return;
+            isRunning = true;
+            startBtn.disabled = true;
+            audio.play();
+
+            timerInterval = setInterval(() => {
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    isRunning = false;
+                    startBtn.disabled = false;
+                    timerDisplay.textContent = "Done!";
+                    circle.textContent = "Done";
+                    audio.pause();
+                } else {
+                    timeLeft--;
+                    let minutes = Math.floor(timeLeft / 60);
+                    let seconds = timeLeft % 60;
+                    timerDisplay.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                    circle.classList.toggle("breathe-in");
+                    circle.classList.toggle("breathe-out");
+                    circle.textContent = (timeLeft % 8 < 4) ? "Inhale" : "Exhale";
+                }
+            }, 1000);
+        }
+
+        startBtn.addEventListener("click", startExercise);
+    </script>
+
+</body>
+</html>

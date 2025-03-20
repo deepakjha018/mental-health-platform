@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Water Sort Puzzle</title>
+    <style>
+        body {
+            background-color: lavender;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            font-family: Arial, sans-serif;
+        }
+        .game-container {
+            display: flex;
+            gap: 20px;
+        }
+        .bottle {
+            width: 60px;
+            height: 200px;
+            border: 2px solid black;
+            border-radius: 10px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column-reverse;
+            position: relative;
+            background: linear-gradient(to bottom, #ddd, #bbb);
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
+            cursor: pointer;
+        }
+        .liquid {
+            width: 100%;
+            transition: 0.5s;
+            border-radius: 5px;
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3);
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            background-color: darkblue;
+            color: white;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Water Sort Puzzle</h1>
+    <div class="game-container" id="game"></div>
+    <button onclick="resetGame()">Reset</button>
+    
+    <script>
+        const colors = ['#FF5733', '#33FF57', '#3357FF', '#F4D03F'];
+        
+        function generateRandomBottles() {
+            let allLiquids = [...colors.keys(), ...colors.keys()];
+            allLiquids.sort(() => Math.random() - 0.5);
+            return [
+                allLiquids.slice(0, 4),
+                allLiquids.slice(4, 8),
+                [],
+                [],
+                []
+            ];
+        }
+
+        let bottles = generateRandomBottles();
+        let selectedBottle = null;
+
+        function createGame() {
+            const container = document.getElementById("game");
+            container.innerHTML = "";
+            bottles.forEach((bottle, index) => {
+                const div = document.createElement("div");
+                div.className = "bottle";
+                div.onclick = () => selectBottle(index);
+                bottle.forEach(colorIndex => {
+                    const liquid = document.createElement("div");
+                    liquid.className = "liquid";
+                    liquid.style.backgroundColor = colors[colorIndex];
+                    liquid.style.height = "25%";
+                    div.appendChild(liquid);
+                });
+                container.appendChild(div);
+            });
+            checkWin();
+        }
+
+        function selectBottle(index) {
+            if (selectedBottle === null) {
+                selectedBottle = index;
+            } else {
+                pourLiquid(selectedBottle, index);
+                selectedBottle = null;
+            }
+        }
+
+        function pourLiquid(from, to) {
+            if (from === to || bottles[from].length === 0) return;
+            let topColor = bottles[from][bottles[from].length - 1];
+            let movableCount = 1;
+            
+            for (let i = bottles[from].length - 2; i >= 0; i--) {
+                if (bottles[from][i] === topColor) {
+                    movableCount++;
+                } else {
+                    break;
+                }
+            }
+
+            if (bottles[to].length + movableCount <= 4 && (bottles[to].length === 0 || bottles[to][bottles[to].length - 1] === topColor)) {
+                for (let i = 0; i < movableCount; i++) {
+                    bottles[to].push(bottles[from].pop());
+                }
+                createGame();
+            }
+        }
+
+        function checkWin() {
+            let fullBottles = bottles.filter(b => b.length === 4 && b.every((v, i, arr) => v === arr[0]));
+            if (fullBottles.length === 4 && bottles.some(b => b.length === 0)) {
+                setTimeout(() => {
+                    alert("You won! New round starts now!");
+                    resetGame();
+                }, 500);
+            }
+        }
+
+        function resetGame() {
+            bottles = generateRandomBottles();
+            selectedBottle = null;
+            createGame();
+        }
+
+        createGame();
+    </script>
+</body>
+</html>

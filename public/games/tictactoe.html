@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic-Tac-Toe</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; background-color: #ffe6f2; }
+        h1 { color: #333; }
+        .board { 
+            display: grid; 
+            grid-template-columns: repeat(3, 100px); 
+            gap: 5px; 
+            width: 310px; 
+            margin: 20px auto; 
+        }
+        .cell { 
+            width: 100px; 
+            height: 100px; 
+            font-size: 2em; 
+            text-align: center; 
+            line-height: 100px; 
+            border-radius: 10px;
+            border: 2px solid #333; 
+            background-color: #ccf2ff;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+        }
+        .cell:hover { background-color: #99e6ff; }
+        .cell.taken { cursor: not-allowed; background-color: #f0f0f0; }
+        .winning-cell { background-color: #ff99cc !important; color: white; }
+        #status { font-size: 1.2em; margin-top: 10px; font-weight: bold; color: #333; }
+        button { margin-top: 10px; padding: 10px 20px; font-size: 1em; cursor: pointer; border: none; background: #ff80b3; color: white; border-radius: 5px; }
+        button:hover { background: #e67399; }
+        #winner-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+        #winner-popup img { width: 150px; }
+        #winner-popup button {
+            margin-top: 10px;
+            padding: 10px;
+            cursor: pointer;
+            border: none;
+            background: #ff80b3;
+            color: white;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Tic-Tac-Toe</h1>
+    <label for="difficulty">Difficulty: </label>
+    <select id="difficulty">
+        <option value="Easy">Easy</option>
+        <option value="Moderate">Moderate</option>
+        <option value="Hard">Hard</option>
+    </select>
+    
+    <div class="board" id="board"></div>
+    <p id="status"></p>
+    <p>Player Wins: <span id="player-wins">0</span> | Computer Wins: <span id="computer-wins">0</span></p>
+    <button onclick="resetGame()">Reset</button>
+    
+    <div id="winner-popup">
+        <img id="winner-image" src="" alt="Winner Image">
+        <p id="winner-message"></p>
+        <button onclick="closePopup()">OK</button>
+    </div>
+
+    <script>
+        const board = document.getElementById("board");
+        const status = document.getElementById("status");
+        const difficulty = document.getElementById("difficulty");
+        const playerWinsDisplay = document.getElementById("player-wins");
+        const computerWinsDisplay = document.getElementById("computer-wins");
+        const winnerPopup = document.getElementById("winner-popup");
+        const winnerImage = document.getElementById("winner-image");
+        const winnerMessage = document.getElementById("winner-message");
+
+        let gameBoard = Array(9).fill("");
+        let playerTurn = true;
+        let playerWins = 0;
+        let computerWins = 0;
+
+        function renderBoard() {
+            board.innerHTML = "";
+            gameBoard.forEach((value, index) => {
+                const cell = document.createElement("div");
+                cell.classList.add("cell");
+                cell.textContent = value;
+                if (value !== "") cell.classList.add("taken");
+                cell.addEventListener("click", () => playerMove(index));
+                board.appendChild(cell);
+            });
+        }
+
+        function playerMove(index) {
+            if (!playerTurn || gameBoard[index] !== "") return;
+            gameBoard[index] = "X";
+            playerTurn = false;
+            renderBoard();
+            if (checkGameOver()) return;
+
+            setTimeout(() => {
+                computerMove();
+                renderBoard();
+                checkGameOver();
+                playerTurn = true;
+            }, 500);
+        }
+
+        function computerMove() {
+            let move;
+            if (difficulty.value === "Easy") {
+                move = randomMove();
+            } else if (difficulty.value === "Moderate") {
+                move = Math.random() > 0.5 ? bestMove("O") : randomMove();
+            } else {
+                move = bestMove("O");
+            }
+            if (move !== null) gameBoard[move] = "O";
+        }
+
+        function checkGameOver() {
+            const winCombo = checkWin("X") || checkWin("O");
+            if (winCombo) {
+                let winner = gameBoard[winCombo[0]];
+                status.textContent = winner === "X" ? "You Win! 🎉" : "Computer Wins! 💻";
+                winCombo.forEach(index => document.getElementsByClassName("cell")[index].classList.add("winning-cell"));
+                
+                if (winner === "X") {
+                    playerWins++;
+                    winnerImage.src = "laughing-human.png"; 
+                    winnerMessage.textContent = "You Win! 🎉";
+                } else {
+                    computerWins++;
+                    winnerImage.src = "laughing-computer.png";
+                    winnerMessage.textContent = "Computer Wins! 😈";
+                }
+
+                updateScore();
+                showPopup();
+                return true;
+            }
+            if (!gameBoard.includes("")) {
+                status.textContent = "It's a Draw! 🤝";
+                return true;
+            }
+            return false;
+        }
+
+        function checkWin(player) {
+            const winningCombos = [
+                [0,1,2], [3,4,5], [6,7,8], [0,3,6],
+                [1,4,7], [2,5,8], [0,4,8], [2,4,6]
+            ];
+            return winningCombos.find(combo => combo.every(i => gameBoard[i] === player)) || null;
+        }
+
+        function updateScore() {
+            playerWinsDisplay.textContent = playerWins;
+            computerWinsDisplay.textContent = computerWins;
+        }
+
+        function resetGame() {
+            gameBoard = Array(9).fill("");
+            playerTurn = true;
+            status.textContent = "";
+            renderBoard();
+            closePopup();
+        }
+
+        function showPopup() {
+            winnerPopup.style.display = "block";
+        }
+
+        function closePopup() {
+            winnerPopup.style.display = "none";
+        }
+
+        function randomMove() {
+            const available = gameBoard.map((v, i) => v === "" ? i : null).filter(v => v !== null);
+            return available.length ? available[Math.floor(Math.random() * available.length)] : null;
+        }
+
+        function bestMove(player) {
+            return randomMove(); 
+        }
+
+        renderBoard();
+    </script>
+</body>
+</html>

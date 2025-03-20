@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activities - Mental Wellness Games</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f7fa;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        h2 {
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        /* Games Grid */
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .game-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .game-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .game-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .game-card h3 {
+            margin: 1rem 0;
+            font-size: 1.2rem;
+            color: #333;
+        }
+
+        .play-btn {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.8rem 1.5rem;
+            background: #4ECDC4;
+            color: white;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 10px;
+            transition: background 0.3s ease;
+        }
+
+        .play-btn:hover {
+            background: #3bb5a2;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 3rem;
+            background: #4ECDC4;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2><i class="fas fa-gamepad"></i> Mental Wellness Activities</h2>
+        <p>Explore and engage in fun therapeutic games to enhance your well-being.</p>
+
+        <div class="games-grid">
+            <!-- Mindfulness Maze -->
+            <div class="game-card">
+                <img src="images/mindfulness-maze.jpg" alt="Mindfulness Maze">
+                <h3>Mindfulness Maze</h3>
+                <p>Navigate through a peaceful maze while practicing mindfulness techniques.</p>
+                <a href="mindfulness-maze.html" class="play-btn" target="_blank">Play Now</a>
+            </div>
+
+            <!-- Emotion Match -->
+            <div class="game-card">
+                <img src="images/emotion-match.jpg" alt="Emotion Match">
+                <h3>Emotion Match</h3>
+                <p>Match emotions and learn about different feelings in this engaging puzzle game.</p>
+                <a href="emotion-match.html" class="play-btn" target="_blank">Play Now</a>
+            </div>
+
+            <!-- Anxiety Adventure -->
+            <div class="game-card">
+                <img src="images/anxiety-adventure.jpg" alt="Anxiety Adventure">
+                <h3>Anxiety Adventure</h3>
+                <p>Overcome challenges and learn anxiety management techniques in this adventure game.</p>
+                <a href="anxiety-adventure.html" class="play-btn" target="_blank">Play Now</a>
+            </div>
+
+            <!-- Mood Melody -->
+            <div class="game-card">
+                <img src="images/mood-melody.jpg" alt="Mood Melody">
+                <h3>Mood Melody</h3>
+                <p>Create beautiful music while exploring and expressing your emotions.</p>
+                <a href="mood-melody.html" class="play-btn" target="_blank">Play Now</a>
+            </div>
+
+            <!-- Sudoku -->
+            <div class="game-card">
+                <img src="images/sudoku.jpg" alt="Sudoku">
+                <h3>Sudoku</h3>
+                <p>Sharpen your mind by solving relaxing Sudoku puzzles.</p>
+                <a href="sudoku.html" class="play-btn" target="_blank">Play Now</a>
+            </div>
+
+            <!-- Bottle Sort -->
+            <div class="game-card">
+                <img src="images/bottle-sort.jpg" alt="Bottle Sort">
+                <h3>Bottle Sort</h3>
+                <p>Sort the colored liquids into their respective bottles in this logic-based game.</p>
+                <a href="bottleSort.html" class="play-btn" target="_blank">Play Now</a>
+            </div>
+
+            <!-- Tic Tac Toe -->
+            <div class="game-card">
+                <img src="images/tic-tac-toe.jpg" alt="Tic Tac Toe">
+                <h3>Tic-Tac-Toe</h3>
+                <p>Play the classic Tic-Tac-Toe game and challenge your strategic thinking.</p>
+                <a href="tictactoe.html" class="play-btn" target="_blank">Play Now</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Neuro Nurture - Mental Wellness Support Platform. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

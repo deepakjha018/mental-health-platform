@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emotion Match - Memory Game</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa, #dfe9f3);
+            text-align: center;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 1rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        .match-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 100px);
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+
+        .match-card {
+            width: 100px;
+            height: 100px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: transform 0.4s;
+            transform-style: preserve-3d;
+            position: relative;
+        }
+
+        .match-card .card-front,
+        .match-card .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            border-radius: 10px;
+        }
+
+        .match-card .card-front {
+            background: white;
+            border: 2px solid #4ECDC4;
+            transform: rotateY(180deg);
+        }
+
+        .match-card .card-back {
+            background: linear-gradient(135deg, #4ECDC4, #556270);
+        }
+
+        .match-card.flipped .card-front {
+            transform: rotateY(0);
+        }
+
+        .match-card.flipped .card-back {
+            transform: rotateY(180deg);
+        }
+
+        .score-panel {
+            margin-top: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .btn {
+            margin-top: 1rem;
+            padding: 0.8rem 1.5rem;
+            border-radius: 10px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            background: #4ECDC4;
+            color: white;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Emotion Match - Memory Game</h2>
+        <p>Pick one card and find its match!</p>
+        
+        <div class="score-panel">
+            Score: <span id="score">0</span>
+        </div>
+
+        <div class="match-grid" id="matchGrid"></div>
+
+        <button class="btn" id="restartGame">Restart</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const emotions = ['😊', '😢', '😡', '😲', '😱', '🤢', '😍', '😴'];
+            const shuffledEmotions = [...emotions, ...emotions].sort(() => 0.5 - Math.random());
+            const matchGrid = document.getElementById('matchGrid');
+            const scoreDisplay = document.getElementById('score');
+            let firstCard = null, secondCard = null, score = 0;
+
+            function createCard(emoji) {
+                const card = document.createElement('div');
+                card.classList.add('match-card');
+                card.innerHTML = `
+                    <div class="card-front">${emoji}</div>
+                    <div class="card-back"></div>
+                `;
+                card.dataset.emoji = emoji;
+                matchGrid.appendChild(card);
+
+                card.addEventListener('click', () => {
+                    if (!card.classList.contains('flipped') && (!firstCard || !secondCard)) {
+                        card.classList.add('flipped');
+
+                        if (!firstCard) {
+                            firstCard = card;
+                        } else if (firstCard !== card) {
+                            secondCard = card;
+                            checkMatch();
+                        }
+                    }
+                });
+            }
+
+            function checkMatch() {
+                if (firstCard.dataset.emoji === secondCard.dataset.emoji) {
+                    score++;
+                    scoreDisplay.textContent = score;
+                    firstCard = null;
+                    secondCard = null;
+                } else {
+                    setTimeout(() => {
+                        firstCard.classList.remove('flipped');
+                        secondCard.classList.remove('flipped');
+                        firstCard = null;
+                        secondCard = null;
+                    }, 1000);
+                }
+            }
+
+            shuffledEmotions.forEach(emoji => createCard(emoji));
+
+            document.getElementById('restartGame').addEventListener('click', () => location.reload());
+        });
+    </script>
+</body>
+</html>
