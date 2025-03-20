@@ -93,7 +93,7 @@ body {
 .modern-header {
     background: linear-gradient(90deg, rgba(139, 92, 246, 0.95), rgba(100, 181, 246, 0.95));
     backdrop-filter: blur(10px);
-    animation: gradientMove 15s ease infinite;
+    animation: gradientMove 10s ease infinite;
     background-size: 200% 200%;
     position: fixed;
     width: 100%;
@@ -160,7 +160,7 @@ nav a:hover {
 .hero {
     padding: 180px 0 120px;
     background: linear-gradient(45deg, #8B5CF6, #64B5F6, #4ECDC4);
-    animation: gradientMove 15s ease infinite;
+    animation: gradientMove 10s ease infinite; /* changed 15s to 10s animation */
     background-size: 400% 400%;
     position: relative;
     text-align: center;
@@ -910,7 +910,7 @@ section h2 i {
     border-radius: 3px;
 }
 
-/* Chat Input Area */
+/* Update Chat Input Area */
 .chat-input-container {
     padding: 20px;
     display: flex;
@@ -918,32 +918,40 @@ section h2 i {
     background: rgba(255, 255, 255, 0.05);
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     position: relative;
+    border-radius: 0 0 30px 30px;
 }
 
 #userInput {
     flex: 1;
-    padding: 16px 24px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 16px 50px 16px 24px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
     border-radius: 25px;
     background: rgba(255, 255, 255, 0.1);
     color: white;
     font-size: 1rem;
     transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
 }
 
 #userInput:focus {
+    outline: none;
     border-color: rgba(139, 92, 246, 0.5);
     box-shadow: 0 0 20px rgba(139, 92, 246, 0.2);
     background: rgba(255, 255, 255, 0.15);
 }
 
 #userInput::placeholder {
-    color: rgba(255, 255, 255, 0.7);
+    color: rgba(255, 255, 255, 0.6);
+    font-style: italic;
 }
 
 #sendBtn {
-    width: 50px;
-    height: 50px;
+    position: absolute;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     background: linear-gradient(45deg, #8B5CF6, #F472B6);
     color: white;
@@ -957,12 +965,17 @@ section h2 i {
 }
 
 #sendBtn:hover {
-    transform: scale(1.1) rotate(15deg);
+    transform: translateY(-50%) scale(1.1);
     box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
 }
 
+#sendBtn:active {
+    transform: translateY(-50%) scale(0.95);
+}
+
 #sendBtn i {
-    font-size: 20px;
+    font-size: 16px;
+    margin-left: 2px;
 }
 
 /* Add message bubbles */
@@ -2018,7 +2031,7 @@ section h2 i {
 
 .support-item h4 {
     margin-bottom: 8px;
-    color: var(--text-dark);
+    color: var (--text-dark);
 }
 
 .expect-item {
@@ -2314,7 +2327,6 @@ section h2 i {
     height: 100%;
     background: white;
     backface-visibility: hidden;
-    transform: rotateY(180deg);
 }
 
 /* Modern Assessment Theme */
@@ -2400,4 +2412,173 @@ section h2 i {
     color: rgb(104, 156, 246);
     border-color: transparent;
     transform: scale(1.02);
+}
+
+/* Interactive Card Animations */
+.melody-card, .game-card, .activity-card {
+    transform: translateY(0);
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    position: relative;
+}
+
+.melody-card:hover, .game-card:hover, .activity-card:hover {
+    transform: translateY(-10px);
+}
+
+.melody-card::after, .game-card::after, .activity-card::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    border-radius: 15px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    transition: opacity 0.3s ease-in-out;
+}
+
+.melody-card:hover::after, .game-card:hover::after, .activity-card:hover::after {
+    opacity: 1;
+}
+
+/* Particle Effects */
+.particle {
+    position: absolute;
+    pointer-events: none;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(180deg); }
+}
+
+/* Interactive Elements */
+.btn-primary, .btn-secondary {
+    transform: scale(1);
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover, .btn-secondary:hover {
+    transform: scale(1.05);
+}
+
+/* Mood-specific themes */
+.mood-happy { background: linear-gradient(135deg, #FFD700, #FFA500); }
+.mood-calm { background: linear-gradient(135deg, #4ECDC4, #556270); }
+.mood-energized { background: linear-gradient(135deg, #FF6B6B, #FF8E53); }
+.mood-sad { background: linear-gradient(135deg, #2C3E50, #3498DB); }
+
+/* Chat Interface Styles */
+.chat-container {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin: 20px 0;
+    padding: 20px;
+}
+
+.messages {
+    height: 400px;
+    overflow-y: auto;
+    border: 1px solid #eee;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.message {
+    margin-bottom: 10px;
+    padding: 8px;
+    background: #f8f9fa;
+    border-radius: 4px;
+}
+
+.message-input {
+    display: flex;
+    gap: 10px;
+}
+
+.message-input textarea {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    resize: vertical;
+    min-height: 60px;
+}
+
+.message-input button {
+    padding: 8px 20px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.group-guidelines {
+    margin-top: 20px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.games .game-image {
+    background: linear-gradient(135deg, #4ECDC4, #556270);
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px 10px 0 0;
+}
+
+.games .game-image i {
+    font-size: 3rem;
+    color: white;
+}
+
+.games-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.game-card {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.game-card:hover {
+    transform: translateY(-5px);
+}
+
+.game-content {
+    padding: 1.5rem;
+}
+
+.game-content h3 {
+    margin: 0 0 0.5rem;
+    color: #333;
+}
+
+.game-content p {
+    color: #666;
+    margin-bottom: 1rem;
+}
+
+.game-stats {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.game-stats span i {
+    margin-right: 5px;
+    color: #4ECDC4;
 }
