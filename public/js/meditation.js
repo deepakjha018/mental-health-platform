@@ -293,4 +293,26 @@ function createAudioVisualizer() {
     const analyser = audioContext.createAnalyser();
     // Connect to audio source
     // Create canvas visualization
-} 
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const categoryTabs = document.querySelectorAll('.category-tab');
+    const meditationCards = document.querySelectorAll('.meditation-card');
+
+    categoryTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            categoryTabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            const category = tab.dataset.category;
+            meditationCards.forEach(card => {
+                card.style.display = card.dataset.category === category ? 'block' : 'none';
+            });
+        });
+    });
+
+    meditationCards.forEach(card => {
+        card.querySelector('.start-session').addEventListener('click', () => {
+            alert(`Starting ${card.querySelector('h3').textContent} session...`);
+        });
+    });
+});

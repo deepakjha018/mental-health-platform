@@ -181,4 +181,29 @@ class FAQManager {
 // Initialize FAQ manager when the page loads
 document.addEventListener('DOMContentLoaded', () => {
     new FAQManager();
-}); 
+
+    const faqItems = document.querySelectorAll('.faq-item');
+    const categoryButtons = document.querySelectorAll('.category-btn');
+    const faqCategories = document.querySelectorAll('.faq-category');
+
+    faqItems.forEach(item => {
+        item.querySelector('.faq-question').addEventListener('click', () => {
+            item.classList.toggle('active');
+        });
+    });
+
+    categoryButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            categoryButtons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const category = btn.dataset.category;
+            faqCategories.forEach(cat => {
+                cat.style.display = cat.id === category ? 'block' : 'none';
+            });
+        });
+    });
+});
+
+function startChat() {
+    alert('Starting live chat...');
+}

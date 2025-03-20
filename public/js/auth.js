@@ -1,3 +1,55 @@
+const API_URL = 'http://localhost:3000/api';
+
+class Auth {
+    static async login(email, password) {
+        try {
+            const response = await fetch(`${API_URL}/auth/login`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                credentials: 'include',
+                body: JSON.stringify({ email, password })
+            });
+            return await response.json();
+        } catch (error) {
+            throw new Error('Login failed');
+        }
+    }
+
+    static async register(userData) {
+        try {
+            const response = await fetch(`${API_URL}/auth/register`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                credentials: 'include',
+                body: JSON.stringify(userData)
+            });
+            return await response.json();
+        } catch (error) {
+            throw new Error('Registration failed');
+        }
+    }
+
+    static async logout() {
+        try {
+            await fetch(`${API_URL}/auth/logout`, {
+                method: 'POST',
+                credentials: 'include'
+            });
+            window.location.href = '/login.html';
+        } catch (error) {
+            console.error('Logout failed:', error);
+        }
+    }
+
+    static showMessage(type, message, container) {
+        const div = document.createElement('div');
+        div.className = `${type}-message`;
+        div.textContent = message;
+        container.insertBefore(div, container.firstChild);
+        setTimeout(() => div.remove(), 5000);
+    }
+}
+
 class AuthManager {
     constructor() {
         this.initializeElements();
@@ -66,35 +118,27 @@ class AuthManager {
         }
     }
 
-    handleLogin(e) {
+    async handleLogin(e) {
         e.preventDefault();
         
         const email = this.loginForm.email.value;
         const password = this.loginForm.password.value;
-        const remember = this.loginForm.remember?.checked;
 
-        // Validate input
-        if (!this.validateEmail(email)) {
-            this.showMessage('Please enter a valid email address', 'error');
-            return;
+        try {
+            const data = await Auth.login(email, password);
+            if (data.token) {
+                localStorage.setItem('token', data.token);
+                window.location.href = '/groups/anxiety.html';
+            } else {
+                Auth.showMessage('error', data.error || 'Login failed', this.loginForm);
+            }
+        } catch (error) {
+            console.error('Login error:', error);
+            Auth.showMessage('error', 'Login failed. Please try again.', this.loginForm);
         }
-
-        // Simulate API call
-        this.showMessage('Logging in...', 'info');
-        
-        // In a real implementation, this would be an API call
-        setTimeout(() => {
-            // Simulate successful login
-            localStorage.setItem('user', JSON.stringify({ email, name: email.split('@')[0] }));
-            this.showMessage('Login successful! Redirecting...', 'success');
-            
-            setTimeout(() => {
-                window.location.href = 'index1.html';
-            }, 1000);
-        }, 1500);
     }
 
-    handleRegistration(e) {
+    async handleRegistration(e) {
         e.preventDefault();
 
         const fullName = this.registerForm.fullName.value;
@@ -124,19 +168,18 @@ class AuthManager {
             return;
         }
 
-        // Simulate API call
-        this.showMessage('Creating your account...', 'info');
-        
-        // In a real implementation, this would be an API call
-        setTimeout(() => {
-            // Simulate successful registration
-            localStorage.setItem('user', JSON.stringify({ email, name: fullName }));
-            this.showMessage('Registration successful! Redirecting...', 'success');
-            
-            setTimeout(() => {
-                window.location.href = 'index1.html';
-            }, 1000);
-        }, 1500);
+        try {
+            const data = await Auth.register({ fullName, email, password });
+            if (data.token) {
+                localStorage.setItem('token', data.token);
+                window.location.href = '/groups/anxiety.html';
+            } else {
+                Auth.showMessage('error', data.error || 'Registration failed', this.registerForm);
+            }
+        } catch (error) {
+            console.error('Registration error:', error);
+            Auth.showMessage('error', 'Registration failed. Please try again.', this.registerForm);
+        }
     }
 
     handlePasswordReset(e) {
@@ -271,4 +314,72 @@ class AuthManager {
 // Initialize authentication manager when the page loads
 document.addEventListener('DOMContentLoaded', () => {
     new AuthManager();
-}); 
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    const loginForm = document.getElementById('loginForm');
+    const registerForm = document.getElementById('registerForm');
+
+    if (loginForm) {
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                const response = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    localStorage.setItem('token', data.token);
+                    window.location.href = '/groups/anxiety.html';
+                } else {
+                    alert(data.error || 'Login failed');
+                }
+            } catch (error) {
+                console.error('Login error:', error);
+                alert('Login failed. Please try again.');
+            }
+        });
+    }
+
+    if (registerForm) {
+        registerForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                const response = await fetch('/api/auth/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ username, email, password })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    alert('Registration successful! Please login.');
+                    window.location.href = '/login.html';
+                } else {
+                    alert(data.error || 'Registration failed');
+                }
+            } catch (error) {
+                console.error('Registration error:', error);
+                alert('Registration failed. Please try again.');
+            }
+        });
+    }
+});

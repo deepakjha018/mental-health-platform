@@ -199,4 +199,20 @@ class EmergencySupport {
 // Initialize emergency support when the page loads
 document.addEventListener('DOMContentLoaded', () => {
     new EmergencySupport();
-}); 
+});
+
+function findLocalHelp() {
+    alert("Finding local help...");
+}
+
+function showSafetyPlan() {
+    alert("Creating a safety plan...");
+}
+
+function showCopingStrategies() {
+    alert("Viewing coping strategies...");
+}
+
+function showSupportNetwork() {
+    alert("Building a support network...");
+}

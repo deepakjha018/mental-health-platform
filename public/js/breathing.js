@@ -324,4 +324,25 @@ class BreathingExercise {
 // Initialize breathing exercise when the page loads
 document.addEventListener('DOMContentLoaded', () => {
     new BreathingExercise();
-}); 
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    const breathingCards = document.querySelectorAll('.breathing-card');
+    const startButton = document.getElementById('startBreathing');
+    let selectedTechnique = null;
+
+    breathingCards.forEach(card => {
+        card.addEventListener('click', () => {
+            breathingCards.forEach(c => c.classList.remove('selected'));
+            card.classList.add('selected');
+            selectedTechnique = card.dataset.technique;
+            startButton.disabled = false;
+        });
+    });
+
+    startButton.addEventListener('click', () => {
+        if (selectedTechnique) {
+            alert(`Starting ${selectedTechnique} breathing exercise...`);
+        }
+    });
+});
