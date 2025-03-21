@@ -34,16 +34,15 @@ class RegisterManager {
             confirmPassword: document.getElementById('confirmPassword').value
         };
 
-        if (!this.validateForm(formData)) {
-            return;
-        }
+        if (!this.validateForm(formData)) return;
 
         try {
-            const response = await fetch(`${this.API_URL}/auth/register`, {
+            const response = await fetch('/api/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
+                credentials: 'include',
                 body: JSON.stringify(formData)
             });
 
@@ -52,10 +51,10 @@ class RegisterManager {
             if (data.success) {
                 this.showSuccess('Registration successful! Redirecting to login...');
                 setTimeout(() => {
-                    window.location.href = '/login.html';
-                }, 2000);
+                    window.location.href = '/index1.html';
+                }, 1500);
             } else {
-                this.showError(data.message || 'Registration failed');
+                this.showError(data.error || 'Registration failed');
             }
         } catch (error) {
             this.showError('Server error. Please try again later.');

@@ -1,37 +1,80 @@
 const API_URL = 'http://localhost:3000/api';
 
 class Auth {
+    static async checkAuthStatus() {
+        try {
+            const response = await fetch('/api/user', {
+                credentials: 'include'
+            });
+            const data = await response.json();
+            
+            if (data.authenticated) {
+                this.updateNavBar(data.user);
+                return true;
+            }
+            return false;
+        } catch (error) {
+            console.error('Auth check failed:', error);
+            return false;
+        }
+    }
+
+    static updateNavBar(user) {
+        const loginBtn = document.getElementById('loginBtn');
+        const userMenu = document.getElementById('userMenu');
+        const username = document.getElementById('username');
+
+        if (user) {
+            loginBtn.style.display = 'none';
+            userMenu.style.display = 'block';
+            username.textContent = user.username;
+        } else {
+            loginBtn.style.display = 'block';
+            userMenu.style.display = 'none';
+        }
+    }
+
     static async login(email, password) {
         try {
-            const response = await fetch(`${API_URL}/auth/login`, {
+            const response = await fetch('/api/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 credentials: 'include',
                 body: JSON.stringify({ email, password })
             });
-            return await response.json();
+            
+            const data = await response.json();
+            if (data.success) {
+                window.location.href = '/index1.html';
+            }
+            return data;
         } catch (error) {
-            throw new Error('Login failed');
+            return { success: false, error: error.message };
         }
     }
 
     static async register(userData) {
         try {
-            const response = await fetch(`${API_URL}/auth/register`, {
+            const response = await fetch('/api/register', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 credentials: 'include',
                 body: JSON.stringify(userData)
             });
-            return await response.json();
+            
+            const data = await response.json();
+            if (data.success) {
+                window.location.href = '/index1.html';
+            }
+            return data;
         } catch (error) {
-            throw new Error('Registration failed');
+            return { success: false, error: error.message };
         }
     }
 
     static async logout() {
         try {
-            await fetch(`${API_URL}/auth/logout`, {
+            await fetch('/api/logout', {
                 method: 'POST',
                 credentials: 'include'
             });
@@ -380,6 +423,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.error('Registration error:', error);
                 alert('Registration failed. Please try again.');
             }
+        });
+    }
+});
+
+// Initialize auth check on all pages
+document.addEventListener('DOMContentLoaded', () => {
+    Auth.checkAuthStatus();
+    
+    // Add logout handler
+    const logoutBtn = document.getElementById('logoutBtn');
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            Auth.logout();
         });
     }
 });

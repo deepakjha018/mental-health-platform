@@ -28,21 +28,25 @@ class LoginManager {
         this.setLoadingState(true);
 
         try {
-            // Simulating API call - replace with your actual backend endpoint
-            const response = await this.loginUser(this.emailInput.value, this.passwordInput.value);
+            const response = await fetch('/api/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                credentials: 'include',
+                body: JSON.stringify({
+                    email: this.emailInput.value,
+                    password: this.passwordInput.value
+                })
+            });
+
+            const data = await response.json();
             
-            if (response.success) {
-                // Store user data in localStorage
-                localStorage.setItem('userSession', JSON.stringify({
-                    isLoggedIn: true,
-                    username: response.username,
-                    email: this.emailInput.value
-                }));
-                
-                this.showSuccessMessage('Login successful!');
-                window.location.href = '/index1.html';
+            if (data.success) {
+                this.showSuccessMessage('Login successful! Redirecting...');
+                setTimeout(() => {
+                    window.location.href = '/index1.html';
+                }, 1500);
             } else {
-                throw new Error('Invalid credentials');
+                throw new Error(data.error || 'Invalid credentials');
             }
         } catch (error) {
             this.showError(error.message);
