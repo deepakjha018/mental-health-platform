@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="css/login.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="/middleware/auth.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <!-- Add to both login.html and register.html -->
 <style>
     .success-message {
@@ -135,12 +138,12 @@
                 <div class="social-login">
                     <p>Or login with</p>
                     <div class="social-buttons">
-                        <button class="btn-social btn-google">
-                            <i class="fab fa-google"></i> Google
-                        </button>
-                        <button class="btn-social btn-facebook">
-                            <i class="fab fa-facebook-f"></i> Facebook
-                        </button>
+                        <a href="/auth/google" class="btn-social btn-google">
+                            <i class="fab fa-google"></i> Login with Google
+                        </a>
+                        <a href="/auth/facebook" class="btn-social btn-facebook">
+                            <i class="fab fa-facebook-f"></i> Login with Facebook
+                        </a>
                     </div>
                 </div>
 
@@ -151,9 +154,61 @@
         </div>
     </main>
 
-
-
+    <script src="js/auth.js"></script>
     <script src="js/login.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            new LoginManager();
+            
+            // Check if redirected from registration
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('registered')) {
+                const msgDiv = document.createElement('div');
+                msgDiv.className = 'success-message';
+                msgDiv.textContent = 'Registration successful! Please login.';
+                document.querySelector('.auth-form').prepend(msgDiv);
+            }
+        });
+
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const errorMessage = document.createElement('div');
+            errorMessage.className = 'error-message';
+            
+            try {
+                const response = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    credentials: 'include',
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    const successMessage = document.createElement('div');
+                    successMessage.className = 'success-message';
+                    successMessage.textContent = 'Login successful! Redirecting...';
+                    document.querySelector('.auth-form').prepend(successMessage);
+                    
+                    setTimeout(() => {
+                        window.location.href = '/index1.html';
+                    }, 1500);
+                } else {
+                    errorMessage.textContent = data.error || 'Login failed';
+                    document.querySelector('.auth-form').prepend(errorMessage);
+                }
+            } catch (error) {
+                errorMessage.textContent = 'An error occurred. Please try again.';
+                document.querySelector('.auth-form').prepend(errorMessage);
+            }
+        });
+    </script>
 </body>
 
 </html>

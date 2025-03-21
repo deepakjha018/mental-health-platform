@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="css/styles1.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="/middleware/auth.js"></script>
 </head>
 
 <body>
@@ -26,8 +27,58 @@
                 <a href="#games">Games</a>
                 <a href="#support-groups">Community</a>
                 <a href="#chatbot">AI Support</a>
-                <a href="login.html" class="btn-login">Login</a>
+                <div id="authSection">
+                    <a href="login.html" class="btn-login" id="loginBtn">Login</a>
+                    <div class="user-menu" id="userMenu" style="display: none;">
+                        <button class="user-button">
+                            <i class="fas fa-user"></i>
+                            <span id="username"></span>
+                        </button>
+                        <div class="user-dropdown">
+                            <a href="#profile"><i class="fas fa-user-circle"></i> Profile</a>
+                            <a href="#settings"><i class="fas fa-cog"></i> Settings</a>
+                            <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                        </div>
+                    </div>
+                </div>
             </nav>
+
+            <script>
+                // Check authentication on page load
+                document.addEventListener('DOMContentLoaded', async () => {
+                    try {
+                        const response = await fetch('/api/user', {
+                            credentials: 'include'
+                        });
+                        const data = await response.json();
+                        
+                        if (data.authenticated) {
+                            document.getElementById('loginBtn').style.display = 'none';
+                            document.getElementById('userMenu').style.display = 'block';
+                            document.getElementById('username').textContent = data.user.username;
+                        } else {
+                            // Redirect to login if not authenticated
+                            window.location.href = '/login.html?redirect=' + encodeURIComponent(window.location.pathname);
+                        }
+                    } catch (error) {
+                        console.error('Auth check failed:', error);
+                    }
+                });
+
+                // Update logout handler
+                document.getElementById('logoutBtn').addEventListener('click', async (e) => {
+                    e.preventDefault();
+                    try {
+                        await fetch('/api/logout', {
+                            method: 'POST',
+                            credentials: 'include'
+                        });
+                        window.location.href = '/login.html';
+                    } catch (error) {
+                        console.error('Logout failed:', error);
+                    }
+                });
+            </script>
         </div>
     </header>
 
@@ -46,7 +97,7 @@
     <!-- Quick Access Section -->
     <section class="quick-access">
         <div class="container">
-            <h2>Quick Support</h2>
+            <h2 style="color: rgb(125, 151, 254)">Quick Support</h2>
             <p>Access our key features designed to support your mental well-being</p>
             <div class="quick-access-grid">
                 <div class="quick-access-card">
@@ -412,10 +463,12 @@
                     <i class="fas fa-robot"></i>
                     <span>Neuro Nurture AI</span>
                 </div>
-                <div id="chatlogs" class="chat-messages"></div>
+                <div id="chatlogs" class="chat-messages">
+                    <!-- Welcome message will be added by JavaScript -->
+                </div>
                 <div class="chat-input-container">
                     <input type="text" id="userInput" placeholder="Type your message here..." autocomplete="off">
-                    <button id="sendBtn">
+                    <button id="sendBtn" aria-label="Send message">
                         <i class="fas fa-paper-plane"></i>
                     </button>
                 </div>
@@ -463,6 +516,7 @@
     </footer>
 
     <script src="js/main1.js"></script>
+    <script src="js/chatbot.js"></script>
 </body>
 
 </html>
