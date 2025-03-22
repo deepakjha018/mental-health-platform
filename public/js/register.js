@@ -43,13 +43,18 @@ class RegisterManager {
                     'Content-Type': 'application/json'
                 },
                 credentials: 'include',
-                body: JSON.stringify(formData)
+                body: JSON.stringify({
+                    username: formData.username,
+                    email: formData.email,
+                    password: formData.password
+                })
             });
 
             const data = await response.json();
 
             if (data.success) {
-                this.showSuccess('Registration successful! Redirecting to login...');
+                localStorage.setItem('user', JSON.stringify(data.user));
+                this.showSuccess('Registration successful! Redirecting...');
                 setTimeout(() => {
                     window.location.href = '/index1.html';
                 }, 1500);

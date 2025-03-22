@@ -24,34 +24,36 @@ class LoginManager {
 
     async handleSubmit(e) {
         e.preventDefault();
-        if (!this.validateForm()) return;
-        this.setLoadingState(true);
-
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const errorMessage = document.getElementById('errorMessage');
+        
         try {
             const response = await fetch('/api/login', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json'
+                },
                 credentials: 'include',
-                body: JSON.stringify({
-                    email: this.emailInput.value,
-                    password: this.passwordInput.value
-                })
+                body: JSON.stringify({ email, password })
             });
 
             const data = await response.json();
-            
+            console.log('Login response:', data);
+
             if (data.success) {
+                localStorage.setItem('user', JSON.stringify(data.user));
                 this.showSuccessMessage('Login successful! Redirecting...');
                 setTimeout(() => {
                     window.location.href = '/index1.html';
                 }, 1500);
             } else {
-                throw new Error(data.error || 'Invalid credentials');
+                throw new Error(data.error || 'Login failed');
             }
         } catch (error) {
-            this.showError(error.message);
-        } finally {
-            this.setLoadingState(false);
+            console.error('Login error:', error);
+            errorMessage.textContent = error.message;
+            errorMessage.style.display = 'block';
         }
     }
 
