@@ -34,9 +34,6 @@
             background-color: #BBDEFB;
             outline: none;
         }
-        .cell:focus {
-            background-color: #64B5F6;
-        }
         .btn {
             margin-top: 20px;
             padding: 10px 20px;
@@ -55,26 +52,34 @@
     <div class="container">
         <h1>Sudoku</h1>
         <div class="grid" id="sudoku-grid"></div>
-        <button class="btn" onclick="resetGrid()">Reset</button>
+        <button class="btn" onclick="generateSudoku()">New Puzzle</button>
     </div>
     <script>
-        function createGrid() {
+        const puzzles = [
+            "2001000007090000900350600020721850061025093000600900006000000000950380004182065",
+            "004000000000020089036005010000601400000002000007040900000000007450000000890701000",
+            "800000000003600000070090200050007000000045700000100030001000068008500000090000400"
+        ];
+
+        function generateSudoku() {
             const grid = document.getElementById("sudoku-grid");
             grid.innerHTML = "";
+            let puzzle = puzzles[Math.floor(Math.random() * puzzles.length)];
             for (let i = 0; i < 81; i++) {
                 let cell = document.createElement("input");
                 cell.type = "text";
                 cell.className = "cell";
                 cell.maxLength = 1;
+                if (puzzle[i] !== "0") {
+                    cell.value = puzzle[i];
+                    cell.readOnly = true;
+                    cell.style.backgroundColor = "#64B5F6";
+                }
                 grid.appendChild(cell);
             }
         }
         
-        function resetGrid() {
-            document.querySelectorAll(".cell").forEach(cell => cell.value = "");
-        }
-        
-        createGrid();
+        generateSudoku();
     </script>
 </body>
 </html>
