@@ -440,3 +440,163 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+function handleLogin(event) {
+    event.preventDefault();
+    
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+
+    // Here you would typically make an API call to verify credentials
+    // For demonstration, we'll use local storage
+    const users = JSON.parse(localStorage.getItem('users') || '[]');
+    const user = users.find(u => u.email === email && u.password === password);
+
+    if (user) {
+        localStorage.setItem('currentUser', JSON.stringify(user));
+        window.location.href = 'dashboard.html';
+    } else {
+        alert('Invalid credentials');
+    }
+}
+
+function handleRegister(event) {
+    event.preventDefault();
+
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    const confirmPassword = document.getElementById('confirmPassword').value;
+
+    if (password !== confirmPassword) {
+        alert('Passwords do not match');
+        return;
+    }
+
+    // Here you would typically make an API call to register the user
+    // For demonstration, we'll use local storage
+    const users = JSON.parse(localStorage.getItem('users') || '[]');
+    
+    if (users.some(u => u.email === email)) {
+        alert('Email already registered');
+        return;
+    }
+
+    const newUser = { name, email, password };
+    users.push(newUser);
+    localStorage.setItem('users', JSON.stringify(users));
+    localStorage.setItem('currentUser', JSON.stringify(newUser));
+    
+    window.location.href = 'dashboard.html';
+}
+
+// Check if user is already logged in
+function checkAuth() {
+    const currentUser = localStorage.getItem('currentUser');
+    if (currentUser && window.location.pathname.includes('login.html')) {
+        window.location.href = 'dashboard.html';
+    }
+}
+
+// Run auth check when pages load
+document.addEventListener('DOMContentLoaded', checkAuth);
+
+// Authentication helper functions
+const auth = {
+    login: async (email, password) => {
+        try {
+            const response = await fetch('/api/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                credentials: 'include',
+                body: JSON.stringify({ email, password })
+            });
+            
+            const data = await response.json();
+            if (data.success) {
+                localStorage.setItem('currentUser', JSON.stringify(data.user));
+                return { success: true };
+            }
+            return { success: false, error: data.error };
+        } catch (error) {
+            return { success: false, error: 'Network error' };
+        }
+    },
+
+    register: async (userData) => {
+        try {
+            const response = await fetch('/api/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                credentials: 'include',
+                body: JSON.stringify(userData)
+            });
+            
+            const data = await response.json();
+            if (data.success) {
+                localStorage.setItem('currentUser', JSON.stringify(data.user));
+                return { success: true };
+            }
+            return { success: false, error: data.error };
+        } catch (error) {
+            return { success: false, error: 'Network error' };
+        }
+    },
+
+    logout: () => {
+        localStorage.removeItem('currentUser');
+        window.location.href = '/index.html';
+    },
+
+    checkAuth: () => {
+        const user = localStorage.getItem('currentUser');
+        if (!user) {
+            window.location.href = '/login.html';
+        }
+        return JSON.parse(user);
+    }
+};
+
+// Handle login form submission
+if (document.getElementById('loginForm')) {
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const errorMessage = document.getElementById('errorMessage');
+
+        const result = await auth.login(email, password);
+        if (result.success) {
+            window.location.href = '/dashboard.html';
+        } else {
+            errorMessage.textContent = result.error;
+            errorMessage.style.display = 'block';
+        }
+    });
+}
+
+// Handle register form submission
+if (document.getElementById('registerForm')) {
+    document.getElementById('registerForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const username = document.getElementById('username').value;
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+        const errorMessage = document.getElementById('errorMessage');
+
+        if (password !== confirmPassword) {
+            errorMessage.textContent = 'Passwords do not match';
+            errorMessage.style.display = 'block';
+            return;
+        }
+
+        const result = await auth.register({ username, email, password });
+        if (result.success) {
+            window.location.href = '/dashboard.html';
+        } else {
+            errorMessage.textContent = result.error;
+            errorMessage.style.display = 'block';
+        }
+    });
+}

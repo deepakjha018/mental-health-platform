@@ -1,213 +1,139 @@
 class LoginManager {
     constructor() {
         this.form = document.getElementById('loginForm');
-        this.emailInput = document.getElementById('email');
-        this.passwordInput = document.getElementById('password');
-        this.togglePassword = document.querySelector('.toggle-password');
-        this.submitButton = this.form.querySelector('button[type="submit"]');
-        this.socialButtons = document.querySelectorAll('.btn-social');
-
-        this.bindEvents();
+        this.errorMessage = document.getElementById('errorMessage');
+        this.init();
     }
 
-    bindEvents() {
-        this.form.addEventListener('submit', (e) => this.handleSubmit(e));
-        this.togglePassword.addEventListener('click', () => this.togglePasswordVisibility());
-        this.socialButtons.forEach(btn => {
-            btn.addEventListener('click', (e) => this.handleSocialLogin(e));
-        });
+    init() {
+        this.form.addEventListener('submit', (e) => this.handleLogin(e));
+        
+        // Password visibility toggle
+        const toggleBtn = document.querySelector('.toggle-password');
+        if (toggleBtn) {
+            toggleBtn.addEventListener('click', () => {
+                const password = document.getElementById('password');
+                const type = password.type === 'password' ? 'text' : 'password';
+                password.type = type;
+                toggleBtn.innerHTML = `<i class="fas fa-${type === 'password' ? 'eye' : 'eye-slash'}"></i>`;
+            });
+        }
 
-        // Real-time validation
-        this.emailInput.addEventListener('blur', () => this.validateEmail());
-        this.passwordInput.addEventListener('input', () => this.validatePassword());
+        // Add input validation
+        const email = document.getElementById('email');
+        const password = document.getElementById('password');
+        
+        email.addEventListener('blur', () => this.validateEmail(email));
+        password.addEventListener('blur', () => this.validatePassword(password));
     }
 
-    async handleSubmit(e) {
+    validateEmail(input) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(input.value)) {
+            this.showError('Please enter a valid email address');
+            return false;
+        }
+        return true;
+    }
+
+    validatePassword(input) {
+        if (input.value.length < 6) {
+            this.showError('Password must be at least 6 characters');
+            return false;
+        }
+        return true;
+    }
+
+    async handleLogin(e) {
         e.preventDefault();
+
+        // Test server connection first
+        try {
+            const testResponse = await fetch('http://localhost:3000/api/test', {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+            
+            const testData = await testResponse.json();
+            console.log('Server test response:', testData);
+            
+            if (!testResponse.ok) {
+                throw new Error('Server not responding');
+            }
+        } catch (error) {
+            console.error('Server connection error:', error);
+            this.showError('Cannot connect to server. Please try again later.');
+            return;
+        }
+        
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
-        const errorMessage = document.getElementById('errorMessage');
-        
+
         try {
-            const response = await fetch('/api/login', {
+            const response = await fetch('http://localhost:3000/api/login', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
                 },
                 credentials: 'include',
                 body: JSON.stringify({ email, password })
             });
 
+            console.log('Response status:', response.status); // Debug log
             const data = await response.json();
-            console.log('Login response:', data);
+            console.log('Login response:', data); // Debug log
 
             if (data.success) {
-                localStorage.setItem('user', JSON.stringify(data.user));
-                this.showSuccessMessage('Login successful! Redirecting...');
+                localStorage.setItem('currentUser', JSON.stringify(data.user));
+                this.showSuccess('Login successful! Redirecting...');
                 setTimeout(() => {
-                    window.location.href = '/index1.html';
+                    window.location.href = '/dashboard';  // Changed to use the dashboard route
                 }, 1500);
             } else {
                 throw new Error(data.error || 'Login failed');
             }
         } catch (error) {
             console.error('Login error:', error);
-            errorMessage.textContent = error.message;
-            errorMessage.style.display = 'block';
+            this.showError(error.message);
         }
-    }
-
-    // Add this method to simulate login (replace with actual API call)
-    async loginUser(email, password) {
-        // Simulate API delay
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        
-        // For demo - check if user exists in localStorage
-        const users = JSON.parse(localStorage.getItem('users') || '[]');
-        const user = users.find(u => u.email === email && u.password === password);
-        
-        if (user) {
-            return { success: true, username: user.username };
-        }
-        throw new Error('Invalid credentials');
-    }
-
-    validateForm() {
-        let isValid = true;
-
-        if (!this.validateEmail()) isValid = false;
-        if (!this.validatePassword()) isValid = false;
-
-        return isValid;
-    }
-
-    validateEmail() {
-        const email = this.emailInput.value;
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-        if (!email) {
-            this.showInputError(this.emailInput, 'Email is required');
-            return false;
-        }
-
-        if (!emailRegex.test(email)) {
-            this.showInputError(this.emailInput, 'Please enter a valid email');
-            return false;
-        }
-
-        this.clearInputError(this.emailInput);
-        return true;
-    }
-
-    validatePassword() {
-        const password = this.passwordInput.value;
-
-        if (!password) {
-            this.showInputError(this.passwordInput, 'Password is required');
-            return false;
-        }
-
-        if (password.length < 6) {
-            this.showInputError(this.passwordInput, 'Password must be at least 6 characters');
-            return false;
-        }
-
-        this.clearInputError(this.passwordInput);
-        return true;
-    }
-
-    togglePasswordVisibility() {
-        const type = this.passwordInput.type === 'password' ? 'text' : 'password';
-        this.passwordInput.type = type;
-        
-        const icon = this.togglePassword.querySelector('i');
-        icon.className = `fas fa-${type === 'password' ? 'eye' : 'eye-slash'}`;
-    }
-
-    async handleSocialLogin(e) {
-        const provider = e.currentTarget.classList.contains('btn-google') ? 'google' : 'facebook';
-        
-        try {
-            window.location.href = `/api/auth/${provider}`;
-        } catch (error) {
-            this.showError('Social login failed. Please try again.');
-        }
-    }
-
-    showInputError(input, message) {
-        const formGroup = input.closest('.form-group');
-        formGroup.classList.add('error');
-        
-        let errorMessage = formGroup.querySelector('.error-message');
-        if (!errorMessage) {
-            errorMessage = document.createElement('div');
-            errorMessage.className = 'error-message';
-            formGroup.appendChild(errorMessage);
-        }
-        errorMessage.textContent = message;
-    }
-
-    clearInputError(input) {
-        const formGroup = input.closest('.form-group');
-        formGroup.classList.remove('error');
-        
-        const errorMessage = formGroup.querySelector('.error-message');
-        if (errorMessage) {
-            errorMessage.remove();
-        }
-    }
-
-    setLoadingState(isLoading) {
-        this.submitButton.disabled = isLoading;
-        this.submitButton.classList.toggle('loading', isLoading);
-    }
-
-    showSuccessMessage(message) {
-        const msgDiv = document.createElement('div');
-        msgDiv.className = 'success-message';
-        msgDiv.textContent = message;
-        this.form.insertBefore(msgDiv, this.form.firstChild);
-        setTimeout(() => msgDiv.remove(), 3000);
     }
 
     showError(message) {
+        if (this.errorMessage) {
+            this.errorMessage.textContent = message;
+            this.errorMessage.style.display = 'block';
+            setTimeout(() => {
+                this.errorMessage.style.display = 'none';
+            }, 3000);
+        }
+    }
+
+    showMessage(type, message) {
+        const existingMsg = this.form.querySelector('.message');
+        if (existingMsg) existingMsg.remove();
+
         const msgDiv = document.createElement('div');
-        msgDiv.className = 'error-message';
+        msgDiv.className = `message ${type}-message`;
         msgDiv.textContent = message;
         this.form.insertBefore(msgDiv, this.form.firstChild);
-        setTimeout(() => msgDiv.remove(), 3000);
+
+        if (type === 'error') {
+            setTimeout(() => msgDiv.remove(), 3000);
+        }
+    }
+
+    showSuccess(message) {
+        const successDiv = document.createElement('div');
+        successDiv.className = 'success-message';
+        successDiv.textContent = message;
+        this.form.insertBefore(successDiv, this.form.firstChild);
     }
 }
 
-// Initialize login manager when the page loads
+// Initialize on page load
 document.addEventListener('DOMContentLoaded', () => {
     new LoginManager();
-    const loginForm = document.getElementById('loginForm');
-    const togglePassword = document.querySelector('.toggle-password');
-
-    togglePassword.addEventListener('click', () => {
-        const passwordInput = document.getElementById('password');
-        const type = passwordInput.type === 'password' ? 'text' : 'password';
-        passwordInput.type = type;
-        togglePassword.querySelector('i').classList.toggle('fa-eye');
-        togglePassword.querySelector('i').classList.toggle('fa-eye-slash');
-    });
-
-    loginForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
-
-        try {
-            const response = await Auth.login(email, password);
-            if (response.success) {
-                Auth.showMessage('success', 'Login successful! Redirecting...', loginForm);
-                setTimeout(() => window.location.href = '/dashboard.html', 1500);
-            } else {
-                Auth.showMessage('error', response.message || 'Login failed', loginForm);
-            }
-        } catch (error) {
-            Auth.showMessage('error', error.message, loginForm);
-        }
-    });
 });

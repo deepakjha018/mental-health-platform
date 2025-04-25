@@ -1,18 +1,33 @@
 class MentalHealthTools {
     constructor() {
+        // Initialize state variables
+        this.state = {
+            isExercising: false,
+            breathingInterval: null,
+            exerciseTimer: null,
+            duration: 240, // 4 minutes default duration
+            breathingPhases: {
+                inhale: { duration: 4000, text: 'Breathe In', phase: 'Inhale deeply...' },
+                hold: { duration: 4000, text: 'Hold', phase: 'Hold your breath...' },
+                exhale: { duration: 4000, text: 'Breathe Out', phase: 'Release slowly...' }
+            }
+        };
+
+        // Initialize all tools
+        this.initializeTools();
+        this.setupEventListeners();
+        this.setupAutoSave();
+    }
+
+    initializeTools() {
         this.initializeMoodTracker();
         this.initializeBreathingExercise();
         this.initializeJournal();
         this.initializeProgressTracker();
-        this.setupEventListeners();
-        this.setupAutoSave();
-        this.isExercising = false;
-        this.breathingInterval = null;
-        this.exerciseTimer = null;
-        this.duration = 240; // 4 minutes
     }
 
     setupEventListeners() {
+        // Page visibility change handler for auto-save
         document.addEventListener('visibilitychange', () => {
             if (document.visibilityState === 'hidden') {
                 this.saveAllData();
@@ -21,45 +36,58 @@ class MentalHealthTools {
     }
 
     setupAutoSave() {
-        setInterval(() => this.saveAllData(), 30000); // Auto-save every 30 seconds
+        // Auto-save every 30 seconds
+        setInterval(() => this.saveAllData(), 30000);
     }
 
     saveAllData() {
-        // Save all tool states
         this.saveMoodData();
         this.saveJournalData();
         this.saveProgressData();
     }
 
+    // Mood Tracker Methods
     initializeMoodTracker() {
         const moodOptions = document.querySelectorAll('.mood-option');
-        const moodHistory = document.getElementById('moodHistory');
-        const moods = JSON.parse(localStorage.getItem('moodHistory') || '[]');
+        const moods = this.loadMoodData();
 
         moodOptions.forEach(option => {
-            option.addEventListener('click', () => {
-                // Remove previous selection
-                moodOptions.forEach(opt => opt.classList.remove('selected'));
-                option.classList.add('selected');
-
-                // Save mood
-                const mood = {
-                    type: option.dataset.mood,
-                    timestamp: new Date().toISOString()
-                };
-                moods.push(mood);
-                localStorage.setItem('moodHistory', JSON.stringify(moods));
-
-                this.updateMoodHistory();
-            });
+            option.addEventListener('click', () => this.handleMoodSelection(option, moodOptions));
         });
 
         this.updateMoodHistory();
         this.updateMoodInsights();
     }
 
+    handleMoodSelection(selectedOption, allOptions) {
+        // Remove previous selection and add new selection
+        allOptions.forEach(opt => opt.classList.remove('selected'));
+        selectedOption.classList.add('selected');
+
+        // Save new mood
+        const mood = {
+            type: selectedOption.dataset.mood,
+            timestamp: new Date().toISOString()
+        };
+
+        const moods = this.loadMoodData();
+        moods.push(mood);
+        localStorage.setItem('moodHistory', JSON.stringify(moods));
+
+        this.updateMoodHistory();
+        this.updateMoodInsights();
+    }
+
+    loadMoodData() {
+        return JSON.parse(localStorage.getItem('moodHistory') || '[]');
+    }
+
+    saveMoodData() {
+        // Implementation for saving mood data
+    }
+
     updateMoodHistory() {
-        const moods = JSON.parse(localStorage.getItem('moodHistory') || '[]');
+        const moods = this.loadMoodData();
         const moodHistory = document.getElementById('moodHistory');
         
         const recentMoods = moods.slice(-5).reverse();
@@ -88,7 +116,7 @@ class MentalHealthTools {
     }
 
     updateMoodInsights() {
-        const moods = JSON.parse(localStorage.getItem('moodHistory') || '[]');
+        const moods = this.loadMoodData();
         const moodStats = document.querySelector('.mood-stats');
         
         const moodCounts = moods.reduce((acc, mood) => {
@@ -105,92 +133,87 @@ class MentalHealthTools {
         `;
     }
 
+    // Breathing Exercise Methods
     initializeBreathingExercise() {
         const startBtn = document.getElementById('startBreathing');
         const resetBtn = document.getElementById('resetBreathing');
-        const breathingCircle = document.getElementById('breathingCircle');
-        
-        this.breathingPhases = {
-            inhale: { duration: 4000, text: 'Breathe In', phase: 'Inhale deeply...' },
-            hold: { duration: 4000, text: 'Hold', phase: 'Hold your breath...' },
-            exhale: { duration: 4000, text: 'Breathe Out', phase: 'Release slowly...' }
-        };
 
-        startBtn.addEventListener('click', () => {
-            if (!this.isExercising) {
-                this.startBreathingExercise();
-                startBtn.innerHTML = '<i class="fas fa-pause"></i> Pause';
-                resetBtn.disabled = false;
-            } else {
-                this.stopBreathingExercise();
-                startBtn.innerHTML = '<i class="fas fa-play"></i> Start';
-            }
-            this.isExercising = !this.isExercising;
-        });
+        startBtn.addEventListener('click', () => this.toggleBreathingExercise(startBtn));
+        resetBtn.addEventListener('click', () => this.resetBreathingExercise());
+    }
 
-        resetBtn.addEventListener('click', () => {
-            this.resetBreathingExercise();
+    toggleBreathingExercise(startBtn) {
+        if (!this.state.isExercising) {
+            this.state.isExercising = true;
+            startBtn.innerHTML = '<i class="fas fa-pause"></i> Pause';
+            document.getElementById('resetBreathing').disabled = false;
+            this.startBreathingExercise();
+        } else {
+            this.state.isExercising = false;
             startBtn.innerHTML = '<i class="fas fa-play"></i> Start';
-            resetBtn.disabled = true;
-        });
+            this.stopBreathingExercise();
+        }
     }
 
     async startBreathingExercise() {
-        const breathingText = document.getElementById('breathingText');
-        const breathingPhase = document.getElementById('breathingPhase');
-        const breathingCircle = document.getElementById('breathingCircle');
-        const startBtn = document.getElementById('startBreathing');
+        if (!this.state.isExercising) return;
 
-        // Start the countdown timer
+        // Start the timer
         this.startTimer();
 
-        // Breathing cycle
         const runBreathingCycle = async () => {
-            if (!this.isExercising) return;
+            while (this.state.isExercising) {
+                // Inhale phase
+                await this.executeBreathingPhase('inhale', {
+                    text: 'Breathe In',
+                    phase: 'Inhale deeply through your nose...'
+                });
+                if (!this.state.isExercising) break;
 
-            // Inhale phase - 4 seconds
-            breathingText.textContent = 'Breathe In';
-            breathingPhase.textContent = 'Inhale slowly through your nose...';
-            breathingCircle.style.animation = 'breatheIn 4s forwards';
-            await this.countDown(4, breathingPhase, 'Inhale for');
-            if (!this.isExercising) return;
+                // Hold phase
+                await this.executeBreathingPhase('hold', {
+                    text: 'Hold',
+                    phase: 'Hold your breath...'
+                });
+                if (!this.state.isExercising) break;
 
-            // Hold phase - 4 seconds
-            breathingText.textContent = 'Hold';
-            breathingPhase.textContent = 'Hold your breath...';
-            breathingCircle.style.animation = 'hold 4s forwards';
-            await this.countDown(4, breathingPhase, 'Hold for');
-            if (!this.isExercising) return;
-
-            // Exhale phase - 4 seconds
-            breathingText.textContent = 'Breathe Out';
-            breathingPhase.textContent = 'Exhale slowly through your mouth...';
-            breathingCircle.style.animation = 'breatheOut 4s forwards';
-            await this.countDown(4, breathingPhase, 'Exhale for');
-
-            // Continue cycle if still exercising
-            if (this.isExercising) {
-                runBreathingCycle();
+                // Exhale phase
+                await this.executeBreathingPhase('exhale', {
+                    text: 'Breathe Out',
+                    phase: 'Exhale slowly through your mouth...'
+                });
+                if (!this.state.isExercising) break;
             }
         };
 
         runBreathingCycle();
     }
 
+    async executeBreathingPhase(phase, config) {
+        const breathingText = document.getElementById('breathingText');
+        const breathingPhase = document.getElementById('breathingPhase');
+        const breathingCircle = document.getElementById('breathingCircle');
+
+        breathingText.textContent = config.text;
+        breathingPhase.textContent = config.phase;
+        breathingCircle.style.animation = `${phase} 4s forwards`;
+        await this.countDown(4, breathingPhase, config.text);
+    }
+
     async countDown(seconds, element, prefix) {
         for(let i = seconds; i > 0; i--) {
-            if (!this.isExercising) break;
+            if (!this.state.isExercising) break;
             element.textContent = `${prefix} ${i} seconds...`;
             await this.delay(1000);
         }
     }
 
     startTimer() {
-        this.exerciseTimer = setInterval(() => {
-            this.duration--;
+        this.state.exerciseTimer = setInterval(() => {
+            this.state.duration--;
             this.updateTimer();
             
-            if (this.duration <= 0) {
+            if (this.state.duration <= 0) {
                 this.completeExercise();
             }
         }, 1000);
@@ -205,11 +228,11 @@ class MentalHealthTools {
         breathingText.textContent = 'Exercise Complete!';
         breathingPhase.textContent = 'Great job!';
         startBtn.innerHTML = '<i class="fas fa-play"></i> Start';
-        this.isExercising = false;
+        this.state.isExercising = false;
     }
 
     stopBreathingExercise() {
-        clearInterval(this.exerciseTimer);
+        clearInterval(this.state.exerciseTimer);
         const breathingCircle = document.getElementById('breathingCircle');
         const breathingText = document.getElementById('breathingText');
         const breathingPhase = document.getElementById('breathingPhase');
@@ -217,12 +240,12 @@ class MentalHealthTools {
         breathingCircle.style.animation = 'none';
         breathingText.textContent = 'Paused';
         breathingPhase.textContent = 'Click start to resume';
-        this.isExercising = false;
+        this.state.isExercising = false;
     }
 
     resetBreathingExercise() {
         this.stopBreathingExercise();
-        this.duration = 240;
+        this.state.duration = 240;
         this.updateTimer();
         
         const breathingText = document.getElementById('breathingText');
@@ -237,53 +260,53 @@ class MentalHealthTools {
     }
 
     updateTimer() {
-        const minutes = Math.floor(this.duration / 60);
-        const seconds = this.duration % 60;
+        const minutes = Math.floor(this.state.duration / 60);
+        const seconds = this.state.duration % 60;
         document.getElementById('minutes').textContent = minutes;
         document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
         
-        const progress = (this.duration / 240) * (2 * Math.PI * 48);
+        const progress = (this.state.duration / 240) * (2 * Math.PI * 48);
         document.querySelector('.progress-ring').style.strokeDashoffset = progress;
     }
 
-    delay(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    }
-
+    // Journal Methods
     initializeJournal() {
         const saveBtn = document.getElementById('saveJournal');
         const journalEntry = document.getElementById('journalEntry');
-        const journalHistory = document.getElementById('journalHistory');
 
-        saveBtn.addEventListener('click', () => {
-            const entry = {
-                text: journalEntry.value,
-                timestamp: new Date().toISOString()
-            };
-
-            if (entry.text.trim()) {
-                const entries = JSON.parse(localStorage.getItem('journalEntries') || '[]');
-                entries.push(entry);
-                localStorage.setItem('journalEntries', JSON.stringify(entries));
-
-                journalEntry.value = '';
-                this.updateJournalHistory();
-            }
-        });
-
+        saveBtn.addEventListener('click', () => this.saveJournalEntry());
+        this.setupJournalTags();
         this.updateJournalHistory();
+    }
 
-        const tags = document.querySelectorAll('.tag');
-        tags.forEach(tag => {
-            tag.addEventListener('click', () => {
-                tag.classList.toggle('selected');
-                this.updateJournalEntry();
-            });
-        });
+    saveJournalEntry() {
+        const entry = this.createJournalEntry();
+        if (entry.text.trim()) {
+            const entries = this.loadJournalEntries();
+            entries.push(entry);
+            localStorage.setItem('journalEntries', JSON.stringify(entries));
+            document.getElementById('journalEntry').value = '';
+            this.updateJournalHistory();
+        }
+    }
+
+    createJournalEntry() {
+        const selectedTags = Array.from(document.querySelectorAll('.tag.selected'))
+            .map(tag => tag.dataset.tag);
+            
+        return {
+            text: document.getElementById('journalEntry').value,
+            tags: selectedTags,
+            timestamp: new Date().toISOString()
+        };
+    }
+
+    loadJournalEntries() {
+        return JSON.parse(localStorage.getItem('journalEntries') || '[]');
     }
 
     updateJournalHistory() {
-        const entries = JSON.parse(localStorage.getItem('journalEntries') || '[]');
+        const entries = this.loadJournalEntries();
         const journalHistory = document.getElementById('journalHistory');
         
         const recentEntries = entries.slice(-3).reverse();
@@ -298,23 +321,21 @@ class MentalHealthTools {
         `;
     }
 
-    updateJournalEntry() {
-        const selectedTags = Array.from(document.querySelectorAll('.tag.selected'))
-            .map(tag => tag.dataset.tag);
-            
-        const entry = {
-            text: document.getElementById('journalEntry').value,
-            tags: selectedTags,
-            timestamp: new Date().toISOString()
-        };
-
-        return entry;
+    setupJournalTags() {
+        const tags = document.querySelectorAll('.tag');
+        tags.forEach(tag => {
+            tag.addEventListener('click', () => {
+                tag.classList.toggle('selected');
+                this.updateJournalEntry();
+            });
+        });
     }
 
+    // Progress Tracker Methods
     initializeProgressTracker() {
         this.setupProgressFilters();
         this.updateProgressStats();
-        this.renderMoodChart('week'); // Default to weekly view
+        this.renderMoodChart('week');
         this.updateInsights();
     }
 
@@ -330,7 +351,7 @@ class MentalHealthTools {
     }
 
     updateProgressStats() {
-        const moods = JSON.parse(localStorage.getItem('moodHistory') || '[]');
+        const moods = this.loadMoodData();
         if (moods.length === 0) return;
 
         const moodValues = { great: 5, good: 4, okay: 3, sad: 2, terrible: 1 };
@@ -359,7 +380,7 @@ class MentalHealthTools {
 
     renderMoodChart(period) {
         const ctx = document.getElementById('progressChart');
-        const moods = JSON.parse(localStorage.getItem('moodHistory') || '[]');
+        const moods = this.loadMoodData();
         
         if (moods.length === 0) return;
 
@@ -429,7 +450,7 @@ class MentalHealthTools {
     }
 
     updateInsights() {
-        const moods = JSON.parse(localStorage.getItem('moodHistory') || '[]');
+        const moods = this.loadMoodData();
         if (moods.length === 0) return;
 
         const moodValues = { great: 5, good: 4, okay: 3, sad: 2, terrible: 1 };
@@ -499,6 +520,15 @@ class MentalHealthTools {
 
     groupByMonth(moods) {
         // Implementation for monthly grouping
+    }
+
+    // Utility Methods
+    delay(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    formatDate(date) {
+        return new Date(date).toLocaleDateString();
     }
 }
 
