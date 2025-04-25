@@ -491,6 +491,56 @@
       from { opacity: 0; }
       to { opacity: 1; }
     }
+
+    .profile-icon {
+      font-size: 3rem;
+      color: var(--primary-blue);
+      margin-bottom: 1rem;
+    }
+
+    .professional-card {
+      text-align: center;
+    }
+
+    .professional-card p {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      margin: 0.5rem 0;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 1rem;
+    }
+
+    .contact-button {
+      background: var(--primary-blue);
+      color: white;
+      padding: 0.8rem 1.5rem;
+      border-radius: 25px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.3s ease;
+      font-size: 0.9rem;
+      border: 2px solid var(--primary-blue);
+    }
+
+    .contact-button:hover {
+      background: white;
+      color: var(--primary-blue);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .contact-button i {
+      font-size: 1rem;
+    }
   </style>
 </head>
 <body style="margin: 0">
@@ -564,31 +614,40 @@
           <p>Based on your assessment, we recommend consulting with mental health professionals:</p>
           <div class="professional-cards">
             <div class="professional-card">
-              <img src="images/therapist1.jpg" alt="Dr. Achal Bhagat">
+              <i class="fas fa-user-md profile-icon"></i>
               <h4>Dr. Achal Bhagat</h4>
-              <p>Senior Consultant Psychiatrist</p>
-              <p>Apollo Healthcare, Delhi</p>
-              <p>Specializes in anxiety, depression and PTSD</p>
-              <p>📞 +91-11-4060-1261</p>
-              <a href="mailto:contact@apollohealthcare.com" class="contact-button">Contact</a>
+              <p><i class="fas fa-stethoscope"></i> Senior Consultant Psychiatrist</p>
+              <p><i class="fas fa-hospital"></i> Apollo Healthcare, Delhi</p>
+              <p><i class="fas fa-brain"></i> Specializes in anxiety, depression and PTSD</p>
+              <p><i class="fas fa-phone"></i> +91-11-4060-1261</p>
+              <div class="button-group">
+                <a href="mailto:contact@apollohealthcare.com" class="contact-button"><i class="fas fa-envelope"></i> Email</a>
+                <a href="tel:+911140601261" class="contact-button"><i class="fas fa-phone"></i> Call</a>
+              </div>
             </div>
             <div class="professional-card">
-              <img src="images/therapist2.jpg" alt="Dr. Alok Sarin">
+              <i class="fas fa-user-md profile-icon"></i>
               <h4>Dr. Alok Sarin</h4>
-              <p>Consultant Psychiatrist</p>
-              <p>Sitaram Bhartia Institute, Delhi</p>
-              <p>Expertise in mood disorders and psychotherapy</p>
-              <p>📞 +91-11-4234-4200</p>
-              <a href="mailto:info@sitarambhartia.org" class="contact-button">Contact</a>
+              <p><i class="fas fa-stethoscope"></i> Consultant Psychiatrist</p>
+              <p><i class="fas fa-hospital"></i> Sitaram Bhartia Institute, Delhi</p>
+              <p><i class="fas fa-brain"></i> Expertise in mood disorders and psychotherapy</p>
+              <p><i class="fas fa-phone"></i> +91-11-4234-4200</p>
+              <div class="button-group">
+                <a href="mailto:info@sitarambhartia.org" class="contact-button"><i class="fas fa-envelope"></i> Email</a>
+                <a href="tel:+911142344200" class="contact-button"><i class="fas fa-phone"></i> Call</a>
+              </div>
             </div>
             <div class="professional-card">
-              <img src="images/therapist3.jpg" alt="Dr. Samir Parikh">
+              <i class="fas fa-user-md profile-icon"></i>
               <h4>Dr. Samir Parikh</h4>
-              <p>Director of Mental Health and Behavioral Sciences</p>
-              <p>Fortis Healthcare, India</p>
-              <p>Specializes in youth mental health and stress management</p>
-              <p>📞 +91-124-4921-021</p>
-              <a href="mailto:mentalhealth@fortishealthcare.com" class="contact-button">Contact</a>
+              <p><i class="fas fa-stethoscope"></i> Director of Mental Health</p>
+              <p><i class="fas fa-hospital"></i> Fortis Healthcare, India</p>
+              <p><i class="fas fa-brain"></i> Youth mental health specialist</p>
+              <p><i class="fas fa-phone"></i> +91-124-4921-021</p>
+              <div class="button-group">
+                <a href="mailto:mentalhealth@fortishealthcare.com" class="contact-button"><i class="fas fa-envelope"></i> Email</a>
+                <a href="tel:+911244921021" class="contact-button"><i class="fas fa-phone"></i> Call</a>
+              </div>
             </div>
           </div>
         </div>
@@ -756,38 +815,38 @@
       // Invert the score ranges for recommendations
       if (percentage > 75) {
         recommendations = [
-          { icon: "fas fa-heart", text: "Continue your positive habits" },
-          { icon: "fas fa-brain", text: "Try mindfulness exercises" },
-          { icon: "fas fa-users", text: "Share your practices with others" }
+          { icon: "fas fa-spa", text: "Continue your positive habits", link: "index1.html#wellness" },
+          { icon: "fas fa-om", text: "Try mindfulness exercises", link: "index1.html#meditation" },
+          { icon: "fas fa-hands-helping", text: "Share your practices with others", link: "index1.html#community" }
         ];
       } else if (percentage > 50) {
         recommendations = [
-          { icon: "fas fa-meditation", text: "Start daily meditation" },
-          { icon: "fas fa-running", text: "Regular exercise" },
-          { icon: "fas fa-book", text: "Self-help resources" }
+          { icon: "fas fa-peace", text: "Start daily meditation", link: "index1.html#meditation" },
+          { icon: "fas fa-walking", text: "Regular exercise", link: "index1.html#fitness" },
+          { icon: "fas fa-book-reader", text: "Self-help resources", link: "index1.html#resources" }
         ];
       } else if (percentage > 25) {
         recommendations = [
-          { icon: "fas fa-user-md", text: "Consider counseling" },
-          { icon: "fas fa-comments", text: "Join support groups" },
-          { icon: "fas fa-clock", text: "Stress management" }
+          { icon: "fas fa-user-md", text: "Consider counseling", link: "professionals.html" },
+          { icon: "fas fa-users", text: "Join support groups", link: "index1.html#community" },
+          { icon: "fas fa-heart-circle", text: "Stress management", link: "index1.html#stress-relief" }
         ];
         document.getElementById('professionalsSection').classList.add('show');
       } else {
         recommendations = [
-          { icon: "fas fa-hospital", text: "Seek professional help" },
-          { icon: "fas fa-phone", text: "Contact crisis helpline" },
-          { icon: "fas fa-hand-holding-heart", text: "Reach out to loved ones" }
+          { icon: "fas fa-hospital-user", text: "Seek professional help", link: "professionals.html" },
+          { icon: "fas fa-phone-alt", text: "Contact crisis helpline", link: "emergency.html" },
+          { icon: "fas fa-hands-helping", text: "Reach out to loved ones", link: "index1.html#community" }
         ];
         document.getElementById('professionalsSection').classList.add('show');
         document.querySelector('.emergency-alert').classList.add('show');
       }
 
       recommendationsContainer.innerHTML = recommendations.map(rec => `
-        <div class="recommendation-card">
+        <a href="${rec.link}" class="recommendation-card">
           <i class="${rec.icon}"></i>
           <h4>${rec.text}</h4>
-        </div>
+        </a>
       `).join('');
     }
 

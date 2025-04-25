@@ -5,8 +5,263 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Emergency Help - Neuro Nurture</title>
     <link rel="stylesheet" href="css/styles1.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Safety Plan Styles */
+        .safety-plan {
+            background: #f8f9fa;
+            padding: 60px 0;
+        }
+
+        .safety-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+            perspective: 1000px;
+        }
+
+        .step {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+        }
+
+        .step:hover {
+            transform: translateY(-10px) rotateX(5deg);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #6366f1, #4f46e5);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin: 0 auto 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .step::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #6366f1, #4f46e5);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 0;
+        }
+
+        .step:hover::before {
+            opacity: 0.05;
+        }
+
+        .step h4 {
+            color: #1f2937;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .step p {
+            color: #6b7280;
+            font-size: 0.95rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .step-progress {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #6366f1, #4f46e5);
+            width: 0;
+            transition: width 0.5s ease;
+        }
+
+        .step.completed .step-progress {
+            width: 100%;
+        }
+
+        .btn-create-plan {
+            background: linear-gradient(135deg, #6366f1, #4f46e5);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            font-weight: 600;
+            margin-top: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn-create-plan:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.show {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: white;
+            width: 90%;
+            max-width: 600px;
+            margin: auto;
+            border-radius: 20px;
+            padding: 2rem;
+            position: relative;
+            transform: translateY(-50px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal.show .modal-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* Close Button Styles */
+        .close-modal {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            font-size: 28px;
+            font-weight: bold;
+            color: #6b7280;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            z-index: 10;
+        }
+
+        .close-modal:hover {
+            color: #ef4444;
+        }
+
+        /* Animation Keyframes */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .safety-steps {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                width: 95%;
+                padding: 1.5rem;
+            }
+        }
+
+        /* Form Styles */
+        .input-group {
+            margin-bottom: 1rem;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .btn-add {
+            background: #4f46e5;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .items-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .list-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem;
+            background: #f3f4f6;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .btn-remove {
+            background: none;
+            border: none;
+            color: #ef4444;
+            cursor: pointer;
+            font-size: 1.25rem;
+            padding: 0 0.5rem;
+        }
+
+        .success-message {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .success-message i {
+            color: #22c55e;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.3s ease;
+        }
+    </style>
 </head>
 <body>
     <!-- Header -->
@@ -24,103 +279,209 @@
         </div>
     </header>
 
-    <!-- Emergency Section -->
-    <section class="emergency-section">
+    <!-- Emergency Alert Banner -->
+    <div class="emergency-banner">
         <div class="container">
-            <div class="emergency-header">
-                <h2><i class="fas fa-phone-volume"></i> Emergency Help</h2>
-                <p class="emergency-subtitle">Immediate support is available 24/7. You're not alone.</p>
+            <i class="fas fa-exclamation-circle"></i>
+            <strong>If you're in immediate danger, call 911 or visit the nearest emergency room.</strong>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="emergency-hero">
+        <div class="container">
+            <h1>24/7 Emergency Support</h1>
+            <p class="hero-text">You're not alone. Help is available right now.</p>
+            
+            <!-- Primary Emergency Options -->
+            <div class="primary-emergency-options">
+                <a href="tel:988" class="emergency-option call">
+                    <i class="fas fa-phone-alt"></i>
+                    <div class="option-text">
+                        <h3>Call 988</h3>
+                        <p>Suicide & Crisis Lifeline</p>
+                    </div>
+                </a>
+                <a href="sms:741741" class="emergency-option text">
+                    <i class="fas fa-comment-alt"></i>
+                    <div class="option-text">
+                        <h3>Text HOME to 741741</h3>
+                        <p>Crisis Text Line</p>
+                    </div>
+                </a>
             </div>
+        </div>
+    </section>
 
-            <!-- Emergency Contact Cards -->
-            <div class="emergency-contacts">
-                <div class="emergency-card urgent">
-                    <div class="emergency-icon">
-                        <i class="fas fa-phone"></i>
-                    </div>
-                    <h3>Crisis Hotline</h3>
-                    <p class="phone-number">1-800-273-8255</p>
-                    <p>National Suicide Prevention Lifeline</p>
-                    <a href="tel:1-800-273-8255" class="btn-call">Call Now</a>
+    <!-- Crisis Support Grid -->
+    <section class="crisis-support">
+        <div class="container">
+            <h2>Immediate Support Options</h2>
+            <div class="support-grid">
+                <div class="support-card veterans">
+                    <i class="fas fa-medal"></i>
+                    <h3>Veterans Crisis Line</h3>
+                    <p>Press 1 after dialing 988</p>
+                    <a href="tel:988" class="btn-support">Call Now</a>
                 </div>
 
-                <div class="emergency-card">
-                    <div class="emergency-icon">
-                        <i class="fas fa-comments"></i>
-                    </div>
-                    <h3>Crisis Text Line</h3>
-                    <p class="text-number">Text HOME to 741741</p>
-                    <p>Free 24/7 Crisis Counseling</p>
-                    <a href="sms:741741" class="btn-text">Text Now</a>
+                <div class="support-card lgbtq">
+                    <i class="fas fa-heart"></i>
+                    <h3>LGBTQ+ Support</h3>
+                    <p>The Trevor Project: 1-866-488-7386</p>
+                    <a href="tel:18664887386" class="btn-support">Call Now</a>
                 </div>
 
-                <div class="emergency-card">
-                    <div class="emergency-icon">
-                        <i class="fas fa-hospital"></i>
-                    </div>
-                    <h3>Emergency Services</h3>
-                    <p class="emergency-number">911</p>
-                    <p>For immediate medical emergency</p>
-                    <a href="tel:911" class="btn-emergency-call">Call 911</a>
+                <div class="support-card domestic">
+                    <i class="fas fa-home"></i>
+                    <h3>Domestic Violence</h3>
+                    <p>National Hotline: 1-800-799-7233</p>
+                    <a href="tel:18007997233" class="btn-support">Call Now</a>
                 </div>
-            </div>
 
-            <!-- Quick Resources -->
-            <div class="quick-resources">
-                <h3>Quick Resources</h3>
-                <div class="resources-grid">
-                    <div class="resource-card">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <h4>Find Local Help</h4>
-                        <p>Locate nearby mental health facilities</p>
-                        <button class="btn-find-help" onclick="findLocalHelp()">Find Help</button>
-                    </div>
-
-                    <div class="resource-card">
-                        <i class="fas fa-users"></i>
-                        <h4>Support Groups</h4>
-                        <p>Connect with others who understand</p>
-                        <a href="support-groups.html" class="btn-groups">Join Groups</a>
-                    </div>
-
-                    <div class="resource-card">
-                        <i class="fas fa-book-medical"></i>
-                        <h4>Crisis Resources</h4>
-                        <p>Access helpful guides and information</p>
-                        <a href="#crisis-resources" class="btn-resources">View Resources</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Crisis Resources Section -->
-            <div id="crisis-resources" class="crisis-resources">
-                <h3>Crisis Resources</h3>
-                <div class="resources-list">
-                    <div class="resource-item">
-                        <h4>Safety Planning</h4>
-                        <p>Create a personal safety plan to help during difficult moments.</p>
-                        <button class="btn-resource" onclick="showSafetyPlan()">Create Plan</button>
-                    </div>
-
-                    <div class="resource-item">
-                        <h4>Coping Strategies</h4>
-                        <p>Learn effective techniques to manage crisis situations.</p>
-                        <button class="btn-resource" onclick="showCopingStrategies()">View Strategies</button>
-                    </div>
-
-                    <div class="resource-item">
-                        <h4>Support Network</h4>
-                        <p>Build and maintain a support network for crisis situations.</p>
-                        <button class="btn-resource" onclick="showSupportNetwork()">Build Network</button>
-                    </div>
+                <div class="support-card substance">
+                    <i class="fas fa-pills"></i>
+                    <h3>Substance Use</h3>
+                    <p>SAMHSA: 1-800-662-4357</p>
+                    <a href="tel:18006624357" class="btn-support">Call Now</a>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <!-- Important Notice -->
-            <div class="emergency-notice">
-                <i class="fas fa-exclamation-triangle"></i>
-                <h3>Important Notice</h3>
-                <p>If you or someone you know is in immediate danger of self-harm or suicide, call emergency services (911) immediately or go to the nearest emergency room.</p>
+    <!-- Safety Plan Tool -->
+    <section class="safety-plan">
+        <div class="container">
+            <h2>Create Your Safety Plan</h2>
+            <div class="safety-steps">
+                <div class="step" data-step="1">
+                    <span class="step-number">1</span>
+                    <h4>Warning Signs</h4>
+                    <p>Identify personal crisis triggers</p>
+                    <div class="step-progress"></div>
+                </div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <h4>Coping Strategies</h4>
+                    <p>List activities that help you feel better</p>
+                </div>
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <h4>Support Network</h4>
+                    <p>Add trusted contacts</p>
+                </div>
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <h4>Professional Help</h4>
+                    <p>Save emergency contacts</p>
+                </div>
+            </div>
+            <button class="btn-create-plan" onclick="openSafetyPlanModal()">Create Your Plan Now</button>
+        </div>
+    </section>
+
+    <!-- Safety Plan Modal -->
+    <div id="safetyPlanModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeSafetyPlanModal()">&times;</span>
+            <div class="plan-steps">
+                <!-- Step 1: Warning Signs -->
+                <div class="plan-step active" data-step="1">
+                    <h3>Warning Signs</h3>
+                    <p>List situations or thoughts that might trigger a crisis:</p>
+                    <div class="input-group">
+                        <input type="text" id="warningSign" placeholder="Enter a warning sign">
+                        <button onclick="addWarningSign()" class="btn-add">Add</button>
+                    </div>
+                    <ul id="warningSignsList" class="items-list"></ul>
+                    <div class="step-navigation">
+                        <button onclick="nextStep(2)" class="btn-next">Next</button>
+                    </div>
+                </div>
+
+                <!-- Step 2: Coping Strategies -->
+                <div class="plan-step" data-step="2">
+                    <h3>Coping Strategies</h3>
+                    <p>What helps you feel better?</p>
+                    <div class="input-group">
+                        <input type="text" id="copingStrategy" placeholder="Enter a coping strategy">
+                        <button onclick="addCopingStrategy()" class="btn-add">Add</button>
+                    </div>
+                    <ul id="copingStrategiesList" class="items-list"></ul>
+                    <div class="step-navigation">
+                        <button onclick="previousStep(1)" class="btn-prev">Previous</button>
+                        <button onclick="nextStep(3)" class="btn-next">Next</button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Support Network -->
+                <div class="plan-step" data-step="3">
+                    <h3>Support Network</h3>
+                    <p>Add trusted people you can reach out to:</p>
+                    <div class="contact-form">
+                        <input type="text" id="contactName" placeholder="Name">
+                        <input type="tel" id="contactPhone" placeholder="Phone">
+                        <button onclick="addContact()" class="btn-add">Add Contact</button>
+                    </div>
+                    <ul id="contactsList" class="items-list"></ul>
+                    <div class="step-navigation">
+                        <button onclick="previousStep(2)" class="btn-prev">Previous</button>
+                        <button onclick="nextStep(4)" class="btn-next">Next</button>
+                    </div>
+                </div>
+
+                <!-- Step 4: Professional Help -->
+                <div class="plan-step" data-step="4">
+                    <h3>Professional Help</h3>
+                    <p>Save important emergency contacts:</p>
+                    <div class="emergency-contacts-list">
+                        <div class="emergency-contact">
+                            <strong>Crisis Hotline:</strong> 988
+                        </div>
+                        <div class="emergency-contact">
+                            <strong>Emergency:</strong> 911
+                        </div>
+                        <div class="custom-contact">
+                            <input type="text" id="professionalName" placeholder="Provider Name">
+                            <input type="tel" id="professionalPhone" placeholder="Phone">
+                            <button onclick="addProfessional()" class="btn-add">Add</button>
+                        </div>
+                    </div>
+                    <ul id="professionalsList" class="items-list"></ul>
+                    <div class="step-navigation">
+                        <button onclick="previousStep(3)" class="btn-prev">Previous</button>
+                        <button onclick="saveSafetyPlan()" class="btn-save">Save Plan</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Resource Links -->
+    <section class="resource-links">
+        <div class="container">
+            <h2>Additional Resources</h2>
+            <div class="resource-cards">
+                <a href="#" class="resource-link">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h4>Find Local Help</h4>
+                    <p>Locate nearby mental health facilities</p>
+                </a>
+                <a href="#" class="resource-link">
+                    <i class="fas fa-users"></i>
+                    <h4>Support Groups</h4>
+                    <p>Connect with others</p>
+                </a>
+                <a href="#" class="resource-link">
+                    <i class="fas fa-book-medical"></i>
+                    <h4>Self-Help Tools</h4>
+                    <p>Access coping resources</p>
+                </a>
+                <a href="#" class="resource-link">
+                    <i class="fas fa-hands-helping"></i>
+                    <h4>Help Someone</h4>
+                    <p>Learn how to support others</p>
+                </a>
             </div>
         </div>
     </section>
@@ -153,5 +514,6 @@
     </footer>
 
     <script src="js/emergency.js"></script>
+    <script src="js/safety-plan.js"></script>
 </body>
-</html> 
+</html>

@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Health Professionals - Neuro Nurture</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-blue: #4361ee;
+            --secondary-teal: #48bfe3;
+            --accent-coral: #ff6b6b;
+            --gradient-1: #4361ee;
+            --gradient-2: #48bfe3;
+            --background-light: #f8f9fa;
+            --text-dark: #2b2d42;
+            --text-light: #ffffff;
+            --card-shadow: rgba(67, 97, 238, 0.15);
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: var(--background-light);
+        }
+
+        .modern-header {
+            background: var(--primary-blue);
+            padding: 1rem 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .professionals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+        }
+
+        .professional-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            animation: fadeIn 0.5s ease-out;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-origin: center;
+            opacity: 0;
+            animation: none;
+        }
+
+        .professional-card.visible {
+            animation: cardAppear 0.6s ease-out forwards;
+        }
+
+        .professional-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 30px var(--card-shadow);
+        }
+
+        .card-header {
+            position: relative;
+            height: 220px;
+            background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+            padding: 2rem;
+            color: white;
+            text-align: center;
+        }
+
+        .profile-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-body {
+            padding: 2rem;
+        }
+
+        .specialty-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .tag {
+            background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: white;
+            transform: translateY(0);
+            transition: all 0.3s ease;
+        }
+
+        .tag:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px var(--card-shadow);
+        }
+
+        .contact-info {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #eee;
+        }
+
+        .contact-button {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--gradient-2), var(--gradient-1));
+            transition: all 0.6s ease;
+            z-index: 0;
+        }
+
+        .contact-button:hover::before {
+            left: 0;
+        }
+
+        .contact-button span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-button:hover {
+            background: var(--secondary-teal);
+            transform: translateY(-2px);
+        }
+
+        .filters {
+            padding: 1rem;
+            background: white;
+            border-radius: 10px;
+            margin: 2rem auto;
+            max-width: 800px;
+        }
+
+        @media (max-width: 768px) {
+            .professionals-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* New Styles */
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-teal));
+            padding: 4rem 0;
+            text-align: center;
+            color: white;
+        }
+
+        .search-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: -2rem auto 2rem;
+            max-width: 800px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 2;
+        }
+
+        .search-input {
+            width: 95%;
+            padding: 1rem;
+            border: 2px solid #eee;
+            border-radius: 8px;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .filter-options {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            background: var(--background-light);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn.active {
+            background: var(--primary-blue);
+            color: white;
+        }
+
+        /* Card Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Skeleton Loading */
+        .skeleton {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
+
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        /* Sort Dropdown */
+        .sort-container {
+            margin: 1rem 0;
+            text-align: right;
+        }
+
+        .sort-select {
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            border: 2px solid #eee;
+        }
+
+        /* Tooltip */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tooltip:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--text-dark);
+            color: white;
+            padding: 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            white-space: nowrap;
+        }
+
+        /* Modern Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--background-light);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(var(--gradient-1), var(--gradient-2));
+            border-radius: 5px;
+        }
+
+        /* Enhanced Animations */
+        @keyframes cardAppear {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Navigation Styles */
+        .nav-bar {
+            background: rgba(255, 255, 255, 0.95);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            color: var(--primary-blue);
+            font-weight: 600;
+            font-size: 1.5rem;
+        }
+
+        .logo i {
+            font-size: 1.8rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-dark);
+            position: relative;
+            padding: 0.5rem 0;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--gradient-1), var(--gradient-2));
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-blue);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-link.active {
+            color: var(--primary-blue);
+        }
+
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        /* Adjust hero section to account for fixed navbar */
+        .hero-section {
+            margin-top: 70px;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                padding: 1rem;
+                flex-direction: column;
+                gap: 1rem;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            }
+
+            .nav-links.show {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: block;
+                font-size: 1.5rem;
+                color: var(--text-dark);
+                cursor: pointer;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav-bar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-brain"></i>
+                <span>Neuro Nurture</span>
+            </a>
+            <div class="nav-links">
+                
+                    <a href="index1.html">Home</a>
+                    <a href="index1.html#resources">Resources</a>
+                    <a href="index1.html#activities">Activities</a>
+                    <a href="index1.html#support-groups">Community</a>
+                    <a href="index1.html#chatbot">AI Support</a>
+                  
+            </div>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <div class="hero-section">
+        <div class="container">
+            <h1>Find Your Mental Health Professional</h1>
+            <p>Connect with experienced professionals who can help you thrive</p>
+        </div>
+    </div>
+
+    <main class="container">
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="Search by name, specialty, or location..." id="searchInput">
+            <div class="filter-options">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="psychiatrist">Psychiatrists</button>
+                <button class="filter-btn" data-filter="psychologist">Psychologists</button>
+                <button class="filter-btn" data-filter="counselor">Counselors</button>
+                <button class="filter-btn" data-filter="therapist">Therapists</button>
+            </div>
+        </div>
+
+        <div class="sort-container">
+            <select class="sort-select" id="sortSelect">
+                <option value="name">Sort by Name</option>
+                <option value="experience">Sort by Experience</option>
+                <option value="location">Sort by Location</option>
+            </select>
+        </div>
+
+        <div class="professionals-grid">
+            <!-- Professional cards will be inserted here by JavaScript -->
+        </div>
+    </main>
+
+    <script>
+        const professionals = [
+            {
+                name: "Dr. Achal Bhagat",
+                title: "Senior Consultant Psychiatrist",
+                image: "images/therapist1.jpg",
+                location: "Apollo Healthcare, Delhi",
+                specialties: ["Anxiety", "Depression", "PTSD"],
+                experience: "20+ years",
+                education: "MBBS, MD Psychiatry",
+                phone: "+91-11-4060-1261",
+                email: "contact@apollohealthcare.com",
+                description: "Specializes in treating complex mental health conditions with an integrated approach."
+            },
+            {
+                name: "Dr. Alok Sarin",
+                title: "Consultant Psychiatrist",
+                image: "images/therapist2.jpg",
+                location: "Sitaram Bhartia Institute, Delhi",
+                specialties: ["Mood Disorders", "Psychotherapy", "Addiction"],
+                experience: "25+ years",
+                education: "MBBS, DPM, DNB Psychiatry",
+                phone: "+91-11-4234-4200",
+                email: "info@sitarambhartia.org",
+                description: "Expert in mood disorders and psychotherapy with a holistic treatment approach."
+            },
+            {
+                name: "Dr. Soumya Mudgal",
+                title: "Clinical Psychologist",
+                image: "images/therapist3.jpg",
+                location: "Max Healthcare, Mumbai",
+                specialties: ["Child Psychology", "Learning Disabilities", "Behavioral Therapy"],
+                experience: "15+ years",
+                education: "M.Phil Clinical Psychology, PhD",
+                phone: "+91-22-2444-7777",
+                email: "psychology@maxhealthcare.com",
+                description: "Specializes in child and adolescent mental health with expertise in behavioral interventions."
+            },
+            {
+                name: "Dr. Kamna Chhibber",
+                title: "Mental Health Counselor",
+                image: "images/therapist4.jpg",
+                location: "Fortis Healthcare, Bangalore",
+                specialties: ["Relationship Counseling", "Work Stress", "Life Coaching"],
+                experience: "12+ years",
+                education: "MA Psychology, Advanced Counseling",
+                phone: "+91-80-4969-4969",
+                email: "counseling@fortis.com",
+                description: "Helps individuals navigate life transitions and relationship challenges."
+            },
+            {
+                name: "Dr. Rajesh Sagar",
+                title: "Neuropsychiatrist",
+                image: "images/therapist5.jpg",
+                location: "AIIMS, New Delhi",
+                specialties: ["Neurological Disorders", "Memory Issues", "Cognitive Therapy"],
+                experience: "22+ years",
+                education: "MBBS, MD, DM Neuropsychiatry",
+                phone: "+91-11-2658-8500",
+                email: "neurology@aiims.edu",
+                description: "Expert in treating complex neuropsychiatric conditions."
+            },
+            {
+                name: "Dr. Prerna Kohli",
+                title: "Family Therapist",
+                image: "images/therapist6.jpg",
+                location: "Mind Wellness, Chennai",
+                specialties: ["Family Dynamics", "Marriage Counseling", "Parenting Support"],
+                experience: "18+ years",
+                education: "PhD Psychology, Family Therapy Certification",
+                phone: "+91-44-2847-1111",
+                email: "contact@mindwellness.in",
+                description: "Specialized in resolving family conflicts and improving relationships."
+            },
+            {
+                name: "Dr. Samir Parikh",
+                title: "Senior Psychiatrist",
+                image: "images/therapist7.jpg",
+                location: "Fortis Memorial, Gurgaon",
+                specialties: ["OCD", "Bipolar Disorder", "Schizophrenia"],
+                experience: "25+ years",
+                education: "MBBS, MD Psychiatry, Fellowship",
+                phone: "+91-124-4921-021",
+                email: "mental.health@fortismemorial.com",
+                description: "Renowned expert in severe mental health conditions and rehabilitation."
+            },
+            {
+                name: "Dr. Shweta Sharma",
+                title: "Art Therapist",
+                image: "images/therapist8.jpg",
+                location: "Creative Minds, Pune",
+                specialties: ["Art Therapy", "Trauma Recovery", "Expressive Arts"],
+                experience: "10+ years",
+                education: "MA Psychology, Art Therapy Certification",
+                phone: "+91-20-2566-8899",
+                email: "therapy@creativeminds.co.in",
+                description: "Uses creative approaches to help clients process emotions and heal."
+            },
+            {
+                name: "Dr. Nand Kumar",
+                title: "Addiction Specialist",
+                image: "images/therapist9.jpg",
+                location: "Hope Foundation, Kolkata",
+                specialties: ["Substance Abuse", "Recovery", "Mental Health"],
+                experience: "20+ years",
+                education: "MBBS, MD Psychiatry, Addiction Medicine",
+                phone: "+91-33-2288-4455",
+                email: "recovery@hopefoundation.org",
+                description: "Dedicated to helping individuals overcome addiction and rebuild their lives."
+            },
+            {
+                name: "Dr. Meera Sharma",
+                title: "Geriatric Psychiatrist",
+                image: "images/therapist10.jpg",
+                location: "Senior Care Center, Hyderabad",
+                specialties: ["Elder Care", "Dementia", "Late-life Depression"],
+                experience: "16+ years",
+                education: "MBBS, MD, Geriatric Psychology",
+                phone: "+91-40-2339-7700",
+                email: "care@seniorcare.in",
+                description: "Specialized in mental health care for elderly patients and their families."
+            }
+        ];
+
+        function renderProfessionals(filteredProfs = professionals) {
+            const grid = document.querySelector('.professionals-grid');
+            grid.innerHTML = filteredProfs.map(prof => `
+                <div class="professional-card" data-category="${prof.title.toLowerCase()}">
+                    <div class="card-header">
+                        <img src="${prof.image}" alt="${prof.name}" class="profile-img">
+                        <h2>${prof.name}</h2>
+                        <p>${prof.title}</p>
+                    </div>
+                    <div class="card-body">
+                        <p><i class="fas fa-location-dot"></i> ${prof.location}</p>
+                        <p><i class="fas fa-graduation-cap"></i> ${prof.education}</p>
+                        <p><i class="fas fa-clock"></i> ${prof.experience}</p>
+                        <div class="specialty-tags">
+                            ${prof.specialties.map(spec => `
+                                <span class="tag tooltip" data-tooltip="Click to filter by ${spec}">${spec}</span>
+                            `).join('')}
+                        </div>
+                        <p>${prof.description}</p>
+                        <div class="contact-info">
+                            <p><i class="fas fa-phone"></i> ${prof.phone}</p>
+                            <p><i class="fas fa-envelope"></i> ${prof.email}</p>
+                            <a href="mailto:${prof.email}" class="contact-button">
+                                <span><i class="fas fa-paper-plane"></i> Contact</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            // Observe all cards for scroll animations
+            document.querySelectorAll('.professional-card').forEach(card => {
+                observer.observe(card);
+            });
+        }
+
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            const filtered = professionals.filter(prof => 
+                prof.name.toLowerCase().includes(searchTerm) ||
+                prof.specialties.some(s => s.toLowerCase().includes(searchTerm)) ||
+                prof.location.toLowerCase().includes(searchTerm)
+            );
+            renderProfessionals(filtered);
+        });
+
+        // Filter functionality
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const filter = btn.dataset.filter;
+                const filtered = filter === 'all' 
+                    ? professionals
+                    : professionals.filter(prof => prof.title.toLowerCase().includes(filter));
+                renderProfessionals(filtered);
+            });
+        });
+
+        // Sort functionality
+        document.getElementById('sortSelect').addEventListener('change', (e) => {
+            const sortBy = e.target.value;
+            const sorted = [...professionals].sort((a, b) => {
+                if (sortBy === 'name') return a.name.localeCompare(b.name);
+                if (sortBy === 'experience') return parseInt(b.experience) - parseInt(a.experience);
+                if (sortBy === 'location') return a.location.localeCompare(b.location);
+                return 0;
+            });
+            renderProfessionals(sorted);
+        });
+
+        // Initialize with loading animation
+        window.addEventListener('load', () => {
+            renderProfessionals();
+            document.querySelectorAll('.professional-card').forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.1}s`;
+            });
+        });
+
+        // Add Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Initialize smooth scroll behavior
+        document.documentElement.style.scrollBehavior = 'smooth';
+
+        // Mobile menu toggle
+        document.querySelector('.menu-toggle').addEventListener('click', () => {
+            document.querySelector('.nav-links').classList.toggle('show');
+        });
+
+        // Hide mobile menu on window resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                document.querySelector('.nav-links').classList.remove('show');
+            }
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.nav-container')) {
+                document.querySelector('.nav-links').classList.remove('show');
+            }
+        });
+    </script>
+</body>
+</html>
