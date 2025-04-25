@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Depression Support Group</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/styles1.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #1a1a2e;
+            color: #e4e6eb;
+        }
+        .chat-container {
+            display: flex;
+            height: 100vh;
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: #16213e;
+            box-shadow: 0 0 30px rgba(103, 58, 183, 0.3);
+        }
+        .sidebar {
+            width: 350px;
+            background-color: #1a1a2e;
+            border-right: 1px solid #673ab7;
+            display: flex;
+            flex-direction: column;
+        }
+        .sidebar-header {
+            padding: 15px;
+            background-color: #22223b;
+            border-bottom: 1px solid #673ab7;
+        }
+        .search-container {
+            padding: 10px;
+            background-color: #1a1a2e;
+            border-bottom: 1px solid #673ab7;
+        }
+        .search-input {
+            width: 100%;
+            padding: 10px;
+            background-color: #22223b;
+            border: 1px solid #673ab7;
+            border-radius: 8px;
+            color: #e4e6eb;
+            font-size: 15px;
+        }
+        .user-list {
+            list-style: none;
+            overflow-y: auto;
+        }
+        .user-item {
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #673ab7;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .user-item:hover {
+            background-color: #22223b;
+            transform: translateX(5px);
+        }
+        .user-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background-color: #6b7c85;
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .user-status {
+            width: 12px;
+            height: 12px;
+            background-color: #00a884;
+            border-radius: 50%;
+            margin-left: auto;
+        }
+        .main-chat {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background-color: #0b141a;
+        }
+        .chat-header {
+            padding: 15px;
+            background-color: #202c33;
+            display: flex;
+            align-items: center;
+        }
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background: linear-gradient(to bottom, #16213e, #1a1a2e);
+            background-image: none;
+        }
+        .message {
+            margin: 10px 0;
+            padding: 10px 15px;
+            border-radius: 7px;
+            max-width: 65%;
+            position: relative;
+        }
+        .message-time {
+            font-size: 11px;
+            color: #8696a0;
+            margin-top: 5px;
+            float: right;
+        }
+        .received {
+            background-color: #22223b;
+            align-self: flex-start;
+            color: #e4e6eb;
+            box-shadow: 0 2px 5px rgba(34, 34, 59, 0.2);
+        }
+        .sent {
+            background-color: #673ab7;
+            color: #e4e6eb;
+            align-self: flex-end;
+            margin-left: auto;
+            box-shadow: 0 2px 5px rgba(103, 58, 183, 0.2);
+        }
+        .chat-input-container {
+            padding: 15px;
+            background-color: #1a1a2e;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-top: 1px solid #673ab7;
+        }
+        .chat-tools {
+            display: flex;
+            gap: 15px;
+        }
+        .tool-button {
+            color: #673ab7;
+            cursor: pointer;
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+        }
+        .tool-button:hover {
+            color: #9c27b0;
+            transform: scale(1.1);
+        }
+        .chat-input {
+            flex: 1;
+            padding: 12px;
+            background-color: #22223b;
+            border: 1px solid #673ab7;
+            border-radius: 8px;
+            color: #e4e6eb;
+            font-size: 15px;
+            transition: all 0.3s ease;
+        }
+        .chat-input:focus {
+            border-color: #9c27b0;
+            box-shadow: 0 0 10px rgba(156, 39, 176, 0.2);
+        }
+        .send-button {
+            color: #673ab7;
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        .send-button:hover {
+            color: #9c27b0;
+            transform: scale(1.1);
+        }
+        .back-link {
+            color: #00a884;
+            text-decoration: none;
+            margin-right: 15px;
+        }
+        /* Group-specific colors */
+        :root {
+            --primary: #4f46e5;
+            --primary-light: #6366f1;
+            --accent: #818cf8;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.1/socket.io.js"></script>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2>Depression Support Group</h2>
+            </div>
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Search members...">
+            </div>
+            <ul class="user-list">
+                <li class="user-item counselor">
+                    <div class="user-avatar">DM</div>
+                    <div class="user-info">
+                        <div class="user-name">Dr. Mark Wilson</div>
+                        <div class="user-role">Lead Therapist</div>
+                        <div class="status-indicator status-online"></div>
+                    </div>
+                </li>
+                <li class="user-item counselor">
+                    <div class="user-avatar">DS</div>
+                    <div class="user-info">
+                        <div class="user-name">Dr. Sarah Lee</div>
+                        <div class="user-role">Counselor</div>
+                        <div class="status-indicator status-away"></div>
+                    </div>
+                </li>
+                <!-- Add more user items as needed -->
+            </ul>
+        </div>
+        <div class="main-chat">
+            <div class="chat-header">
+                <a href="../index.html" class="back-link">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+                <div class="user-avatar">SG</div>
+                <div>
+                    <h2>Support Group</h2>
+                    <small>25 members, 15 online</small>
+                </div>
+            </div>
+            <div class="chat-messages" id="chatMessages">
+                <!-- Messages will appear here -->
+            </div>
+            <div class="chat-input-container">
+                <div class="chat-tools">
+                    <i class="far fa-smile tool-button"></i>
+                    <i class="fas fa-paperclip tool-button"></i>
+                </div>
+                <input type="text" class="chat-input" id="messageInput" placeholder="Type a message">
+                <i class="fas fa-paper-plane send-button" id="sendButton"></i>
+            </div>
+        </div>
+    </div>
+    <script src="../../js/chat.js"></script>
+    <script>
+        // Initialize group-specific settings
+        const groupName = 'depression';
+        const groupId = 'DG';
+
+        const sampleMessages = [
+            {
+                id: 1,
+                sender: 'Dr. Mark Wilson',
+                avatar: 'DM',
+                content: 'Welcome everyone to today\'s support session. How is everyone feeling?',
+                timestamp: '10:00 AM',
+                type: 'received'
+            },
+            {
+                id: 2,
+                sender: 'Sarah',
+                avatar: 'SJ',
+                content: 'Thanks Dr. Wilson. I\'m feeling a bit better than yesterday.',
+                timestamp: '10:02 AM',
+                type: 'received'
+            }
+        ];
+    </script>
+</body>
+</html>
