@@ -1740,9 +1740,17 @@ section h2 i {
 .quick-access-card,
 .resource-card,
 .activity-card,
-.group-card,
-.game-card {
+.group-card {
     padding-top:120px !important; /* Increased padding to accommodate icons */
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.game-card {
+    padding-top:0px !important; /* Increased padding to accommodate icons */
     min-height: 300px;
     display: flex;
     flex-direction: column;
@@ -3044,4 +3052,147 @@ section h2 i {
     font-size: 0.8rem;
     color: rgba(255, 255, 255, 0.6);
     margin-bottom: 16px;
+}
+
+/* Emergency Page Styles */
+.emergency-banner {
+    background-color: #ff4444;
+    color: white;
+    padding: 12px 0;
+    text-align: center;
+}
+
+.emergency-hero {
+    background: linear-gradient(135deg, #2c3e50, #3498db);
+    color: white;
+    padding: 60px 0;
+    text-align: center;
+}
+
+.hero-text {
+    font-size: 1.5rem;
+    margin: 20px 0 40px;
+}
+
+.primary-emergency-options {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.emergency-option {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    color: white;
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    text-decoration: none;
+    transition: transform 0.3s;
+    backdrop-filter: blur(10px);
+}
+
+.emergency-option:hover {
+    transform: translateY(-5px);
+}
+
+.emergency-option i {
+    font-size: 2rem;
+    margin-right: 20px;
+}
+
+.support-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin: 30px 0;
+}
+
+.support-card {
+    background: white;
+    border-radius: 10px;
+    padding: 25px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.support-card:hover {
+    transform: translateY(-5px);
+}
+
+.safety-steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin: 40px 0;
+}
+
+.step {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+}
+
+.step-number {
+    background: #3498db;
+    color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 15px;
+}
+
+.resource-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin: 30px 0;
+}
+
+.resource-link {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    color: #333;
+    transition: transform 0.3s;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.resource-link:hover {
+    transform: translateY(-5px);
+}
+
+.btn-create-plan {
+    background: #3498db;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 25px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn-create-plan:hover {
+    background: #2980b9;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .primary-emergency-options {
+        flex-direction: column;
+    }
+    
+    .support-grid {
+        grid-template-columns: 1fr;
+    }
 }

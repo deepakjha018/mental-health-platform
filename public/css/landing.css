@@ -1,0 +1,203 @@
+:root {
+    --primary-color: #7d97fe;
+    --secondary-color: #6c63ff;
+    --text-color: #333;
+    --light-bg: #f5f7ff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: #f5f7ff;
+    background: linear-gradient(135deg, #f5f7ff 0%, #ffffff 100%);
+    min-height: 100vh;
+}
+
+#particles-js {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.landing-container {
+    position: relative;
+    z-index: 2;
+}
+
+.landing-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    position: relative;
+    z-index: 2;
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.logo img {
+    width: 40px;
+    height: auto;
+}
+
+.logo span {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: white;
+}
+
+.nav-buttons button {
+    padding: 0.8rem 1.5rem;
+    margin-left: 1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-login {
+    background: transparent;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color) !important;
+}
+
+.btn-register {
+    background: var(--primary-color);
+    color: white;
+}
+
+.hero-section {
+    text-align: center;
+    padding: 5rem 5% 3rem;
+}
+
+.hero-section h1 {
+    font-size: 3rem;
+    color: var(--text-color);
+    margin-bottom: 1.5rem;
+}
+
+.hero-section > p {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 3rem;
+}
+
+.feature-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin: 3rem auto;
+    max-width: 1200px;
+    padding: 0 2rem;
+}
+
+.feature-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+}
+
+.feature-card i {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.cta-buttons {
+    margin-top: 3rem;
+}
+
+.cta-buttons button {
+    padding: 1rem 2rem;
+    margin: 0 1rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-get-started {
+    background: var(--primary-color);
+    color: white;
+}
+
+.btn-learn-more {
+    background: transparent;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color) !important;
+}
+
+.stats-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    padding: 4rem 5%;
+    background: var(--light-bg);
+    margin-top: 4rem;
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-item h2 {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.stat-item p {
+    color: #666;
+    font-size: 1.1rem;
+}
+
+@media (max-width: 768px) {
+    .hero-section h1 {
+        font-size: 2.5rem;
+    }
+
+    .auth-card {
+        padding: 1.5rem;
+    }
+
+    .auth-buttons {
+        flex-direction: column;
+    }
+    
+    .hero-section h1 {
+        font-size: 2rem;
+    }
+    
+    .feature-cards {
+        grid-template-columns: 1fr;
+    }
+    
+    .cta-buttons button {
+        margin: 0.5rem;
+    }
+}
