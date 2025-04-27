@@ -1,15 +1,266 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-language="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="images/favicon.png" type="image/png">
-    <title>Neuro Nurture - A Mental Health Support Platform</title>
+    <title data-translate="websiteTitle">Neuro Nurture - A Mental Health Support Platform</title>
     <link rel="stylesheet" href="css/styles1.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="/middleware/auth.js"></script>
+    <script>
+        // Language translations
+        const translations = {
+            en: {
+                home: "Home",
+                resources: "Resources",
+                activities: "Activities",
+                games: "Games",
+                community: "Community",
+                aiSupport: "AI Support",
+                login: "Login",
+                profile: "Profile",
+                settings: "Settings",
+                logout: "Logout",
+                // Hero Section
+                heroTitle: "Your Journey to Mental Wellness Starts Here",
+                heroDescription: "Join our supportive community and access professional resources for your mental well-being",
+                exploreResources: "Explore Resources",
+                takeAssessment: "Take Assessment",
+
+                // Quick Support Section
+                quickSupport: "Quick Support",
+                quickSupportDesc: "Access our key features designed to support your mental well-being",
+                mentalHealthCheck: "Mental Health Check",
+                mentalHealthCheckDesc: "Take our comprehensive assessment to understand your mental well-being",
+                startAssessment: "Start Assessment",
+                dailyWellness: "Daily Wellness",
+                dailyWellnessDesc: "Track your mood and maintain daily wellness activities",
+                startTracking: "Start Tracking",
+                supportGroups: "Support Groups",
+                supportGroupsDesc: "Connect with others who understand your journey",
+                joinNow: "Join Now",
+                wellnessGames: "Wellness Games",
+                wellnessGamesDesc: "Play therapeutic games designed for mental well-being",
+                playNow: "Play Now",
+                resourceLibrary: "Resource Library",
+                resourceLibraryDesc: "Access expert articles and educational materials",
+                exploreNow: "Explore Now",
+                aiCompanion: "AI Companion",
+                aiCompanionDesc: "Get 24/7 support from our AI wellness companion",
+                chatNow: "Chat Now",
+                guidedActivities: "Guided Activities",
+                guidedActivitiesDesc: "Practice mindfulness and therapeutic exercises",
+                startActivity: "Start Activity",
+                emergencyHelp: "Emergency Help",
+                emergencyHelpDesc: "Access immediate crisis support and resources",
+                getHelp: "Get Help",
+
+                // Resources Section
+                expertResources: "Expert Resources",
+                resourcesDesc: "Access professional mental health resources and educational materials",
+                articlesAndGuides: "Articles & Guides",
+                articlesDesc: "Expert-written articles on mental health topics and coping strategies",
+                videoResources: "Video Resources",
+                videoDesc: "Watch therapeutic videos and expert interviews",
+                wellnessTools: "Wellness Tools",
+                toolsDesc: "Interactive tools for mood tracking and self-improvement",
+
+                // Activities Section
+                therapeuticActivities: "Therapeutic Activities",
+                activitiesDesc: "Engage in activities designed to reduce stress and improve mental well-being",
+                breathingExercises: "Breathing Exercises",
+                breathingDesc: "Guided breathing exercises for stress relief",
+                meditation: "Meditation",
+                meditationDesc: "Guided meditation sessions for inner peace",
+                artTherapy: "Art Therapy",
+                artTherapyDesc: "Express yourself through creative activities",
+                journaling: "Journaling",
+                journalingDesc: "Guided journaling for emotional expression",
+
+                // Footer
+                quickLinks: "Quick Links",
+                support: "Support",
+                connectWithUs: "Connect With Us",
+                emergencySupport: "Emergency Support",
+                crisisHelpline: "24/7 Crisis Helpline: 1-800-273-8255",
+                copyright: "© 2025 Neuro Nurture - Mental Health Support Platform. All rights reserved.",
+
+                // Additional Translations
+                websiteTitle: "Neuro Nurture - A Mental Health Support Platform",
+                heroDesc: "Join our supportive community and access professional resources for your mental well-being",
+                articlesGuides: "Articles & Guides",
+                gamesDesc: "Engage in therapeutic games designed to reduce stress and improve mental well-being",
+                crisisLine: "24/7 Crisis Helpline: 1-800-273-8255",
+                getEmergencyHelp: "Get Emergency Help",
+
+                // Games Section
+                mindfulnessMaze: "Mindfulness Maze",
+                mindfulnessMazeDesc: "Mindfulness Maze: Navigate, relax, and focus",
+                emotionMatch: "Emotion Match",
+                emotionMatchDesc: "Memory game to understand and match different emotions",
+                moodMelody: "Mood Melody",
+                moodMelodyDesc: "Match melodies to your emotions and find inner harmony",
+                ticTacToe: "Tic-Tac-Toe",
+                ticTacToeDesc: "Classic game to relax and exercise your mind",
+                sudoku: "Sudoku",
+                sudokuDesc: "Enhance focus and logical thinking with number puzzles",
+                bottleSort: "Bottle Sort",
+                bottleSortDesc: "Relaxing puzzle game to sort and organize colored liquids",
+                
+                // Stats and Common Labels
+                multipleActivities: "Multiple activities",
+                emotionalAwareness: "Emotional awareness",
+                brainTraining: "Brain training",
+                colorSorting: "Color sorting",
+                difficultyLevels: "3 difficulty levels",
+                members: "members",
+                activeDaily: "Active daily",
+                moderated: "Moderated",
+                support247: "24/7 Support",
+                peerSupport: "Peer Support",
+                weeklySessions: "Weekly Sessions",
+                typeMessage: "Type your message here...",
+                sendMessage: "Send message",
+
+                // Community Section
+                supportiveCommunity: "Supportive Community",
+                supportiveCommunityDesc: "Connect with others who understand your experiences",
+                anxietySupport: "Anxiety Support",
+                anxietySupportDesc: "Share experiences and learn coping strategies for anxiety",
+                depressionSupport: "Depression Support",
+                depressionSupportDesc: "Find understanding and support in your journey",
+                stressManagement: "Stress Management",
+                stressManagementDesc: "Learn and share stress management techniques",
+                joinGroup: "Join Group"
+            },
+            hi: {
+                home: "होम",
+                resources: "संसाधन",
+                activities: "गतिविधियां",
+                games: "खेल",
+                community: "समुदाय",
+                aiSupport: "एआई सहायता",
+                login: "लॉगिन",
+                profile: "प्रोफाइल",
+                settings: "सेटिंग्स",
+                logout: "लॉगआउट",
+                // Hero Section
+                heroTitle: "मानसिक स्वास्थ्य की यात्रा यहाँ से शुरू होती है",
+                heroDescription: "हमारे सहायक समुदाय से जुड़ें और अपने मानसिक स्वास्थ्य के लिए पेशेवर संसाधनों तक पहुंचें",
+                exploreResources: "संसाधन खोजें",
+                takeAssessment: "मूल्यांकन करें",
+
+                // Quick Support Section
+                quickSupport: "त्वरित सहायता",
+                quickSupportDesc: "आपके मानसिक स्वास्थ्य को सहायता देने के लिए डिज़ाइन की गई हमारी प्रमुख सुविधाओं तक पहुंचें",
+                mentalHealthCheck: "मानसिक स्वास्थ्य जांच",
+                mentalHealthCheckDesc: "अपने मानसिक स्वास्थ्य को समझने के लिए हमारा व्यापक मूल्यांकन करें",
+                startAssessment: "मूल्यांकन शुरू करें",
+                dailyWellness: "दैनिक स्वास्थ्य",
+                dailyWellnessDesc: "अपने मूड को ट्रैक करें और दैनिक स्वास्थ्य गतिविधियों को बनाए रखें",
+                startTracking: "ट्रैकिंग शुरू करें",
+                supportGroups: "सहायता समूह",
+                supportGroupsDesc: "उन लोगों से जुड़ें जो आपकी यात्रा को समझते हैं",
+                joinNow: "अभी जुड़ें",
+                wellnessGames: "स्वास्थ्य खेल",
+                wellnessGamesDesc: "मानसिक स्वास्थ्य के लिए डिज़ाइन किए गए चिकित्सीय खेल खेलें",
+                playNow: "अभी खेलें",
+                resourceLibrary: "संसाधन पुस्तकालय",
+                resourceLibraryDesc: "विशेषज्ञ लेख और शैक्षिक सामग्री तक पहुंचें",
+                exploreNow: "अभी खोजें",
+                aiCompanion: "एआई साथी",
+                aiCompanionDesc: "हमारे एआई वेलनेस साथी से 24/7 सहायता प्राप्त करें",
+                chatNow: "अभी चैट करें",
+                guidedActivities: "मार्गदर्शित गतिविधियां",
+                guidedActivitiesDesc: "माइंडफुलनेस और चिकित्सीय व्यायाम का अभ्यास करें",
+                startActivity: "गतिविधि शुरू करें",
+                emergencyHelp: "आपातकालीन सहायता",
+                emergencyHelpDesc: "तत्काल संकट सहायता और संसाधनों तक पहुंचें",
+                getHelp: "सहायता प्राप्त करें",
+
+                // Resources Section
+                expertResources: "विशेषज्ञ संसाधन",
+                resourcesDesc: "पेशेवर मानसिक स्वास्थ्य संसाधनों और शैक्षिक सामग्री तक पहुंचें",
+                articlesAndGuides: "लेख और मार्गदर्शिकाएं",
+                articlesDesc: "मानसिक स्वास्थ्य विषयों और सामना करने की रणनीतियों पर विशेषज्ञ-लिखित लेख",
+                videoResources: "वीडियो संसाधन",
+                videoDesc: "चिकित्सीय वीडियो और विशेषज्ञ साक्षात्कार देखें",
+                wellnessTools: "स्वास्थ्य उपकरण",
+                toolsDesc: "मूड ट्रैकिंग और आत्म-सुधार के लिए इंटरैक्टिव टूल",
+
+                // Activities Section
+                therapeuticActivities: "चिकित्सीय गतिविधियां",
+                activitiesDesc: "तनाव कम करने और मानसिक स्वास्थ्य में सुधार के लिए डिज़ाइन की गई गतिविधियों में भाग लें",
+                breathingExercises: "श्वास व्यायाम",
+                breathingDesc: "तनाव मुक्ति के लिए मार्गदर्शित श्वास व्यायाम",
+                meditation: "ध्यान",
+                meditationDesc: "आंतरिक शांति के लिए मार्गदर्शित ध्यान सत्र",
+                artTherapy: "कला चिकित्सा",
+                artTherapyDesc: "रचनात्मक गतिविधियों के माध्यम से खुद को व्यक्त करें",
+                journaling: "जर्नलिंग",
+                journalingDesc: "भावनात्मक अभिव्यक्ति के लिए मार्गदर्शित जर्नलिंग",
+
+                // Footer
+                quickLinks: "त्वरित लिंक",
+                support: "सहायता",
+                connectWithUs: "हमसे जुड़ें",
+                emergencySupport: "आपातकालीन सहायता",
+                crisisHelpline: "24/7 संकट हेल्पलाइन: 1-800-273-8255",
+                copyright: "© 2025 न्यूरो नर्चर - मानसिक स्वास्थ्य सहायता प्लेटफ़ॉर्म। सर्वाधिकार सुरक्षित।",
+
+                // Additional Translations
+                websiteTitle: "न्यूरो नर्चर - एक मानसिक स्वास्थ्य सहायता मंच",
+                heroDesc: "हमारे सहायक समुदाय से जुड़ें और अपने मानसिक स्वास्थ्य के लिए पेशेवर संसाधनों तक पहुंचें",
+                articlesGuides: "लेख और मार्गदर्शिकाएं",
+                gamesDesc: "तनाव कम करने और मानसिक स्वास्थ्य में सुधार के लिए चिकित्सीय खेल",
+                crisisLine: "24/7 संकट हेल्पलाइन: 1-800-273-8255",
+                getEmergencyHelp: "आपातकालीन सहायता प्राप्त करें",
+
+                // Games Section
+                mindfulnessMaze: "माइंडफुलनेस मेज़",
+                mindfulnessMazeDesc: "माइंडफुलनेस मेज़: नेविगेट करें, आराम करें, और ध्यान केंद्रित करें",
+                emotionMatch: "भावना मिलान",
+                emotionMatchDesc: "विभिन्न भावनाओं को समझने और मिलान करने के लिए मेमोरी गेम",
+                moodMelody: "मूड मेलोडी",
+                moodMelodyDesc: "अपनी भावनाओं के साथ धुनों का मिलान करें और आंतरिक सद्भाव पाएं",
+                ticTacToe: "टिक-टैक-टो",
+                ticTacToeDesc: "आराम करने और दिमाग का व्यायाम करने के लिए क्लासिक खेल",
+                sudoku: "सुडोकू",
+                sudokuDesc: "संख्या पहेलियों के साथ फोकस और तार्किक सोच बढ़ाएं",
+                bottleSort: "बोतल सॉर्ट",
+                bottleSortDesc: "रंगीन तरल पदार्थों को क्रमबद्ध और व्यवस्थित करने के लिए आरामदायक पहेली खेल",
+                
+                // Stats and Common Labels
+                multipleActivities: "कई गतिविधियां",
+                emotionalAwareness: "भावनात्मक जागरूकता",
+                brainTraining: "दिमागी प्रशिक्षण",
+                colorSorting: "रंग क्रमबद्धता",
+                difficultyLevels: "3 कठिनाई स्तर",
+                members: "सदस्य",
+                activeDaily: "दैनिक सक्रिय",
+                moderated: "मॉडरेटेड",
+                support247: "24/7 सहायता",
+                peerSupport: "पीयर सपोर्ट",
+                weeklySessions: "साप्ताहिक सत्र",
+                typeMessage: "अपना संदेश यहां टाइप करें...",
+                sendMessage: "संदेश भेजें",
+
+                // Community Section
+                supportiveCommunity: "सहायक समुदाय",
+                supportiveCommunityDesc: "उन लोगों से जुड़ें जो आपके अनुभवों को समझते हैं",
+                anxietySupport: "चिंता सहायता",
+                anxietySupportDesc: "चिंता के लिए अनुभव और सामना करने की रणनीतियां साझा करें",
+                depressionSupport: "अवसाद सहायता",
+                depressionSupportDesc: "अपनी यात्रा में समझ और सहायता प्राप्त करें",
+                stressManagement: "तनाव प्रबंधन",
+                stressManagementDesc: "तनाव प्रबंधन तकनीकें सीखें और साझा करें",
+                joinGroup: "समूह में शामिल हों"
+            }
+        };
+    </script>
 </head>
 
 <body>
@@ -21,29 +272,59 @@
                 <h1>Neuro Nurture</h1>
             </div>
             <nav>
-                <a href="#home">Home</a>
-                <a href="#resources">Resources</a>
-                <a href="#activities">Activities</a>
-                <a href="#games">Games</a>
-                <a href="#support-groups">Community</a>
-                <a href="#chatbot">AI Support</a>
+                <div class="language-selector">
+                    <select id="languageSelect" onchange="changeLanguage(this.value)">
+                        <option value="en">English</option>
+                        <option value="hi">हिंदी</option>
+                    </select>
+                </div>
+                <a href="#home" data-translate="home">Home</a>
+                <a href="#resources" data-translate="resources">Resources</a>
+                <a href="#activities" data-translate="activities">Activities</a>
+                <a href="#games" data-translate="games">Games</a>
+                <a href="#support-groups" data-translate="community">Community</a>
+                <a href="#chatbot" data-translate="aiSupport">AI Support</a>
                 <div id="authSection">
-                    <a href="login.html" class="btn-login" id="loginBtn">Login</a>
+                    <a href="login.html" class="btn-login" id="loginBtn" data-translate="login">Login</a>
                     <div class="user-menu" id="userMenu" style="display: none;">
                         <button class="user-button">
                             <i class="fas fa-user"></i>
                             <span id="username"></span>
                         </button>
                         <div class="user-dropdown">
-                            <a href="#profile"><i class="fas fa-user-circle"></i> Profile</a>
-                            <a href="#settings"><i class="fas fa-cog"></i> Settings</a>
-                            <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                            <a href="#profile" data-translate="profile"><i class="fas fa-user-circle"></i> Profile</a>
+                            <a href="#settings" data-translate="settings"><i class="fas fa-cog"></i> Settings</a>
+                            <a href="#" id="logoutBtn" data-translate="logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
                         </div>
                     </div>
                 </div>
             </nav>
 
             <script>
+                // Language switching functionality
+                function changeLanguage(lang) {
+                    document.documentElement.setAttribute('lang', lang);
+                    document.documentElement.setAttribute('data-language', lang);
+                    
+                    // Update all translatable elements
+                    document.querySelectorAll('[data-translate]').forEach(element => {
+                        const key = element.getAttribute('data-translate');
+                        if (translations[lang] && translations[lang][key]) {
+                            element.textContent = translations[lang][key];
+                        }
+                    });
+
+                    // Save language preference
+                    localStorage.setItem('preferredLanguage', lang);
+                }
+
+                // Load preferred language on page load
+                document.addEventListener('DOMContentLoaded', () => {
+                    const savedLanguage = localStorage.getItem('preferredLanguage') || 'en';
+                    document.getElementById('languageSelect').value = savedLanguage;
+                    changeLanguage(savedLanguage);
+                });
+
                 // Check authentication on page load
                 document.addEventListener('DOMContentLoaded', async () => {
                     try {
@@ -85,11 +366,11 @@
     <!-- Hero Section -->
     <section id="home" class="hero">
         <div class="hero-content">
-            <h2>Your Journey to Mental Wellness Starts Here</h2>
-            <p>Join our supportive community and access professional resources for your mental well-being</p>
+            <h2 data-translate="heroTitle">Your Journey to Mental Wellness Starts Here</h2>
+            <p data-translate="heroDesc">Join our supportive community and access professional resources for your mental well-being</p>
             <div class="hero-buttons">
-                <a href="#resources" class="btn-primary">Explore Resources</a>
-                <a href="self-assessment.html" class="btn-primary">Take Assessment</a>
+                <a href="#resources" class="btn-primary" data-translate="exploreResources">Explore Resources</a>
+                <a href="self-assessment.html" class="btn-primary" data-translate="takeAssessment">Take Assessment</a>
             </div>
         </div>
     </section>
@@ -97,72 +378,72 @@
     <!-- Quick Access Section -->
     <section class="quick-access">
         <div class="container">
-            <h2 style="color: rgb(125, 151, 254)">Quick Support</h2>
-            <p>Access our key features designed to support your mental well-being</p>
+            <h2 style="color: rgb(125, 151, 254)" data-translate="quickSupport">Quick Support</h2>
+            <p data-translate="quickSupportDesc">Access our key features designed to support your mental well-being</p>
             <div class="quick-access-grid">
                 <div class="quick-access-card">
                     <div class="icon-wrapper">
                         <i class="fas fa-brain"></i>
                     </div>
-                    <h3>Mental Health Check</h3>
-                    <p>Take our comprehensive assessment to understand your mental well-being</p>
-                    <a href="self-assessment.html" class="btn-secondary">Start Assessment</a>
+                    <h3 data-translate="mentalHealthCheck">Mental Health Check</h3>
+                    <p data-translate="mentalHealthCheckDesc">Take our comprehensive assessment to understand your mental well-being</p>
+                    <a href="self-assessment.html" class="btn-secondary" data-translate="startAssessment">Start Assessment</a>
                 </div>
                 <div class="quick-access-card">
                     <div class="icon-wrapper">
                         <i class="fas fa-heart-circle-check"></i>
                     </div>
-                    <h3>Daily Wellness</h3>
-                    <p>Track your mood and maintain daily wellness activities</p>
-                    <a href="daily-wellness.html" class="btn-secondary">Start Tracking</a>
+                    <h3 data-translate="dailyWellness">Daily Wellness</h3>
+                    <p data-translate="dailyWellnessDesc">Track your mood and maintain daily wellness activities</p>
+                    <a href="daily-wellness.html" class="btn-secondary" data-translate="startTracking">Start Tracking</a>
                 </div>
                 <div class="quick-access-card">
                     <div class="icon-wrapper">
                         <i class="fas fa-user-group"></i>
                     </div>
-                    <h3>Support Groups</h3>
-                    <p style="color: rgb(38, 37, 37)">Connect with others who understand your journey</p>
-                    <a href="#support-groups" class="btn-secondary">Join Now</a>
+                    <h3 data-translate="supportGroups">Support Groups</h3>
+                    <p style="color: rgb(38, 37, 37)" data-translate="supportGroupsDesc">Connect with others who understand your journey</p>
+                    <a href="#support-groups" class="btn-secondary" data-translate="joinNow">Join Now</a>
                 </div>
                 <div class="quick-access-card">
                     <div class="icon-wrapper">
                         <i class="fas fa-gamepad"></i>
                     </div>
-                    <h3>Wellness Games</h3>
-                    <p style="color: rgb(38, 37, 37)">Play therapeutic games designed for mental well-being</p>
-                    <a href="#games" class="btn-secondary">Play Now</a>
+                    <h3 data-translate="wellnessGames">Wellness Games</h3>
+                    <p style="color: rgb(38, 37, 37)" data-translate="wellnessGamesDesc">Play therapeutic games designed for mental well-being</p>
+                    <a href="#games" class="btn-secondary" data-translate="playNow">Play Now</a>
                 </div>
                 <div class="quick-access-card">
                     <div class="icon-wrapper">
                         <i class="fas fa-book-heart"></i>
                     </div>
-                    <h3>Resource Library</h3>
-                    <p style="color: rgb(38, 37, 37)">Access expert articles and educational materials</p>
-                    <a href="#resources" class="btn-secondary">Explore Now</a>
+                    <h3 data-translate="resourceLibrary">Resource Library</h3>
+                    <p style="color: rgb(38, 37, 37)" data-translate="resourceLibraryDesc">Access expert articles and educational materials</p>
+                    <a href="#resources" class="btn-secondary" data-translate="exploreNow">Explore Now</a>
                 </div>
                 <div class="quick-access-card">
                     <div class="icon-wrapper">
                         <i class="fas fa-robot"></i>
                     </div>
-                    <h3>AI Companion</h3>
-                    <p style="color: rgb(38, 37, 37)">Get 24/7 support from our AI wellness companion</p>
-                    <a href="#chatbot" class="btn-secondary">Chat Now</a>
+                    <h3 data-translate="aiCompanion">AI Companion</h3>
+                    <p style="color: rgb(38, 37, 37)" data-translate="aiCompanionDesc">Get 24/7 support from our AI wellness companion</p>
+                    <a href="#chatbot" class="btn-secondary" data-translate="chatNow">Chat Now</a>
                 </div>
                 <div class="quick-access-card">
                     <div class="icon-wrapper">
                         <i class="fas fa-hands-holding-heart"></i>
                     </div>
-                    <h3>Guided Activities</h3>
-                    <p style="color: rgb(38, 37, 37)">Practice mindfulness and therapeutic exercises</p>
-                    <a href="#activities" class="btn-secondary">Start Activity</a>
+                    <h3 data-translate="guidedActivities">Guided Activities</h3>
+                    <p style="color: rgb(38, 37, 37)" data-translate="guidedActivitiesDesc">Practice mindfulness and therapeutic exercises</p>
+                    <a href="#activities" class="btn-secondary" data-translate="startActivity">Start Activity</a>
                 </div>
                 <div class="quick-access-card">
                     <div class="icon-wrapper">
                         <i class="fas fa-notes-medical"></i>
                     </div>
-                    <h3>Emergency Help</h3>
-                    <p style="color: rgb(38, 37, 37)">Access immediate crisis support and resources</p>
-                    <a href="emergency.html" class="btn-secondary">Get Help</a>
+                    <h3 data-translate="emergencyHelp">Emergency Help</h3>
+                    <p style="color: rgb(38, 37, 37)" data-translate="emergencyHelpDesc">Access immediate crisis support and resources</p>
+                    <a href="emergency.html" class="btn-secondary" data-translate="getHelp">Get Help</a>
                 </div>
             </div>
         </div>
@@ -171,21 +452,21 @@
     <!-- Resources Section -->
     <section id="resources" class="resources">
         <div class="container">
-            <h2><i class="fas fa-book-open"></i> Expert Resources</h2>
-            <p>Access professional mental health resources and educational materials</p>
+            <h2><i class="fas fa-book-open"></i> <span data-translate="expertResources">Expert Resources</span></h2>
+            <p data-translate="resourcesDesc">Access professional mental health resources and educational materials</p>
             <div class="resource-grid">
                 <div class="resource-card">
                     <div class="resource-icon">
                         <i class="fas fa-newspaper"></i>
                     </div>
                     <div class="resource-content">
-                        <h3>Articles & Guides</h3>
-                        <p style="color: rgb(38, 37, 37)">Expert-written articles on mental health topics and coping strategies</p>
+                        <h3 data-translate="articlesGuides">Articles & Guides</h3>
+                        <p style="color: rgb(38, 37, 37)" data-translate="articlesDesc">Expert-written articles on mental health topics and coping strategies</p>
                         <div class="resource-stats">
                             <span><i class="fas fa-book-reader"></i> 500+ Articles</span>
                             <span><i class="fas fa-download"></i> PDF Available</span>
                         </div>
-                        <a href="articles.html" class="btn-primary">Read More</a>
+                        <a href="articles.html" class="btn-primary" data-translate="readMore">Read More</a>
                     </div>
                 </div>
                 <div class="resource-card">
@@ -193,13 +474,13 @@
                         <i class="fas fa-video"></i>
                     </div>
                     <div class="resource-content">
-                        <h3>Video Resources</h3>
-                        <p style="color: rgb(38, 37, 37)">Watch therapeutic videos and expert interviews</p>
+                        <h3 data-translate="videoResources">Video Resources</h3>
+                        <p style="color: rgb(38, 37, 37)" data-translate="videoDesc">Watch therapeutic videos and expert interviews</p>
                         <div class="resource-stats">
                             <span><i class="fas fa-play-circle"></i> 200+ Videos</span>
                             <span><i class="fas fa-closed-captioning"></i> Subtitled</span>
                         </div>
-                        <a href="videos.html" class="btn-primary">Watch Now</a>
+                        <a href="videos.html" class="btn-primary" data-translate="watchNow">Watch Now</a>
                     </div>
                 </div>
                 <div class="resource-card">
@@ -207,13 +488,13 @@
                         <i class="fas fa-tools"></i>
                     </div>
                     <div class="resource-content">
-                        <h3>Wellness Tools</h3>
-                        <p style="color: rgb(38, 37, 37)">Interactive tools for mood tracking and self-improvement</p>
+                        <h3 data-translate="wellnessTools">Wellness Tools</h3>
+                        <p style="color: rgb(38, 37, 37)" data-translate="toolsDesc">Interactive tools for mood tracking and self-improvement</p>
                         <div class="resource-stats">
                             <span><i class="fas fa-chart-line"></i> Progress Tracking</span>
                             <span><i class="fas fa-mobile-alt"></i> Mobile Ready</span>
                         </div>
-                        <a href="tools.html" class="btn-primary">Explore Tools</a>
+                        <a href="tools.html" class="btn-primary" data-translate="exploreTools">Explore Tools</a>
                     </div>
                 </div>
             </div>
@@ -223,21 +504,21 @@
     <!-- Activities Section -->
     <section id="activities" class="activities">
         <div class="container">
-            <h2><i class="fas fa-spa"></i> Therapeutic Activities</h2>
-            <p>Engage in activities designed to reduce stress and improve mental well-being</p>
+            <h2><i class="fas fa-spa"></i> <span data-translate="therapeuticActivities">Therapeutic Activities</span></h2>
+            <p data-translate="activitiesDesc">Engage in activities designed to reduce stress and improve mental well-being</p>
             <div class="activities-grid">
                 <div class="activity-card">
                     <div class="activity-icon">
                         <i class="fas fa-wind"></i>
                     </div>
                     <div class="activity-content">
-                        <h3>Breathing Exercises</h3>
-                        <p style="color: rgb(38, 37, 37)">Guided breathing exercises for stress relief</p>
+                        <h3 data-translate="breathingExercises">Breathing Exercises</h3>
+                        <p style="color: rgb(38, 37, 37)" data-translate="breathingDesc">Guided breathing exercises for stress relief</p>
                         <div class="activity-stats">
                             <span><i class="fas fa-clock"></i> 5-15 mins</span>
                             <span><i class="fas fa-signal"></i> Beginner Friendly</span>
                         </div>
-                        <a href="breathing.html" class="btn-secondary">Start Now</a>
+                        <a href="breathing.html" class="btn-secondary" data-translate="startNow">Start Now</a>
                     </div>
                 </div>
                 <div class="activity-card">
@@ -245,13 +526,13 @@
                         <i class="fas fa-om"></i>
                     </div>
                     <div class="activity-content">
-                        <h3>Meditation</h3>
-                        <p style="color: rgb(38, 37, 37)">Guided meditation sessions for inner peace</p>
+                        <h3 data-translate="meditation">Meditation</h3>
+                        <p style="color: rgb(38, 37, 37)" data-translate="meditationDesc">Guided meditation sessions for inner peace</p>
                         <div class="activity-stats">
                             <span><i class="fas fa-clock"></i> 10-30 mins</span>
                             <span><i class="fas fa-volume-up"></i> Audio Guided</span>
                         </div>
-                        <a href="meditation.html" class="btn-secondary">Begin Session</a>
+                        <a href="meditation.html" class="btn-secondary" data-translate="beginSession">Begin Session</a>
                     </div>
                 </div>
                 <div class="activity-card">
@@ -259,13 +540,13 @@
                         <i class="fas fa-palette"></i>
                     </div>
                     <div class="activity-content">
-                        <h3>Art Therapy</h3>
-                        <p style="color: rgb(38, 37, 37)">Express yourself through creative activities</p>
+                        <h3 data-translate="artTherapy">Art Therapy</h3>
+                        <p style="color: rgb(38, 37, 37)" data-translate="artTherapyDesc">Express yourself through creative activities</p>
                         <div class="activity-stats">
                             <span><i class="fas fa-paint-brush"></i> Creative Tools</span>
                             <span><i class="fas fa-download"></i> Templates</span>
                         </div>
-                        <a href="art-therapy.html" class="btn-secondary">Create Art</a>
+                        <a href="art-therapy.html" class="btn-secondary" data-translate="createArt">Create Art</a>
                     </div>
                 </div>
                 <div class="activity-card">
@@ -273,13 +554,13 @@
                         <i class="fas fa-journal-whills"></i>
                     </div>
                     <div class="activity-content">
-                        <h3>Journaling</h3>
-                        <p style="color: rgb(38, 37, 37)">Guided journaling for emotional expression</p>
+                        <h3 data-translate="journaling">Journaling</h3>
+                        <p style="color: rgb(38, 37, 37)" data-translate="journalingDesc">Guided journaling for emotional expression</p>
                         <div class="activity-stats">
                             <span><i class="fas fa-pencil-alt"></i> Prompts Available</span>
                             <span><i class="fas fa-lock"></i> Private & Secure</span>
                         </div>
-                        <a href="journaling.html" class="btn-secondary">Start Writing</a>
+                        <a href="journaling.html" class="btn-secondary" data-translate="startWriting">Start Writing</a>
                     </div>
                 </div>
             </div>
@@ -289,8 +570,8 @@
     <!-- Games Section -->
     <section id="games" class="games">
         <div class="container">
-            <h2><i class="fas fa-gamepad"></i> Mental Wellness Games</h2>
-            <p>Engage in therapeutic games designed to reduce stress and improve mental well-being</p>
+            <h2><i class="fas fa-gamepad"></i> <span data-translate="wellnessGames">Mental Wellness Games</span></h2>
+            <p data-translate="gamesDesc">Engage in therapeutic games designed to reduce stress and improve mental well-being</p>
             <div class="games-grid">
 
                 <div class="game-card">
@@ -298,13 +579,13 @@
                         <i class="fas fa-mountain"></i>
                     </div>
                     <div class="game-content">
-                        <h3>Mindfulness Maze</h3>
-                        <p style="color: rgb(38, 37, 37)">Mindfulness Maze: Navigate, relax, and focus</p>
+                        <h3 data-translate="mindfulnessMaze">Mindfulness Maze</h3>
+                        <p style="color: rgb(38, 37, 37)" data-translate="mindfulnessMazeDesc">Mindfulness Maze: Navigate, relax, and focus</p>
                         <div class="game-stats">
                             <span><i class="fas fa-star"></i> 4.9</span>
-                            <span><i class="fas fa-tasks"></i> Multiple activities</span>
+                            <span><i class="fas fa-tasks"></i> <span data-translate="multipleActivities">Multiple activities</span></span>
                         </div>
-                        <a href="games/mindfulness-maze.html" class="btn-primary">Play Now</a>
+                        <a href="games/mindfulness-maze.html" class="btn-primary" data-translate="playNow">Play Now</a>
                     </div>
                 </div>
 
@@ -313,13 +594,13 @@
                         <i class="fas fa-heart"></i>
                     </div>
                     <div class="game-content">
-                        <h3>Emotion Match</h3>
-                        <p style="color: rgb(38, 37, 37)">Memory game to understand and match different emotions</p>
+                        <h3 data-translate="emotionMatch">Emotion Match</h3>
+                        <p style="color: rgb(38, 37, 37)" data-translate="emotionMatchDesc">Memory game to understand and match different emotions</p>
                         <div class="game-stats">
                             <span><i class="fas fa-star"></i> 4.8</span>
-                            <span><i class="fas fa-smile"></i> Emotional awareness</span>
+                            <span><i class="fas fa-smile"></i> <span data-translate="emotionalAwareness">Emotional awareness</span></span>
                         </div>
-                        <a href="games/emotion-match.html" class="btn-primary">Play Now</a>
+                        <a href="games/emotion-match.html" class="btn-primary" data-translate="playNow">Play Now</a>
                     </div>
                 </div>
 
@@ -329,13 +610,13 @@
                         <i class="fas fa-music"></i>
                     </div>
                     <div class="game-content">
-                        <h3>Mood Melody</h3>
-                        <p style="color: rgb(38, 37, 37)">Match melodies to your emotions and find inner harmony</p>
+                        <h3 data-translate="moodMelody">Mood Melody</h3>
+                        <p style="color: rgb(38, 37, 37)" data-translate="moodMelodyDesc">Match melodies to your emotions and find inner harmony</p>
                         <div class="game-stats">
                             <span><i class="fas fa-star"></i> 4.8</span>
                             <span><i class="fas fa-music"></i> 4 moods</span>
                         </div>
-                        <a href="games/mood-melody.html" class="btn-primary">Play Now</a>
+                        <a href="games/mood-melody.html" class="btn-primary" data-translate="playNow">Play Now</a>
                     </div>
                 </div>
 
@@ -344,13 +625,13 @@
                         <i class="fas fa-gamepad"></i>
                     </div>
                     <div class="game-content">
-                        <h3>Tic-Tac-Toe</h3>
-                        <p style="color: rgb(38, 37, 37)">Classic game to relax and exercise your mind</p>
+                        <h3 data-translate="ticTacToe">Tic-Tac-Toe</h3>
+                        <p style="color: rgb(38, 37, 37)" data-translate="ticTacToeDesc">Classic game to relax and exercise your mind</p>
                         <div class="game-stats">
                             <span><i class="fas fa-star"></i> 4.6</span>
-                            <span><i class="fas fa-layer-group"></i> 3 difficulty levels</span>
+                            <span><i class="fas fa-layer-group"></i> <span data-translate="difficultyLevels">3 difficulty levels</span></span>
                         </div>
-                        <a href="games/tictactoe.html" class="btn-primary">Play Now</a>
+                        <a href="games/tictactoe.html" class="btn-primary" data-translate="playNow">Play Now</a>
                     </div>
                 </div>
 
@@ -359,13 +640,13 @@
                         <i class="fas fa-puzzle-piece"></i>
                     </div>
                     <div class="game-content">
-                        <h3>Sudoku</h3>
-                        <p style="color: rgb(38, 37, 37)">Enhance focus and logical thinking with number puzzles</p>
+                        <h3 data-translate="sudoku">Sudoku</h3>
+                        <p style="color: rgb(38, 37, 37)" data-translate="sudokuDesc">Enhance focus and logical thinking with number puzzles</p>
                         <div class="game-stats">
                             <span><i class="fas fa-star"></i> 4.7</span>
-                            <span><i class="fas fa-brain"></i> Brain training</span>
+                            <span><i class="fas fa-brain"></i> <span data-translate="brainTraining">Brain training</span></span>
                         </div>
-                        <a href="games/sudoku.html" class="btn-primary">Play Now</a>
+                        <a href="games/sudoku.html" class="btn-primary" data-translate="playNow">Play Now</a>
                     </div>
                 </div>
 
@@ -376,13 +657,13 @@
                         <i class="fas fa-flask"></i>
                     </div>
                     <div class="game-content">
-                        <h3>Bottle Sort</h3>
-                        <p style="color: rgb(38, 37, 37)">Relaxing puzzle game to sort and organize colored liquids</p>
+                        <h3 data-translate="bottleSort">Bottle Sort</h3>
+                        <p style="color: rgb(38, 37, 37)" data-translate="bottleSortDesc">Relaxing puzzle game to sort and organize colored liquids</p>
                         <div class="game-stats">
                             <span><i class="fas fa-star"></i> 4.7</span>
-                            <span><i class="fas fa-sort"></i> Color sorting</span>
+                            <span><i class="fas fa-sort"></i> <span data-translate="colorSorting">Color sorting</span></span>
                         </div>
-                        <a href="games/bottleSort.html" class="btn-primary">Play Now</a>
+                        <a href="games/bottleSort.html" class="btn-primary" data-translate="playNow">Play Now</a>
                     </div>
                 </div>
             </div>
@@ -392,25 +673,25 @@
     <!-- Support Groups Section -->
     <section id="support-groups" class="support-groups">
         <div class="container">
-            <h2><i class="fas fa-hands-holding-circle"></i> Supportive Community</h2>
-            <p style="color: rgb(38, 37, 37)">Connect with others who understand your experiences</p>
+            <h2><i class="fas fa-hands-holding-circle"></i> <span data-translate="supportiveCommunity">Supportive Community</span></h2>
+            <p style="color: rgb(38, 37, 37)" data-translate="supportiveCommunityDesc">Connect with others who understand your experiences</p>
             <div class="group-grid">
                 <div class="group-card">
                     <div class="group-icon">
                         <i class="fas fa-cloud-sun"></i>
                     </div>
                     <div class="group-content">
-                        <h3>Anxiety Support</h3>
+                        <h3 data-translate="anxietySupport">Anxiety Support</h3>
                         <div class="group-stats">
-                            <span><i class="fas fa-users"></i> 250+ members</span>
-                            <span><i class="fas fa-comments"></i> Active daily</span>
+                            <span><i class="fas fa-users"></i> 250+ <span data-translate="members">members</span></span>
+                            <span><i class="fas fa-comments"></i> <span data-translate="activeDaily">Active daily</span></span>
                         </div>
-                        <p style="color: rgb(38, 37, 37)">Share experiences and learn coping strategies for anxiety</p>
+                        <p style="color: rgb(38, 37, 37)" data-translate="anxietySupportDesc">Share experiences and learn coping strategies for anxiety</p>
                         <div class="group-features">
-                            <span><i class="fas fa-user-shield"></i> Moderated</span>
-                            <span><i class="fas fa-clock"></i> 24/7 Support</span>
+                            <span><i class="fas fa-user-shield"></i> <span data-translate="moderated">Moderated</span></span>
+                            <span><i class="fas fa-clock"></i> <span data-translate="support247">24/7 Support</span></span>
                         </div>
-                        <a href="groups/anxiety.html" class="btn-primary">Join Group</a>
+                        <a href="groups/anxiety.html" class="btn-primary" data-translate="joinGroup">Join Group</a>
                     </div>
                 </div>
                 <div class="group-card">
@@ -418,17 +699,17 @@
                         <i class="fas fa-heart-circle-plus"></i>
                     </div>
                     <div class="group-content">
-                        <h3>Depression Support</h3>
+                        <h3 data-translate="depressionSupport">Depression Support</h3>
                         <div class="group-stats">
-                            <span><i class="fas fa-users"></i> 200+ members</span>
-                            <span><i class="fas fa-comments"></i> Active daily</span>
+                            <span><i class="fas fa-users"></i> 200+ <span data-translate="members">members</span></span>
+                            <span><i class="fas fa-comments"></i> <span data-translate="activeDaily">Active daily</span></span>
                         </div>
-                        <p style="color: rgb(38, 37, 37)">Find understanding and support in your journey</p>
+                        <p style="color: rgb(38, 37, 37)" data-translate="depressionSupportDesc">Find understanding and support in your journey</p>
                         <div class="group-features">
-                            <span><i class="fas fa-user-shield"></i> Moderated</span>
-                            <span><i class="fas fa-hand-holding-heart"></i> Peer Support</span>
+                            <span><i class="fas fa-user-shield"></i> <span data-translate="moderated">Moderated</span></span>
+                            <span><i class="fas fa-hand-holding-heart"></i> <span data-translate="peerSupport">Peer Support</span></span>
                         </div>
-                        <a href="groups/depression.html" class="btn-primary">Join Group</a>
+                        <a href="groups/depression.html" class="btn-primary" data-translate="joinGroup">Join Group</a>
                     </div>
                 </div>
                 <div class="group-card">
@@ -436,67 +717,67 @@
                         <i class="fas fa-peace"></i>
                     </div>
                     <div class="group-content">
-                        <h3>Stress Management</h3>
+                        <h3 data-translate="stressManagement">Stress Management</h3>
                         <div class="group-stats">
-                            <span><i class="fas fa-users"></i> 180+ members</span>
-                            <span><i class="fas fa-comments"></i> Active daily</span>
+                            <span><i class="fas fa-users"></i> 180+ <span data-translate="members">members</span></span>
+                            <span><i class="fas fa-comments"></i> <span data-translate="activeDaily">Active daily</span></span>
                         </div>
-                        <p style="color: rgb(38, 37, 37)">Learn and share stress management techniques</p>
+                        <p style="color: rgb(38, 37, 37)" data-translate="stressManagementDesc">Learn and share stress management techniques</p>
                         <div class="group-features">
-                            <span><i class="fas fa-user-shield"></i> Moderated</span>
-                            <span><i class="fas fa-calendar-check"></i> Weekly Sessions</span>
+                            <span><i class="fas fa-user-shield"></i> <span data-translate="moderated">Moderated</span></span>
+                            <span><i class="fas fa-calendar-check"></i> <span data-translate="weeklySessions">Weekly Sessions</span></span>
                         </div>
-                        <a href="groups/stress.html" class="btn-primary">Join Group</a>
+                        <a href="groups/stress.html" class="btn-primary" data-translate="joinGroup">Join Group</a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Chatbot Section -->
-    <section id="chatbot" class="chatbot">
-        <div class="container">
-            <h2>AI Wellness Companion</h2>
-            <p>Get immediate support and guidance from our AI companion</p>
-            <div class="chatbox">
-                <div class="chat-header">
-                    <i class="fas fa-robot"></i>
-                    <span>Neuro Nurture AI</span>
-                </div>
-                <div id="chatlogs" class="chat-messages">
-                    <!-- Welcome message will be added by JavaScript -->
-                </div>
-                
-                <div class="chat-input-container">
-                    <input type="text" id="userInput" placeholder="Type your message here..." autocomplete="off">
-                    <button id="sendBtn" aria-label="Send message">
-                        <i class="fas fa-paper-plane"></i>
-                    </button>
-                </div>
+   <!-- Chatbot Section -->
+   <section id="chatbot" class="chatbot">
+    <div class="container">
+        <h2>AI Wellness Companion</h2>
+        <p>Get immediate support and guidance from our AI companion</p>
+        <div class="chatbox">
+            <div class="chat-header">
+                <i class="fas fa-robot"></i>
+                <span>Neuro Nurture AI</span>
+            </div>
+            <div id="chatlogs" class="chat-messages">
+                <!-- Welcome message will be added by JavaScript -->
+            </div>
+            
+            <div class="chat-input-container">
+                <input type="text" id="userInput" placeholder="Type your message here..." autocomplete="off">
+                <button id="sendBtn" aria-label="Send message">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
     <!-- Footer -->
     <footer class="modern-footer">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h4>Quick Links</h4>
-                    <a href="#resources">Resources</a>
-                    <a href="#activities">Activities</a>
-                    <a href="#support-groups">Community</a>
-                    <a href="#chatbot">AI Support</a>
+                    <h4 data-translate="quickLinks">Quick Links</h4>
+                    <a href="#resources" data-translate="resources">Resources</a>
+                    <a href="#activities" data-translate="activities">Activities</a>
+                    <a href="#support-groups" data-translate="community">Community</a>
+                    <a href="#chatbot" data-translate="aiSupport">AI Support</a>
                 </div>
                 <div class="footer-section">
-                    <h4>Support</h4>
-                    <a href="contact.html">Contact Us</a>
-                    <a href="faq.html">FAQs</a>
-                    <a href="privacy.html">Privacy Policy</a>
-                    <a href="terms.html">Terms of Service</a>
+                    <h4 data-translate="support">Support</h4>
+                    <a href="contact.html" data-translate="contactUs">Contact Us</a>
+                    <a href="faq.html" data-translate="faqs">FAQs</a>
+                    <a href="privacy.html" data-translate="privacyPolicy">Privacy Policy</a>
+                    <a href="terms.html" data-translate="termsOfService">Terms of Service</a>
                 </div>
                 <div class="footer-section">
-                    <h4>Connect With Us</h4>
+                    <h4 data-translate="connectWithUs">Connect With Us</h4>
                     <div class="social-links">
                         <a href="#"><i class="fab fa-facebook"></i></a>
                         <a href="#"><i class="fab fa-twitter"></i></a>
@@ -505,13 +786,13 @@
                     </div>
                 </div>
                 <div class="footer-section">
-                    <h4>Emergency Support</h4>
-                    <p>24/7 Crisis Helpline: 1-800-273-8255</p>
-                    <a href="emergency.html" class="btn-emergency">Get Emergency Help</a>
+                    <h4 data-translate="emergencySupport">Emergency Support</h4>
+                    <p data-translate="crisisLine">24/7 Crisis Helpline: 1-800-273-8255</p>
+                    <a href="emergency.html" class="btn-emergency" data-translate="getEmergencyHelp">Get Emergency Help</a>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 Neuro Nurture - Mental Health Support Platform. All rights reserved.</p>
+                <p data-translate="copyright">&copy; 2025 Neuro Nurture - Mental Health Support Platform. All rights reserved.</p>
             </div>
         </div>
         

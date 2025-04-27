@@ -48,6 +48,33 @@
     </div>
 
     <script src="js/auth.js"></script>
-</body>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const loginForm = document.getElementById('loginForm');
+            const errorMessage = document.getElementById('errorMessage');
 
+            loginForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+                
+                try {
+                    const result = await Auth.login(email, password);
+                    
+                    if (result.success) {
+                        Auth.showMessage('success', 'Login successful! Redirecting...', loginForm.parentElement);
+                        setTimeout(() => {
+                            window.location.href = '/index1.html';
+                        }, 1500);
+                    } else {
+                        Auth.showMessage('error', result.error, loginForm.parentElement);
+                    }
+                } catch (error) {
+                    Auth.showMessage('error', 'An unexpected error occurred', loginForm.parentElement);
+                }
+            });
+        });
+    </script>
+</body>
 </html>

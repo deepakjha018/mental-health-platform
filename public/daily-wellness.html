@@ -8,6 +8,130 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+    const translations = {
+        en: {
+            home: "Home",
+            activities: "Activities",
+            login: "Login",
+            dailyWellness: "Daily Wellness",
+            dailyWellnessDesc: "Track your mood and maintain daily wellness activities.",
+            wellnessTracker: "Daily Wellness Tracker",
+            trackerDesc: "Track your mood, habits, and wellness activities to improve your mental health journey",
+            howFeeling: "How are you feeling today?",
+            moods: {
+                great: "Great",
+                good: "Good",
+                okay: "Okay",
+                down: "Down",
+                stressed: "Stressed"
+            },
+            moodNotes: "Add notes about your mood (optional)...",
+            dailyHabits: "Daily Habits",
+            habits: {
+                sleep: "Sleep Quality",
+                eating: "Healthy Eating",
+                activity: "Physical Activity",
+                mindfulness: "Mindfulness"
+            },
+            activities: {
+                breathing: {
+                    title: "Breathing Exercise",
+                    desc: "Practice mindful breathing for 5 minutes"
+                },
+                gratitude: {
+                    title: "Gratitude Journal",
+                    desc: "Write down 3 things you're grateful for",
+                    placeholder: "I'm grateful for..."
+                },
+                goals: {
+                    title: "Daily Goal",
+                    desc: "Set one achievable goal for today",
+                    placeholder: "Today I will..."
+                }
+            },
+            stats: {
+                streak: "Streak Days",
+                minutes: "Minutes Practiced",
+                sessions: "Sessions Completed"
+            },
+            progress: {
+                title: "Your Wellness Journey",
+                moodTrends: "Mood Trends",
+                habitConsistency: "Habit Consistency",
+                activityCompletion: "Activity Completion"
+            },
+            footer: {
+                quickLinks: "Quick Links",
+                support: "Support",
+                emergencySupport: "Emergency Support",
+                crisisHelpline: "24/7 Crisis Helpline:",
+                getHelp: "Get Emergency Help",
+                copyright: "All rights reserved."
+            }
+        },
+        hi: {
+            home: "होम",
+            activities: "गतिविधियां",
+            login: "लॉगिन",
+            dailyWellness: "दैनिक कल्याण",
+            dailyWellnessDesc: "अपने मूड को ट्रैक करें और दैनिक कल्याण गतिविधियों को बनाए रखें।",
+            wellnessTracker: "दैनिक कल्याण ट्रैकर",
+            trackerDesc: "अपने मानसिक स्वास्थ्य की यात्रा में सुधार के लिए अपना मूड, आदतें और कल्याण गतिविधियों को ट्रैक करें",
+            howFeeling: "आज आप कैसा महसूस कर रहे हैं?",
+            moods: {
+                great: "बहुत अच्छा",
+                good: "अच्छा",
+                okay: "ठीक",
+                down: "उदास",
+                stressed: "तनावग्रस्त"
+            },
+            moodNotes: "अपने मूड के बारे में नोट्स जोड़ें (वैकल्पिक)...",
+            dailyHabits: "दैनिक आदतें",
+            habits: {
+                sleep: "नींद की गुणवत्ता",
+                eating: "स्वस्थ खान-पान",
+                activity: "शारीरिक गतिविधि",
+                mindfulness: "माइंडफुलनेस"
+            },
+            activities: {
+                breathing: {
+                    title: "श्वास व्यायाम",
+                    desc: "5 मिनट के लिए माइंडफुल श्वास का अभ्यास करें"
+                },
+                gratitude: {
+                    title: "कृतज्ञता डायरी",
+                    desc: "3 चीजें लिखें जिनके लिए आप कृतज्ञ हैं",
+                    placeholder: "मैं इसके लिए कृतज्ञ हूं..."
+                },
+                goals: {
+                    title: "दैनिक लक्ष्य",
+                    desc: "एक प्राप्त करने योग्य लक्ष्य निर्धारित करें",
+                    placeholder: "आज मैं..."
+                }
+            },
+            stats: {
+                streak: "लगातार दिन",
+                minutes: "अभ्यास किए गए मिनट",
+                sessions: "पूर्ण किए गए सत्र"
+            },
+            progress: {
+                title: "आपकी कल्याण यात्रा",
+                moodTrends: "मूड ट्रेंड्स",
+                habitConsistency: "आदत निरंतरता",
+                activityCompletion: "गतिविधि पूर्णता"
+            },
+            footer: {
+                quickLinks: "त्वरित लिंक्स",
+                support: "सहायता",
+                emergencySupport: "आपातकालीन सहायता",
+                crisisHelpline: "24/7 संकट हेल्पलाइन:",
+                getHelp: "आपातकालीन सहायता प्राप्त करें",
+                copyright: "सर्वाधिकार सुरक्षित।"
+            }
+        }
+    };
+    </script>
 </head>
 <body>
     <!-- Header -->
@@ -18,61 +142,67 @@
                 <h1>Neuro Nurture</h1>
             </div>
             <nav>
-                <a href="index1.html">Home</a>
-                <a href="index1.html#activities">Activities</a>
-                <a href="login.html" class="btn-login">Login</a>
+                <div class="language-selector">
+                    <select id="languageSelect" onchange="changeLanguage(this.value)">
+                        <option value="en">English</option>
+                        <option value="hi">हिंदी</option>
+                    </select>
+                </div>
+                <a href="index1.html" data-translate="home">Home</a>
+                <a href="index1.html#activities" data-translate="activities">Activities</a>
+                <a href="login.html" class="btn-login" data-translate="login">Login</a>
             </nav>
         </div>
     </header>
     <main>
-        <h1>Daily Wellness</h1>
-        <p>Track your mood and maintain daily wellness activities.</p>
+        <h1 data-translate="dailyWellness">Daily Wellness</h1>
+        <p data-translate="dailyWellnessDesc">Track your mood and maintain daily wellness activities.</p>
     </main>
     <!-- Daily Wellness Section -->
     <section class="daily-wellness">
         <div class="container">
             <div class="wellness-header">
-                <h2><i class="fas fa-heart-circle-check"></i> Daily Wellness Tracker</h2>
-                <p>Track your mood, habits, and wellness activities to improve your mental health journey</p>
+                <h2><i class="fas fa-heart-circle-check"></i> <span data-translate="wellnessTracker">Daily Wellness Tracker</span></h2>
+                <p data-translate="trackerDesc">Track your mood, habits, and wellness activities to improve your mental health journey</p>
             </div>
 
             <!-- Mood Tracker -->
             <div class="mood-tracker">
-                <h3>How are you feeling today?</h3>
+                <h3 data-translate="howFeeling">How are you feeling today?</h3>
                 <div class="mood-grid">
                     <button class="mood-btn" data-mood="great">
                         <i class="fas fa-laugh-beam"></i>
-                        <span>Great</span>
+                        <span data-translate="moods.great">Great</span>
                     </button>
                     <button class="mood-btn" data-mood="good">
                         <i class="fas fa-smile"></i>
-                        <span>Good</span>
+                        <span data-translate="moods.good">Good</span>
                     </button>
                     <button class="mood-btn" data-mood="okay">
                         <i class="fas fa-meh"></i>
-                        <span>Okay</span>
+                        <span data-translate="moods.okay">Okay</span>
                     </button>
                     <button class="mood-btn" data-mood="down">
                         <i class="fas fa-frown"></i>
-                        <span>Down</span>
+                        <span data-translate="moods.down">Down</span>
                     </button>
                     <button class="mood-btn" data-mood="stressed">
                         <i class="fas fa-tired"></i>
-                        <span>Stressed</span>
+                        <span data-translate="moods.stressed">Stressed</span>
                     </button>
                 </div>
                 <div class="mood-notes">
-                    <textarea placeholder="Add notes about your mood (optional)..." rows="3"></textarea>
+                    <textarea placeholder="Add notes about your mood (optional)..." rows="3" data-translate="moodNotes"></textarea>
                 </div>
             </div>
 
             <!-- Habit Tracker -->
             <div class="habit-tracker">
-                <h3>Daily Habits</h3>
+                <h3 data-translate="dailyHabits">Daily Habits</h3>
                 <div class="habit-grid">
                     <div class="habit-card">
                         <i class="fas fa-bed"></i>
-                        <span>Sleep Quality</span>
+                        <span data-translate="habits.sleep">Sleep Quality</span>
                         <div class="habit-rating">
                             <i class="far fa-star" data-rating="1"></i>
                             <i class="far fa-star" data-rating="2"></i>
@@ -83,7 +213,7 @@
                     </div>
                     <div class="habit-card">
                         <i class="fas fa-apple-whole"></i>
-                        <span>Healthy Eating</span>
+                        <span data-translate="habits.eating">Healthy Eating</span>
                         <div class="habit-rating">
                             <i class="far fa-star" data-rating="1"></i>
                             <i class="far fa-star" data-rating="2"></i>
@@ -94,7 +224,7 @@
                     </div>
                     <div class="habit-card">
                         <i class="fas fa-person-walking"></i>
-                        <span>Physical Activity</span>
+                        <span data-translate="habits.activity">Physical Activity</span>
                         <div class="habit-rating">
                             <i class="far fa-star" data-rating="1"></i>
                             <i class="far fa-star" data-rating="2"></i>
@@ -105,7 +235,7 @@
                     </div>
                     <div class="habit-card">
                         <i class="fas fa-brain"></i>
-                        <span>Mindfulness</span>
+                        <span data-translate="habits.mindfulness">Mindfulness</span>
                         <div class="habit-rating">
                             <i class="far fa-star" data-rating="1"></i>
                             <i class="far fa-star" data-rating="2"></i>
@@ -119,14 +249,14 @@
 
             <!-- Wellness Activities -->
             <div class="wellness-activities">
-                <h3>Today's Wellness Activities</h3>
+                <h3 data-translate="activities.title">Today's Wellness Activities</h3>
                 <div class="activities-grid">
                     <div class="activity-card">
                         <div class="activity-header">
                             <i class="fas fa-wind"></i>
-                            <h4>Breathing Exercise</h4>
+                            <h4 data-translate="activities.breathing.title">Breathing Exercise</h4>
                         </div>
-                        <p>Practice mindful breathing for 5 minutes</p>
+                        <p data-translate="activities.breathing.desc">Practice mindful breathing for 5 minutes</p>
                         <div class="activity-progress">
                             <div class="progress-bar">
                                 <div class="progress-fill" style="width: 0%"></div>
@@ -138,24 +268,24 @@
                     <div class="activity-card">
                         <div class="activity-header">
                             <i class="fas fa-book-heart"></i>
-                            <h4>Gratitude Journal</h4>
+                            <h4 data-translate="activities.gratitude.title">Gratitude Journal</h4>
                         </div>
-                        <p>Write down 3 things you're grateful for</p>
+                        <p data-translate="activities.gratitude.desc">Write down 3 things you're grateful for</p>
                         <div class="gratitude-input">
-                            <input type="text" placeholder="I'm grateful for...">
-                            <input type="text" placeholder="I'm grateful for...">
-                            <input type="text" placeholder="I'm grateful for...">
+                            <input type="text" placeholder="I'm grateful for..." data-translate="activities.gratitude.placeholder">
+                            <input type="text" placeholder="I'm grateful for..." data-translate="activities.gratitude.placeholder">
+                            <input type="text" placeholder="I'm grateful for..." data-translate="activities.gratitude.placeholder">
                         </div>
                         <button class="btn-secondary save-gratitude">Save Entry</button>
                     </div>
                     <div class="activity-card">
                         <div class="activity-header">
                             <i class="fas fa-target"></i>
-                            <h4>Daily Goal</h4>
+                            <h4 data-translate="activities.goals.title">Daily Goal</h4>
                         </div>
-                        <p>Set one achievable goal for today</p>
+                        <p data-translate="activities.goals.desc">Set one achievable goal for today</p>
                         <div class="goal-input">
-                            <input type="text" placeholder="Today I will...">
+                            <input type="text" placeholder="Today I will..." data-translate="activities.goals.placeholder">
                             <div class="goal-status">
                                 <label>
                                     <input type="checkbox">
@@ -170,18 +300,18 @@
 
             <!-- Progress Insights -->
             <div class="wellness-insights">
-                <h3>Your Wellness Journey</h3>
+                <h3 data-translate="progress.title">Your Wellness Journey</h3>
                 <div class="insights-grid">
                     <div class="insight-card">
-                        <h4>Mood Trends</h4>
+                        <h4 data-translate="progress.moodTrends">Mood Trends</h4>
                         <canvas id="moodChart"></canvas>
                     </div>
                     <div class="insight-card">
-                        <h4>Habit Consistency</h4>
+                        <h4 data-translate="progress.habitConsistency">Habit Consistency</h4>
                         <canvas id="habitChart"></canvas>
                     </div>
                     <div class="insight-card">
-                        <h4>Activity Completion</h4>
+                        <h4 data-translate="progress.activityCompletion">Activity Completion</h4>
                         <canvas id="activityChart"></canvas>
                     </div>
                 </div>
@@ -194,24 +324,24 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h4>Quick Links</h4>
+                    <h4 data-translate="footer.quickLinks">Quick Links</h4>
                     <a href="index1.html">Home</a>
                     <a href="index1.html#activities">Activities</a>
                     <a href="index1.html#resources">Resources</a>
                 </div>
                 <div class="footer-section">
-                    <h4>Support</h4>
+                    <h4 data-translate="footer.support">Support</h4>
                     <a href="contact.html">Contact Us</a>
                     <a href="faq.html">FAQs</a>
                 </div>
                 <div class="footer-section">
-                    <h4>Emergency Support</h4>
-                    <p>24/7 Crisis Helpline: 1-800-273-8255</p>
-                    <a href="emergency.html" class="btn-emergency">Get Emergency Help</a>
+                    <h4 data-translate="footer.emergencySupport">Emergency Support</h4>
+                    <p><span data-translate="footer.crisisHelpline">24/7 Crisis Helpline:</span> 1800-599-0019</p>
+                    <a href="emergency.html" class="btn-emergency" data-translate="footer.getHelp">Get Emergency Help</a>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 Neuro Nurture - Mental Health Support Platform. All rights reserved.</p>
+                <p>© 2025 Neuro Nurture - <span data-translate="footer.copyright">All rights reserved.</span></p>
             </div>
         </div>
     </footer>

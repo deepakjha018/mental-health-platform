@@ -228,56 +228,46 @@
     
               
     <script src="js/auth.js"></script>
-    <script src="js/register.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            new RegisterManager();
-        });
-
-        document.getElementById('registerForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const username = document.getElementById('username').value;
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
+            const registerForm = document.getElementById('registerForm');
             const errorMessage = document.getElementById('errorMessage');
-            
-            if (password !== confirmPassword) {
-                errorMessage.textContent = 'Passwords do not match';
-                errorMessage.style.display = 'block';
-                return;
-            }
 
-            try {
-                const response = await fetch('/api/register', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    credentials: 'include',
-                    body: JSON.stringify({ username, email, password })
-                });
-
-                const data = await response.json();
-
-                if (data.success) {
-                    const successMessage = document.createElement('div');
-                    successMessage.className = 'success-message';
-                    successMessage.textContent = 'Registration successful! Redirecting...';
-                    document.querySelector('.auth-form').prepend(successMessage);
-                    
-                    setTimeout(() => {
-                        window.location.href = '/index1.html';
-                    }, 1500);
-                } else {
-                    errorMessage.textContent = data.error || 'Registration failed';
-                    errorMessage.style.display = 'block';
+            registerForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                const username = document.getElementById('username').value;
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+                const confirmPassword = document.getElementById('confirmPassword').value;
+                const terms = document.querySelector('input[name="terms"]').checked;
+                
+                // Validation
+                if (password !== confirmPassword) {
+                    Auth.showMessage('error', 'Passwords do not match', registerForm.parentElement);
+                    return;
                 }
-            } catch (error) {
-                errorMessage.textContent = 'An error occurred. Please try again.';
-                errorMessage.style.display = 'block';
-            }
+
+                if (!terms) {
+                    Auth.showMessage('error', 'Please accept the Terms of Service', registerForm.parentElement);
+                    return;
+                }
+
+                try {
+                    const result = await Auth.register({ username, email, password });
+                    
+                    if (result.success) {
+                        Auth.showMessage('success', 'Registration successful! Redirecting...', registerForm.parentElement);
+                        setTimeout(() => {
+                            window.location.href = '/index1.html';
+                        }, 1500);
+                    } else {
+                        Auth.showMessage('error', result.error, registerForm.parentElement);
+                    }
+                } catch (error) {
+                    Auth.showMessage('error', 'An unexpected error occurred', registerForm.parentElement);
+                }
+            });
         });
     </script>
 </body>

@@ -93,6 +93,46 @@
             color: #666;
         }
     </style>
+    <script>
+    const translations = {
+        en: {
+            home: "Home",
+            resources: "Resources",
+            activities: "Activities",
+            games: "Games",
+            community: "Community",
+            aiSupport: "AI Support",
+            login: "Login",
+            journalingTitle: "Journaling",
+            journalingDesc: "Guided journaling for emotional expression",
+            newEntry: "New Journal Entry",
+            writePlaceholder: "Write your thoughts here...",
+            saveEntry: "Save Entry",
+            quickLinks: "Quick Links",
+            support: "Support",
+            connectWithUs: "Connect With Us",
+            emergencySupport: "Emergency Support"
+        },
+        hi: {
+            home: "होम",
+            resources: "संसाधन",
+            activities: "गतिविधियां",
+            games: "खेल",
+            community: "समुदाय",
+            aiSupport: "एआई सहायता",
+            login: "लॉगिन",
+            journalingTitle: "जर्नलिंग",
+            journalingDesc: "भावनात्मक अभिव्यक्ति के लिए मार्गदर्शित जर्नलिंग",
+            newEntry: "नई जर्नल एंट्री",
+            writePlaceholder: "अपने विचार यहाँ लिखें...",
+            saveEntry: "एंट्री सहेजें",
+            quickLinks: "त्वरित लिंक्स",
+            support: "सहायता",
+            connectWithUs: "हमसे जुड़ें",
+            emergencySupport: "आपातकालीन सहायता"
+        }
+    };
+    </script>
 </head>
 <body>
     <!-- Header -->
@@ -118,15 +158,15 @@
     <section class="journaling-section">
         <div class="container" style="margin: 10vw">
             <div class="journaling-header">
-                <h2><i class="fas fa-journal-whills"></i> Journaling</h2>
-                <p>Guided journaling for emotional expression</p>
+                <h2><i class="fas fa-journal-whills"></i> <span data-translate="journalingTitle">Journaling</span></h2>
+                <p data-translate="journalingDesc">Guided journaling for emotional expression</p>
             </div>
 
             <!-- New Journal Entry -->
             <div class="journal-entry">
-                <h3>New Journal Entry</h3>
-                <textarea id="journalText" placeholder="Write your thoughts here..."></textarea>
-                <button class="btn-save" id="saveEntry">Save Entry</button>
+                <h3 data-translate="newEntry">New Journal Entry</h3>
+                <textarea id="journalText" data-translate-placeholder="writePlaceholder"></textarea>
+                <button class="btn-save" id="saveEntry" data-translate="saveEntry">Save Entry</button>
             </div>
 
             <!-- Journal Entries -->
@@ -218,6 +258,18 @@
 
             loadFromLocalStorage();
         });
+
+        function changeLanguage(lang) {
+            // ...existing translation code...
+            
+            // Update placeholders
+            document.querySelectorAll('[data-translate-placeholder]').forEach(element => {
+                const key = element.getAttribute('data-translate-placeholder');
+                if (translations[lang] && translations[lang][key]) {
+                    element.placeholder = translations[lang][key];
+                }
+            });
+        }
     </script>
 </body>
 </html>
