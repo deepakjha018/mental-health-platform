@@ -36,60 +36,96 @@ class Auth {
 
     static async login(email, password) {
         try {
-            const response = await fetch('/api/login', {
+            const response = await fetch(`${API_URL}/login`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json'
+                },
                 credentials: 'include',
                 body: JSON.stringify({ email, password })
             });
-            
+
             const data = await response.json();
-            if (data.success) {
-                window.location.href = '/index1.html';
+            if (!response.ok) {
+                throw new Error(data.error || 'Login failed');
             }
-            return data;
+
+            if (data.success) {
+                localStorage.setItem('currentUser', JSON.stringify(data.user));
+                return { success: true, user: data.user };
+            } else {
+                throw new Error(data.error || 'Login failed');
+            }
         } catch (error) {
+            console.error('Login error:', error);
             return { success: false, error: error.message };
         }
     }
 
     static async register(userData) {
         try {
-            const response = await fetch('/api/register', {
+            const response = await fetch(`${API_URL}/register`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json'
+                },
                 credentials: 'include',
                 body: JSON.stringify(userData)
             });
-            
+
             const data = await response.json();
-            if (data.success) {
-                window.location.href = '/index1.html';
+            if (!response.ok) {
+                throw new Error(data.error || 'Registration failed');
             }
-            return data;
+
+            if (data.success) {
+                localStorage.setItem('currentUser', JSON.stringify(data.user));
+                return { success: true, user: data.user };
+            } else {
+                throw new Error(data.error || 'Registration failed');
+            }
         } catch (error) {
+            console.error('Registration error:', error);
             return { success: false, error: error.message };
         }
     }
 
     static async logout() {
         try {
-            await fetch('/api/logout', {
+            await fetch('http://localhost:3000/api/logout', {
                 method: 'POST',
                 credentials: 'include'
             });
-            window.location.href = '/login.html';
+            localStorage.removeItem('currentUser');
+            return true;
         } catch (error) {
-            console.error('Logout failed:', error);
+            return false;
         }
     }
 
+    static isLoggedIn() {
+        return !!localStorage.getItem('currentUser');
+    }
+
+    static getUser() {
+        const user = localStorage.getItem('currentUser');
+        return user ? JSON.parse(user) : null;
+    }
+
     static showMessage(type, message, container) {
-        const div = document.createElement('div');
-        div.className = `${type}-message`;
-        div.textContent = message;
-        container.insertBefore(div, container.firstChild);
-        setTimeout(() => div.remove(), 5000);
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `message ${type}-message`;
+        messageDiv.textContent = message;
+        
+        // Find the form element in the container
+        const form = container.querySelector('form');
+        if (form) {
+            form.insertBefore(messageDiv, form.firstChild);
+        } else {
+            container.insertBefore(messageDiv, container.firstChild);
+        }
+
+        setTimeout(() => messageDiv.remove(), 5000);
     }
 }
 
@@ -359,74 +395,6 @@ document.addEventListener('DOMContentLoaded', () => {
     new AuthManager();
 });
 
-document.addEventListener('DOMContentLoaded', () => {
-    const loginForm = document.getElementById('loginForm');
-    const registerForm = document.getElementById('registerForm');
-
-    if (loginForm) {
-        loginForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-
-            try {
-                const response = await fetch('/api/auth/login', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ email, password })
-                });
-
-                const data = await response.json();
-
-                if (response.ok) {
-                    localStorage.setItem('token', data.token);
-                    window.location.href = '/groups/anxiety.html';
-                } else {
-                    alert(data.error || 'Login failed');
-                }
-            } catch (error) {
-                console.error('Login error:', error);
-                alert('Login failed. Please try again.');
-            }
-        });
-    }
-
-    if (registerForm) {
-        registerForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const username = document.getElementById('username').value;
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-
-            try {
-                const response = await fetch('/api/auth/register', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ username, email, password })
-                });
-
-                const data = await response.json();
-
-                if (response.ok) {
-                    alert('Registration successful! Please login.');
-                    window.location.href = '/login.html';
-                } else {
-                    alert(data.error || 'Registration failed');
-                }
-            } catch (error) {
-                console.error('Registration error:', error);
-                alert('Registration failed. Please try again.');
-            }
-        });
-    }
-});
-
 // Initialize auth check on all pages
 document.addEventListener('DOMContentLoaded', () => {
     Auth.checkAuthStatus();
@@ -440,163 +408,3 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
-
-function handleLogin(event) {
-    event.preventDefault();
-    
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-
-    // Here you would typically make an API call to verify credentials
-    // For demonstration, we'll use local storage
-    const users = JSON.parse(localStorage.getItem('users') || '[]');
-    const user = users.find(u => u.email === email && u.password === password);
-
-    if (user) {
-        localStorage.setItem('currentUser', JSON.stringify(user));
-        window.location.href = 'dashboard.html';
-    } else {
-        alert('Invalid credentials');
-    }
-}
-
-function handleRegister(event) {
-    event.preventDefault();
-
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-    const confirmPassword = document.getElementById('confirmPassword').value;
-
-    if (password !== confirmPassword) {
-        alert('Passwords do not match');
-        return;
-    }
-
-    // Here you would typically make an API call to register the user
-    // For demonstration, we'll use local storage
-    const users = JSON.parse(localStorage.getItem('users') || '[]');
-    
-    if (users.some(u => u.email === email)) {
-        alert('Email already registered');
-        return;
-    }
-
-    const newUser = { name, email, password };
-    users.push(newUser);
-    localStorage.setItem('users', JSON.stringify(users));
-    localStorage.setItem('currentUser', JSON.stringify(newUser));
-    
-    window.location.href = 'dashboard.html';
-}
-
-// Check if user is already logged in
-function checkAuth() {
-    const currentUser = localStorage.getItem('currentUser');
-    if (currentUser && window.location.pathname.includes('login.html')) {
-        window.location.href = 'dashboard.html';
-    }
-}
-
-// Run auth check when pages load
-document.addEventListener('DOMContentLoaded', checkAuth);
-
-// Authentication helper functions
-const auth = {
-    login: async (email, password) => {
-        try {
-            const response = await fetch('/api/login', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                credentials: 'include',
-                body: JSON.stringify({ email, password })
-            });
-            
-            const data = await response.json();
-            if (data.success) {
-                localStorage.setItem('currentUser', JSON.stringify(data.user));
-                return { success: true };
-            }
-            return { success: false, error: data.error };
-        } catch (error) {
-            return { success: false, error: 'Network error' };
-        }
-    },
-
-    register: async (userData) => {
-        try {
-            const response = await fetch('/api/register', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                credentials: 'include',
-                body: JSON.stringify(userData)
-            });
-            
-            const data = await response.json();
-            if (data.success) {
-                localStorage.setItem('currentUser', JSON.stringify(data.user));
-                return { success: true };
-            }
-            return { success: false, error: data.error };
-        } catch (error) {
-            return { success: false, error: 'Network error' };
-        }
-    },
-
-    logout: () => {
-        localStorage.removeItem('currentUser');
-        window.location.href = '/index.html';
-    },
-
-    checkAuth: () => {
-        const user = localStorage.getItem('currentUser');
-        if (!user) {
-            window.location.href = '/login.html';
-        }
-        return JSON.parse(user);
-    }
-};
-
-// Handle login form submission
-if (document.getElementById('loginForm')) {
-    document.getElementById('loginForm').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
-        const errorMessage = document.getElementById('errorMessage');
-
-        const result = await auth.login(email, password);
-        if (result.success) {
-            window.location.href = '/dashboard.html';
-        } else {
-            errorMessage.textContent = result.error;
-            errorMessage.style.display = 'block';
-        }
-    });
-}
-
-// Handle register form submission
-if (document.getElementById('registerForm')) {
-    document.getElementById('registerForm').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const username = document.getElementById('username').value;
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
-        const confirmPassword = document.getElementById('confirmPassword').value;
-        const errorMessage = document.getElementById('errorMessage');
-
-        if (password !== confirmPassword) {
-            errorMessage.textContent = 'Passwords do not match';
-            errorMessage.style.display = 'block';
-            return;
-        }
-
-        const result = await auth.register({ username, email, password });
-        if (result.success) {
-            window.location.href = '/dashboard.html';
-        } else {
-            errorMessage.textContent = result.error;
-            errorMessage.style.display = 'block';
-        }
-    });
-}

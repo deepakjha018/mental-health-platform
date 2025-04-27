@@ -38,3 +38,40 @@ class UserSession {
 
 // Initialize user session management
 document.addEventListener('DOMContentLoaded', UserSession.init);
+
+function updatePageContent(lang) {
+    // Update document title
+    document.title = translations[lang].websiteTitle;
+    
+    // Update all elements with data-translate attribute
+    document.querySelectorAll('[data-translate]').forEach(element => {
+        const key = element.getAttribute('data-translate');
+        if (translations[lang] && translations[lang][key]) {
+            // Handle placeholder text for inputs
+            if (element.tagName === 'INPUT' && element.getAttribute('placeholder')) {
+                element.placeholder = translations[lang][key];
+            } else {
+                element.textContent = translations[lang][key];
+            }
+        }
+    });
+}
+
+// Modify existing changeLanguage function to include the new update function
+function changeLanguage(lang) {
+    document.documentElement.setAttribute('lang', lang);
+    document.documentElement.setAttribute('data-language', lang);
+    updatePageContent(lang);
+    localStorage.setItem('preferredLanguage', lang);
+    
+    document.querySelectorAll('[data-translate]').forEach(element => {
+        const key = element.getAttribute('data-translate');
+        if (translations[lang] && translations[lang][key]) {
+            if (element.tagName === 'INPUT') {
+                element.placeholder = translations[lang][key];
+            } else {
+                element.textContent = translations[lang][key];
+            }
+        }
+    });
+}
